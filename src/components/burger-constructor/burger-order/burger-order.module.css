@@ -1,0 +1,14 @@
+.burger-order{
+  padding-top: 40px;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.coast {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
