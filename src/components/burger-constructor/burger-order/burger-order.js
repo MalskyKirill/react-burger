@@ -3,6 +3,7 @@ import {
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 const BurgerOrder = ({coast}) => {
   return (
@@ -17,5 +18,9 @@ const BurgerOrder = ({coast}) => {
     </div>
   );
 };
+
+BurgerOrder.propTypes ={
+  coast: PropTypes.number,
+}
 
 export default BurgerOrder;

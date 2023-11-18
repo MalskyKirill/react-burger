@@ -4,6 +4,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import BurgerOrder from './burger-order/burger-order';
+import PropTypes from 'prop-types';
 
 const BurgerConstructor = ({data}) => {
   const burgerBunTop = data[0];
@@ -52,5 +53,9 @@ const BurgerConstructor = ({data}) => {
     </section>
   );
 };
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.array
+}
 
 export default BurgerConstructor;
