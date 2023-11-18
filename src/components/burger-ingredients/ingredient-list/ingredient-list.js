@@ -8,7 +8,7 @@ const IngredientList = ({ title, data }) => {
       <h2>{title}</h2>
       <ul className={stiles['ingredient-list']}>
         {data.map((el) => (
-          <IngredientElement name={el.name} key={el._id} image={el.image} price={el.price}/>
+          <IngredientElement name={el.name} key={el._id} image={el.image} price={el.price} count={1}/>
         ))}
       </ul>
     </>

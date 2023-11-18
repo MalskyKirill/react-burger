@@ -3,6 +3,7 @@
   flex-direction: column;
   max-width: 272px;
   align-items: center;
+  position: relative;
 }
 
 .ingredient-image {
@@ -19,4 +20,8 @@
   text-align: center;
   margin: 0;
   max-width: 272px;
+}
+
+.counter {
+  position: absolute;
 }

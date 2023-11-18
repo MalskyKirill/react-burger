@@ -15,10 +15,10 @@ const IngredientElement = ({ name, image, price, count }) => {
       <p className={'ingredient-name text text_type_main-default pb-6'}>{name}</p>
       {count && (
         <Counter
-          count={1}
+          count={count}
           size='default'
           extraClass='m-1'
-          className={'counter'}
+          className={stiles.counter}
         />
       )}
     </li>
