@@ -1,5 +1,6 @@
 import IngredientElement from '../ingredient-element/ingredient-element';
 import stiles from './ingredient-list.module.css';
+import PropTypes from 'prop-types';
 
 const IngredientList = ({ title, data }) => {
 
@@ -14,5 +15,11 @@ const IngredientList = ({ title, data }) => {
     </>
   );
 };
+
+IngredientList.propTypes = {
+  title: PropTypes.string,
+  data:  PropTypes.array,
+
+}
 
 export default IngredientList;

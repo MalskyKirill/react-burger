@@ -1,12 +1,11 @@
 import stiles from './burger-constructor.module.css';
-import { data } from '../../vendor/data.js';
 import {
   ConstructorElement,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import BurgerOrder from './burger-order/burger-order';
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({data}) => {
   const burgerBunTop = data[0];
   const burgerBunBottom = data[data.length - 1];
 

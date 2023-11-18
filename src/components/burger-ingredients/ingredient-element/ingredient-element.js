@@ -3,6 +3,7 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import stiles from './ingredient-element.module.css';
+import PropTypes from 'prop-types';
 
 const IngredientElement = ({ name, image, price, count }) => {
   return (
@@ -24,5 +25,12 @@ const IngredientElement = ({ name, image, price, count }) => {
     </li>
   );
 };
+
+IngredientElement.propTypes = {
+  name: PropTypes.string,
+  image: PropTypes.string,
+  price: PropTypes.number,
+  count: PropTypes.number
+}
 
 export default IngredientElement;
