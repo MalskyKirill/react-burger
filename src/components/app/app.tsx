@@ -4,7 +4,6 @@ import MainPage from '../../pages/main-page/main-page';
 import { useEffect, useState } from 'react';
 import {urlApi} from '../../utils/consts'
 
-
 function App() {
 
   const [ingredients, setIngredients] = useState([])
