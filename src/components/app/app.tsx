@@ -3,6 +3,8 @@ import AppHeader from '../app-header/app-header';
 import MainPage from '../../pages/main-page/main-page';
 import { useEffect, useState } from 'react';
 import {urlApi} from '../../utils/consts'
+import Modal from '../modal/modal';
+import ModalOverlay from '../modalOverlay/modal-overlay';
 
 function App() {
 
@@ -19,6 +21,9 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
+      <Modal title={'детали ингридиента'}>
+
+      </Modal>
       <MainPage ingredients={ingredients}/>
     </div>
   );
