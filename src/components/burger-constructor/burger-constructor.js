@@ -5,6 +5,7 @@ import BurgerOrder from './burger-order/burger-order';
 import PropTypes from 'prop-types';
 
 const BurgerConstructor = ({ data }) => {
+
   const burgerBunTop = data[0];
   const burgerBunBottom = data[data.length - 1];
 

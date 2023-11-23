@@ -3,6 +3,7 @@ import styles from './burger-product-list.module.css';
 import PropTypes from 'prop-types';
 
 const BurgerProductList = ({ data }) => {
+
   const dataBun = data.filter((el) => el.type === 'bun');
   const dataMain = data.filter((el) => el.type === 'main');
   const dataSauce = data.filter((el) => el.type === 'sauce');

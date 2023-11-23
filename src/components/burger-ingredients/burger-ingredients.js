@@ -4,6 +4,7 @@ import BurgerProductList from './burger-product-list/burger-product-list';
 import PropTypes from 'prop-types';
 
 const BurgerIngredients = ({ data }) => {
+
   return (
     <section className={`${styles['burger-ingredients']}`}>
       <h1 className='text text_type_main-large'>Соберите бургер</h1>
