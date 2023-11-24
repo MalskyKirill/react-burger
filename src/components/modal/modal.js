@@ -1,13 +1,27 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../modalOverlay/modal-overlay';
 import styles from './modal.module.css';
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ title, children }) => {
+const Modal = ({ title, children, onClose }) => {
+
+  const handleEscClose = (evt) => {
+    if (evt.key === "Escape") onClose();
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscClose);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    }
+  })
+
   return createPortal(
-    <ModalOverlay>
+    <ModalOverlay onClose={onClose}>
       <div className={styles['modal']}>
         <div className={styles['title-wrap']}>
           {typeof title === 'string' ? (
@@ -17,7 +31,7 @@ const Modal = ({ title, children }) => {
           ) : (
             <div></div>
           )}
-          <CloseIcon type='primary' className={styles['btn-close']} />
+          <CloseIcon type='primary' className={styles['btn-close']} onClick={onClose}/>
         </div>
         {children}
       </div>

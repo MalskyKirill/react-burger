@@ -1,7 +1,7 @@
 import IngredientElement from '../ingredient-element/ingredient-element';
 import styles from './ingredient-list.module.css';
 import PropTypes from 'prop-types';
-import { ElementFlags } from 'typescript';
+
 
 const IngredientList = ({ title, data, handleCardClick }) => {
   return (

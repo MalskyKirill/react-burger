@@ -35,7 +35,7 @@ const IngredientElement = ({
         <p className={'text text_type_main-default pt-1 pb-1 pr-2'}>{price}</p>
         <CurrencyIcon type='primary' />
       </div>
-      <p className={'ingredient-name text text_type_main-default pb-6'}>
+      <p className={`${styles['ingredient-name']} text text_type_main-default pb-6`}>
         {name}
       </p>
       {count && (
