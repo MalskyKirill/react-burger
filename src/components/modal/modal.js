@@ -24,7 +24,7 @@ const Modal = ({ title, children, onClose }) => {
     <ModalOverlay onClose={onClose}>
       <div className={styles['modal']}>
         <div className={styles['title-wrap']}>
-          {typeof title === 'string' ? (
+          {title ? (
             <h2 className={`${styles.title} text text_type_main-large`}>
               {title}
             </h2>

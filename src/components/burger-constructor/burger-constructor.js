@@ -4,7 +4,7 @@ import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import BurgerOrder from './burger-order/burger-order';
 import PropTypes from 'prop-types';
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = ({ data, handleOrderClick }) => {
 
   const burgerBunTop = data[0];
   const burgerBunBottom = data[data.length - 1];
@@ -41,7 +41,7 @@ const BurgerConstructor = ({ data }) => {
             extraClass={styles.color}
           />
         </div>
-        <BurgerOrder coast={coast} />
+        <BurgerOrder coast={coast} handleOrderClick={handleOrderClick}/>
       </div>
     </section>
   );
