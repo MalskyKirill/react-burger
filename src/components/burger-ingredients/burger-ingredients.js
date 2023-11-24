@@ -3,13 +3,13 @@ import BurgerTabs from './burger-tabs/burger-tabs';
 import BurgerProductList from './burger-product-list/burger-product-list';
 import PropTypes from 'prop-types';
 
-const BurgerIngredients = ({ data }) => {
+const BurgerIngredients = ({ data, handleCardClick }) => {
 
   return (
     <section className={`${styles['burger-ingredients']}`}>
       <h1 className='text text_type_main-large'>Соберите бургер</h1>
       <BurgerTabs />
-      <BurgerProductList data={data} />
+      <BurgerProductList data={data} handleCardClick={handleCardClick}/>
     </section>
   );
 };

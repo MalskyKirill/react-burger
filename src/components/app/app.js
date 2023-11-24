@@ -11,7 +11,15 @@ function App() {
 
   const [ingredients, setIngredients] = useState([])
 
+  const [selectIngredient, setSelectIngredient] = useState({})
 
+  const [isModalIngredientOpen, setIsModalIngredientOpen] = useState(false);
+
+
+  const handleCardClick = ({name, image_large, calories, carbohydrates, fat, proteins}) => {
+    setSelectIngredient({name, image_large, calories, carbohydrates, fat, proteins})
+    setIsModalIngredientOpen(true)
+  }
 
   useEffect(() => {
     fetch(urlApi)
@@ -24,10 +32,12 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <MainPage ingredients={ingredients}/>
-      <Modal title={'Детали ингридиента'}>
-        <IngredienDetails />
-      </Modal>
+      <MainPage ingredients={ingredients} handleCardClick={handleCardClick}/>
+
+      {isModalIngredientOpen && <Modal title={'Детали ингридиента'}>
+        <IngredienDetails selectIngredient={selectIngredient}/>
+      </Modal>}
+
     </div>
   );
 

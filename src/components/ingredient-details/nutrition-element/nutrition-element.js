@@ -1,6 +1,6 @@
 import styles from './nutrition-element.module.css';
 
-const NutritionElement = ({title}) => {
+const NutritionElement = ({title, value}) => {
   return (
     <div className={styles['nutrition-element']}>
       <p
@@ -11,7 +11,7 @@ const NutritionElement = ({title}) => {
       <p
         className={`${styles['nutrition-value']} text text_type_digits-default text_color_inactive`}
       >
-        244,4
+        {value}
       </p>
     </div>
   );

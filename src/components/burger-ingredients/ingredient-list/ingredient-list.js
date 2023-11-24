@@ -1,8 +1,9 @@
 import IngredientElement from '../ingredient-element/ingredient-element';
 import styles from './ingredient-list.module.css';
 import PropTypes from 'prop-types';
+import { ElementFlags } from 'typescript';
 
-const IngredientList = ({ title, data }) => {
+const IngredientList = ({ title, data, handleCardClick }) => {
   return (
     <>
       <h2>{title}</h2>
@@ -14,6 +15,12 @@ const IngredientList = ({ title, data }) => {
             image={el.image}
             price={el.price}
             count={1}
+            handleCardClick={handleCardClick}
+            fat={el.fat}
+            proteins={el.proteins}
+            carbohydrates={el.carbohydrates}
+            calories={el.calories}
+            image_large={el.image_large}
           />
         ))}
       </ul>

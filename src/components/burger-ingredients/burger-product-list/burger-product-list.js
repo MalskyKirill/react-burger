@@ -2,7 +2,7 @@ import IngredientList from '../ingredient-list/ingredient-list';
 import styles from './burger-product-list.module.css';
 import PropTypes from 'prop-types';
 
-const BurgerProductList = ({ data }) => {
+const BurgerProductList = ({ data, handleCardClick }) => {
 
   const dataBun = data.filter((el) => el.type === 'bun');
   const dataMain = data.filter((el) => el.type === 'main');
@@ -10,9 +10,9 @@ const BurgerProductList = ({ data }) => {
 
   return (
     <div className={`${styles['burger-product-list']} custom-scroll`}>
-      <IngredientList title={'Булки'} data={dataBun} />
-      <IngredientList title={'Соусы'} data={dataSauce} />
-      <IngredientList title={'Начинки'} data={dataMain} />
+      <IngredientList title={'Булки'} data={dataBun} handleCardClick={handleCardClick}/>
+      <IngredientList title={'Соусы'} data={dataSauce} handleCardClick={handleCardClick}/>
+      <IngredientList title={'Начинки'} data={dataMain} handleCardClick={handleCardClick}/>
     </div>
   );
 };

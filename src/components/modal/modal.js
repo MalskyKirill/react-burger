@@ -1,9 +1,12 @@
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { createPortal } from 'react-dom';
 import ModalOverlay from '../modalOverlay/modal-overlay';
 import styles from './modal.module.css';
 
+const modalRoot = document.getElementById("react-modals");
+
 const Modal = ({ title, children }) => {
-  return (
+  return createPortal(
     <ModalOverlay>
       <div className={styles['modal']}>
         <div className={styles['title-wrap']}>
@@ -18,7 +21,8 @@ const Modal = ({ title, children }) => {
         </div>
         {children}
       </div>
-    </ModalOverlay>
+    </ModalOverlay>,
+    modalRoot
   );
 };
 

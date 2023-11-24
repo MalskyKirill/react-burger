@@ -3,10 +3,10 @@ import BurgerIngredients from '../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 import { data } from '../../vendor/data';
 
-const MainPage = ({ingredients}) => {
+const MainPage = ({ingredients, handleCardClick}) => {
   return(
     <main className={stiles.content}>
-      <BurgerIngredients data={ingredients}/>
+      <BurgerIngredients data={ingredients} handleCardClick={handleCardClick}/>
       {ingredients.length > 0 ? <BurgerConstructor data={ingredients}/> : <></>}
     </main>
   );
