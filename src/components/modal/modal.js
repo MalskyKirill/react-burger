@@ -8,8 +8,8 @@ const Modal = ({ title, children }) => {
       <div className={styles['modal']}>
         <div className={styles['title-wrap']}>
           {typeof title === 'string' ? (
-            <h2 className={`${styles.title} ttext text_type_main-medium`}>
-              Детали ингредиента
+            <h2 className={`${styles.title} text text_type_main-large`}>
+              {title}
             </h2>
           ) : (
             <div></div>
