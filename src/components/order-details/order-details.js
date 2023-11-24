@@ -1,5 +1,6 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.svg'
+import PropTypes from 'prop-types';
 
 const OrderDetails = ({orderNumber}) => {
   return (
@@ -11,6 +12,10 @@ const OrderDetails = ({orderNumber}) => {
       <p className={`${styles['order-weit']} text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
     </div>
   );
+}
+
+OrderDetails.propTypes = {
+  orderNumber: PropTypes.string,
 }
 
 export default OrderDetails;

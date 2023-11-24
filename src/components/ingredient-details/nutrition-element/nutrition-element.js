@@ -1,4 +1,5 @@
 import styles from './nutrition-element.module.css';
+import PropTypes from 'prop-types';
 
 const NutritionElement = ({title, value}) => {
   return (
@@ -16,5 +17,10 @@ const NutritionElement = ({title, value}) => {
     </div>
   );
 };
+
+NutritionElement.propTypes = {
+  title: PropTypes.string,
+  value: PropTypes.string,
+}
 
 export default NutritionElement;

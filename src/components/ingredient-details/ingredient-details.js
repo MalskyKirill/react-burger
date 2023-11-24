@@ -1,5 +1,6 @@
 import styles from './ingredient-details.module.css';
 import NutritionElement from './nutrition-element/nutrition-element';
+import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 
 const IngredienDetails = ({ selectIngredient }) => {
   const { name, image_large, calories, carbohydrates, fat, proteins } =
@@ -25,6 +26,11 @@ const IngredienDetails = ({ selectIngredient }) => {
       </div>
     </div>
   );
+
 };
+
+IngredienDetails.propTypes = {
+  selectIngredient: ingredientPropTypes
+}
 
 export default IngredienDetails;

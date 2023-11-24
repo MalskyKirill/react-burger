@@ -3,22 +3,22 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../modalOverlay/modal-overlay';
 import styles from './modal.module.css';
+import PropTypes from 'prop-types';
 
-const modalRoot = document.getElementById("react-modals");
+const modalRoot = document.getElementById('react-modals');
 
 const Modal = ({ title, children, onClose }) => {
-
   const handleEscClose = (evt) => {
-    if (evt.key === "Escape") onClose();
-  }
+    if (evt.key === 'Escape') onClose();
+  };
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscClose);
 
     return () => {
       document.removeEventListener('keydown', handleEscClose);
-    }
-  })
+    };
+  });
 
   return createPortal(
     <ModalOverlay onClose={onClose}>
@@ -31,13 +31,23 @@ const Modal = ({ title, children, onClose }) => {
           ) : (
             <div></div>
           )}
-          <CloseIcon type='primary' className={styles['btn-close']} onClick={onClose}/>
+          <CloseIcon
+            type='primary'
+            className={styles['btn-close']}
+            onClick={onClose}
+          />
         </div>
         {children}
       </div>
     </ModalOverlay>,
     modalRoot
   );
+};
+
+Modal.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.element,
+  onClose: PropTypes.func,
 };
 
 export default Modal;

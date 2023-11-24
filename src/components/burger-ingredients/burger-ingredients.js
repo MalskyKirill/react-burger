@@ -2,6 +2,7 @@ import styles from './burger-ingredients.module.css';
 import BurgerTabs from './burger-tabs/burger-tabs';
 import BurgerProductList from './burger-product-list/burger-product-list';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 
 const BurgerIngredients = ({ data, handleCardClick }) => {
 
@@ -16,21 +17,9 @@ const BurgerIngredients = ({ data, handleCardClick }) => {
 
 BurgerIngredients.propTypes = {
   data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
+    ingredientPropTypes
   ),
+  handleCardClick: PropTypes.func
 };
 
 export default BurgerIngredients;

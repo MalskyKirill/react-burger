@@ -3,9 +3,9 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import BurgerOrder from './burger-order/burger-order';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 
 const BurgerConstructor = ({ data, handleOrderClick }) => {
-
   const burgerBunTop = data[0];
   const burgerBunBottom = data[data.length - 1];
 
@@ -41,29 +41,14 @@ const BurgerConstructor = ({ data, handleOrderClick }) => {
             extraClass={styles.color}
           />
         </div>
-        <BurgerOrder coast={coast} handleOrderClick={handleOrderClick}/>
+        <BurgerOrder coast={coast} handleOrderClick={handleOrderClick} />
       </div>
     </section>
   );
 };
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      type: PropTypes.string,
-      proteins: PropTypes.number,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-      price: PropTypes.number,
-      image: PropTypes.string,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
-  ),
+  data: PropTypes.arrayOf(ingredientPropTypes),
 };
 
 export default BurgerConstructor;
