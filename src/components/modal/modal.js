@@ -21,25 +21,28 @@ const Modal = ({ title, children, onClose }) => {
   });
 
   return createPortal(
-    <ModalOverlay onClose={onClose}>
-      <div className={styles['modal']}>
-        <div className={styles['title-wrap']}>
-          {title ? (
-            <h2 className={`${styles.title} text text_type_main-large`}>
-              {title}
-            </h2>
-          ) : (
-            <div></div>
-          )}
-          <CloseIcon
-            type='primary'
-            className={styles['btn-close']}
-            onClick={onClose}
-          />
+    <>
+      <div className={styles['modal-wrap']}>
+        <div className={styles['modal']}>
+          <div className={styles['title-wrap']}>
+            {title ? (
+              <h2 className={`${styles.title} text text_type_main-large`}>
+                {title}
+              </h2>
+            ) : (
+              <div></div>
+            )}
+            <CloseIcon
+              type='primary'
+              className={styles['btn-close']}
+              onClick={onClose}
+            />
+          </div>
+          {children}
         </div>
-        {children}
+      <ModalOverlay onClose={onClose} />
       </div>
-    </ModalOverlay>,
+    </>,
     modalRoot
   );
 };
