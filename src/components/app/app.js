@@ -2,10 +2,12 @@ import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import MainPage from '../../pages/main-page/main-page';
 import { useEffect, useState } from 'react';
-import { urlApi } from '../../utils/consts';
 import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
+// import { api } from '../../utils/api';
+import { urlApi } from '../../utils/consts';
+import { api } from '../../utils/api';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
@@ -46,10 +48,9 @@ function App() {
   };
 
   useEffect(() => {
-    fetch(urlApi)
-      .then((res) => res.json())
-      .then((res) => setIngredients(res.data))
-      .catch((err) => console.log(err));
+    api.getIngredients()
+      .then(({data}) => setIngredients(data))
+      .catch((err) => console.log(err))
   }, []);
 
   return (
