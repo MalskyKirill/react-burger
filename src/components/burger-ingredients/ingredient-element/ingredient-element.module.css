@@ -1,0 +1,27 @@
+.ingredient{
+  display: flex;
+  flex-direction: column;
+  max-width: 272px;
+  align-items: center;
+  position: relative;
+}
+
+.ingredient-image {
+  width: 240px;
+  height: 120px;
+}
+
+.ingredient-price{
+  display: flex;
+  justify-content: center;
+}
+
+.ingredient-name {
+  text-align: center;
+  margin: 0;
+  max-width: 272px;
+}
+
+.counter {
+  position: absolute;
+}

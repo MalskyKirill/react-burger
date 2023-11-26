@@ -1,0 +1,9 @@
+.burger-ingredient {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color {
+  background: #1c1c21
+}

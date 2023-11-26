@@ -1,0 +1,7 @@
+.link-element {
+  display: flex;
+  border-radius: 40px;
+  border: 1px dashed #e6e6e9;
+  text-decoration: none;
+}
+

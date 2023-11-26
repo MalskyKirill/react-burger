@@ -1,0 +1,34 @@
+.burger-constructor {
+  padding: 100px 16px 0;
+  max-width: 600px;
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.burger-ingridients {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 22vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.burger-head {
+  padding-left: 32px;
+}
+
+.burger-bottom {
+  padding-left: 32px;
+}
+
+.color {
+  background: #1c1c21;
+}
+

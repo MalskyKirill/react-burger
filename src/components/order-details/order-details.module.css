@@ -1,0 +1,23 @@
+.order-details{
+  padding: 16px 0 120px;
+  padding: 16px 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-number {
+  padding-bottom: 32px;
+}
+
+.order-id {
+  padding-bottom: 60px;
+}
+
+.orger-img {
+  padding-bottom: 60px;
+}
+
+.order-begin {
+  padding-bottom: 8px;
+}
