@@ -5,7 +5,12 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-const BurgerOrder = ({ coast, handleOrderClick }) => {
+const BurgerOrder = ({ coast, handleOrderClick, burgerIngrediantsId }) => {
+
+  const onClick = () => {
+    handleOrderClick(burgerIngrediantsId)
+  }
+
   return (
     <div className={styles['burger-order']}>
       <div className={styles.coast}>
@@ -16,7 +21,7 @@ const BurgerOrder = ({ coast, handleOrderClick }) => {
         htmlType='button'
         type='primary'
         size='large'
-        onClick={handleOrderClick}
+        onClick={onClick}
       >
         Оформить заказ
       </Button>

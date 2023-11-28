@@ -13,6 +13,8 @@ function App() {
 
   const [selectIngredient, setSelectIngredient] = useState({});
 
+  const [orderNumber, setOrderNumber] = useState(null);
+
   const [isModalIngredientOpen, setIsModalIngredientOpen] = useState(false);
   const [isModalOrderOpen, setIsModalOrderOpen] = useState(false);
 
@@ -36,7 +38,11 @@ function App() {
     setIsModalIngredientOpen(true);
   };
 
-  const handleOrderClick = () => {
+  const handleOrderClick = (burgerIngrediantsId) => {
+    api.addOrder(burgerIngrediantsId)
+      .then(({order}) => setOrderNumber(order.number))
+      .catch((err) => console.log(err));
+
     setIsModalOrderOpen(true);
   };
 
@@ -71,7 +77,7 @@ function App() {
 
         {isModalOrderOpen && (
           <Modal onClose={closeAllPopup}>
-            <OrderDetails orderNumber={'034536'} />
+            <OrderDetails orderNumber={orderNumber} />
           </Modal>
         )}
       </IngredientsContext.Provider>

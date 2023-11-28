@@ -12,7 +12,6 @@ const initialState = []
 const reducer = (state, action) => {
   switch(action.type) {
     case "ADD_INGREDIENT":
-      console.log(action.payload)
       return action.payload
     default:
       return state
@@ -34,6 +33,9 @@ const BurgerConstructor = ({ handleOrderClick }) => {
 
   //расчет стоимости только булок или если есть допы
   const coast = coastState.length === 0 ? burgerBun.price * 2 : burgerBun.price * 2 + coastState.map((el) => el.price).reduce((total, el) => total + el, 0);
+
+  //получаем айдишники ингредиентов
+  const burgerIngrediantsId = [...burgerIngridients, burgerBun].map(el => el._id )
 
   //меняем стейт ингредиентов в зависимости от количества ингредиентов
   useEffect(() => {
@@ -68,7 +70,7 @@ const BurgerConstructor = ({ handleOrderClick }) => {
             extraClass={styles.color}
           />
         </div>
-        <BurgerOrder coast={coast} handleOrderClick={handleOrderClick} />
+        <BurgerOrder coast={coast} handleOrderClick={handleOrderClick} burgerIngrediantsId={burgerIngrediantsId} />
       </div>
     </section>
   );

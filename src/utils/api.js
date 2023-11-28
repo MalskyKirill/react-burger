@@ -2,7 +2,7 @@ import { urlApi } from './consts';
 
 class Api {
   constructor(url) {
-    url = this.url;
+    this._url = url;
   }
 
   _getResponseData(res) {
@@ -15,7 +15,7 @@ class Api {
 
   //получение ингредиентов с сервера
   getIngredients() {
-    return fetch(`${urlApi}/api/ingredients`, {
+    return fetch(`${this._url}/api/ingredients`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -23,6 +23,35 @@ class Api {
       return this._getResponseData(res);
     });
   }
+
+  //создание заказа
+  addOrder(indrediantsId) {
+    return fetch(`${this._url}/api/orders`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ingredients: indrediantsId}),
+    }).then((res) => {
+      return this._getResponseData(res);
+    })
+  }
 }
 
 export const api = new Api(urlApi);
+
+// addCard({ title: name, link }) {
+//   return fetch(`${this._url}/cards`, {
+//     method: 'POST',
+//     headers: {
+//       authorization: this._authorizationToken,
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//       name: name,
+//       link: link,
+//     }),
+//   }).then((res) => {
+//     return this._getResponseData(res);
+//   });
+// }
