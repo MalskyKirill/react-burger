@@ -4,22 +4,41 @@ import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import BurgerOrder from './burger-order/burger-order';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
-import { useContext } from 'react';
+import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { IngredientsContext } from '../../context/ingredients-context';
 
+const initialState = []
+
+const reducer = (state, action) => {
+  switch(action.type) {
+    case "ADD_INGREDIENT":
+      console.log(action.payload)
+      return action.payload
+    default:
+      return state
+  }
+}
+
 const BurgerConstructor = ({ handleOrderClick }) => {
+  //получил ингредиенты из контекста
+  const ingredients = useContext(IngredientsContext)
 
-  const { ingredients } = useContext(IngredientsContext)
+  //стейт ингредиентов
+  const [coastState, setDispatch] = useReducer(reducer, initialState)
 
-  console.log(ingredients)
+  //получение булки
+  const burgerBun = ingredients[0];
 
+  //получение ингредиентов
+  const burgerIngridients = useMemo(() => ingredients.slice(3, -3), [ingredients]);
 
-  const burgerBunTop = ingredients[0];
-  const burgerBunBottom = ingredients[ingredients.length - 1];
+  //расчет стоимости только булок или если есть допы
+  const coast = coastState.length === 0 ? burgerBun.price * 2 : burgerBun.price * 2 + coastState.map((el) => el.price).reduce((total, el) => total + el, 0);
 
-  const burgerIngridients = ingredients.slice(1, -1);
-
-  const coast = ingredients.map((el) => el.price).reduce((total, el) => total + el, 0);
+  //меняем стейт ингредиентов в зависимости от количества ингредиентов
+  useEffect(() => {
+    setDispatch({type: 'ADD_INGREDIENT', payload: burgerIngridients})
+  }, [burgerIngridients])
 
   return (
     <section className={styles['burger-constructor']}>
@@ -28,9 +47,9 @@ const BurgerConstructor = ({ handleOrderClick }) => {
           <ConstructorElement
             type='top'
             isLocked={true}
-            text={`${burgerBunTop.name} (верх)`}
-            price={burgerBunTop.price}
-            thumbnail={burgerBunTop.image}
+            text={`${burgerBun.name} (верх)`}
+            price={burgerBun.price}
+            thumbnail={burgerBun.image}
             extraClass={styles.color}
           />
         </div>
@@ -43,9 +62,9 @@ const BurgerConstructor = ({ handleOrderClick }) => {
           <ConstructorElement
             type='bottom'
             isLocked={true}
-            text={`${burgerBunBottom.name} (низ)`}
-            price={burgerBunBottom.price}
-            thumbnail={burgerBunBottom.image}
+            text={`${burgerBun.name} (низ)`}
+            price={burgerBun.price}
+            thumbnail={burgerBun.image}
             extraClass={styles.color}
           />
         </div>

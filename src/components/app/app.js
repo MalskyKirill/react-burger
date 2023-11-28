@@ -55,7 +55,7 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <IngredientsContext.Provider value={{ingredients}}>
+      <IngredientsContext.Provider value={ingredients}>
         <AppHeader />
         <MainPage
           ingredients={ingredients}
