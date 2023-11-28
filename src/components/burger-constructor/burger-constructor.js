@@ -4,14 +4,22 @@ import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import BurgerOrder from './burger-order/burger-order';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
+import { useContext } from 'react';
+import { IngredientsContext } from '../../context/ingredients-context';
 
-const BurgerConstructor = ({ data, handleOrderClick }) => {
-  const burgerBunTop = data[0];
-  const burgerBunBottom = data[data.length - 1];
+const BurgerConstructor = ({ handleOrderClick }) => {
 
-  const burgerIngridients = data.slice(1, -1);
+  const { ingredients } = useContext(IngredientsContext)
 
-  const coast = data.map((el) => el.price).reduce((total, el) => total + el, 0);
+  console.log(ingredients)
+
+
+  const burgerBunTop = ingredients[0];
+  const burgerBunBottom = ingredients[ingredients.length - 1];
+
+  const burgerIngridients = ingredients.slice(1, -1);
+
+  const coast = ingredients.map((el) => el.price).reduce((total, el) => total + el, 0);
 
   return (
     <section className={styles['burger-constructor']}>

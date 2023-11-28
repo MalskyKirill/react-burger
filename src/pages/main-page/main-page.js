@@ -10,7 +10,6 @@ const MainPage = ({ ingredients, handleCardClick, handleOrderClick }) => {
       <BurgerIngredients data={ingredients} handleCardClick={handleCardClick} />
       {ingredients.length > 0 ? (
         <BurgerConstructor
-          data={ingredients}
           handleOrderClick={handleOrderClick}
         />
       ) : (

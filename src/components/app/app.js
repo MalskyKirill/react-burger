@@ -5,9 +5,8 @@ import { useEffect, useState } from 'react';
 import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
-// import { api } from '../../utils/api';
-import { urlApi } from '../../utils/consts';
 import { api } from '../../utils/api';
+import { IngredientsContext } from '../../context/ingredients-context';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
@@ -48,27 +47,34 @@ function App() {
   };
 
   useEffect(() => {
-    api.getIngredients()
-      .then(({data}) => setIngredients(data))
-      .catch((err) => console.log(err))
+    api
+      .getIngredients()
+      .then(({ data }) => setIngredients(data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
     <div className={styles.app}>
-      <AppHeader />
-      <MainPage ingredients={ingredients} handleCardClick={handleCardClick} handleOrderClick={handleOrderClick}/>
+      <IngredientsContext.Provider value={{ingredients}}>
+        <AppHeader />
+        <MainPage
+          ingredients={ingredients}
+          handleCardClick={handleCardClick}
+          handleOrderClick={handleOrderClick}
+        />
 
-      {isModalIngredientOpen && (
-        <Modal title={'Детали ингридиента'} onClose={closeAllPopup}>
-          <IngredienDetails selectIngredient={selectIngredient} />
-        </Modal>
-      )}
+        {isModalIngredientOpen && (
+          <Modal title={'Детали ингридиента'} onClose={closeAllPopup}>
+            <IngredienDetails selectIngredient={selectIngredient} />
+          </Modal>
+        )}
 
-      {isModalOrderOpen && (
-        <Modal onClose={closeAllPopup}>
-          <OrderDetails orderNumber={'034536'} />
-        </Modal>
-      )}
+        {isModalOrderOpen && (
+          <Modal onClose={closeAllPopup}>
+            <OrderDetails orderNumber={'034536'} />
+          </Modal>
+        )}
+      </IngredientsContext.Provider>
     </div>
   );
 }
