@@ -39,19 +39,3 @@ class Api {
 }
 
 export const api = new Api(urlApi);
-
-// addCard({ title: name, link }) {
-//   return fetch(`${this._url}/cards`, {
-//     method: 'POST',
-//     headers: {
-//       authorization: this._authorizationToken,
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({
-//       name: name,
-//       link: link,
-//     }),
-//   }).then((res) => {
-//     return this._getResponseData(res);
-//   });
-// }

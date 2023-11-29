@@ -9,7 +9,11 @@ import { api } from '../../utils/api';
 import { IngredientsContext } from '../../context/ingredients-context';
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
+  const [state, setState] = useState({
+    ingredients: [],
+    isLoading: true,
+    isError: false,
+  });
 
   const [selectIngredient, setSelectIngredient] = useState({});
 
@@ -35,12 +39,15 @@ function App() {
       fat,
       proteins,
     });
+
     setIsModalIngredientOpen(true);
   };
 
+  //создание заказа
   const handleOrderClick = (burgerIngrediantsId) => {
-    api.addOrder(burgerIngrediantsId)
-      .then(({order}) => setOrderNumber(order.number))
+    api
+      .addOrder(burgerIngrediantsId)
+      .then(({ order }) => setOrderNumber(order.number))
       .catch((err) => console.log(err));
 
     setIsModalOrderOpen(true);
@@ -55,16 +62,23 @@ function App() {
   useEffect(() => {
     api
       .getIngredients()
-      .then(({ data }) => setIngredients(data))
-      .catch((err) => console.log(err));
+      .then(({ data }) =>
+        setState({ ingredients: data, isLoading: false, isError: false })
+      )
+      .catch((err) => {
+        console.log(err);
+        setState({ ingredients: null, isLoading: false, isError: true });
+      });
   }, []);
 
   return (
+    <>
+    {/* {state.isLoading && } */}
     <div className={styles.app}>
-      <IngredientsContext.Provider value={ingredients}>
+      <IngredientsContext.Provider value={state.ingredients}>
         <AppHeader />
         <MainPage
-          ingredients={ingredients}
+          ingredients={state.ingredients}
           handleCardClick={handleCardClick}
           handleOrderClick={handleOrderClick}
         />
@@ -82,6 +96,7 @@ function App() {
         )}
       </IngredientsContext.Provider>
     </div>
+    </>
   );
 }
 
