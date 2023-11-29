@@ -7,6 +7,7 @@ import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import { api } from '../../utils/api';
 import { IngredientsContext } from '../../context/ingredients-context';
+import Preloader from '../preloader/preloader';
 
 function App() {
   const [state, setState] = useState({
@@ -71,17 +72,26 @@ function App() {
       });
   }, []);
 
+  console.log(state.isLoading);
   return (
-    <>
-    {/* {state.isLoading && } */}
     <div className={styles.app}>
       <IngredientsContext.Provider value={state.ingredients}>
         <AppHeader />
-        <MainPage
+
+        {state.isLoading && <Preloader />}
+        {state.isError && (
+          <h2
+            style={{ alignSelf: 'center' }}
+            className='text text_type_main-large text_color_inactive mt-20'
+          >
+            Ошибка при получении данных
+          </h2>
+        )}
+        {!state.isLoading && !state.isError &&<MainPage
           ingredients={state.ingredients}
           handleCardClick={handleCardClick}
           handleOrderClick={handleOrderClick}
-        />
+        />}
 
         {isModalIngredientOpen && (
           <Modal title={'Детали ингридиента'} onClose={closeAllPopup}>
@@ -96,7 +106,6 @@ function App() {
         )}
       </IngredientsContext.Provider>
     </div>
-    </>
   );
 }
 
