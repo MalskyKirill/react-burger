@@ -4,17 +4,17 @@ import BurgerConstructor from '../../components/burger-constructor/burger-constr
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 
-const MainPage = ({ ingredients, handleCardClick, handleOrderClick }) => {
+const MainPage = ({ handleCardClick, handleOrderClick }) => {
   return (
     <main className={stiles.content}>
-      <BurgerIngredients data={ingredients} handleCardClick={handleCardClick} />
-      {ingredients.length > 0 ? (
+      <BurgerIngredients handleCardClick={handleCardClick} />
+      {/* {(
         <BurgerConstructor
           handleOrderClick={handleOrderClick}
         />
       ) : (
         <></>
-      )}
+      )} */}
     </main>
   );
 };

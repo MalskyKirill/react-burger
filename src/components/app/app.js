@@ -6,15 +6,20 @@ import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import { api } from '../../utils/api';
-import { IngredientsContext } from '../../context/ingredients-context';
 import Preloader from '../preloader/preloader';
+import { useDispatch, useSelector } from 'react-redux';
+import {loadIngredients, selectIngredientsInfo} from '../../services/reducers/ingredients-slice'
 
 function App() {
-  const [state, setState] = useState({
-    ingredients: [],
-    isLoading: true,
-    isError: false,
-  });
+  // const [state, setState] = useState({
+  //   ingredients: [],
+  //   isLoading: true,
+  //   isError: false,
+  // });
+
+  const dispatch = useDispatch()
+
+  const {qnt, status, error} = useSelector(selectIngredientsInfo)
 
   const [selectIngredient, setSelectIngredient] = useState({});
 
@@ -61,25 +66,29 @@ function App() {
   };
 
   useEffect(() => {
-    api
-      .getIngredients()
-      .then(({ data }) =>
-        setState({ ingredients: data, isLoading: false, isError: false })
-      )
-      .catch((err) => {
-        console.log(err);
-        setState({ ingredients: null, isLoading: false, isError: true });
-      });
-  }, []);
+    // api
+    //   .getIngredients()
+    //   .then(({ data }) =>
+    //     setState({ ingredients: data, isLoading: false, isError: false })
+    //   )
+    //   .catch((err) => {
+    //     console.log(err);
+    //     setState({ ingredients: null, isLoading: false, isError: true });
+    //   });
 
-  console.log(state.isLoading);
+    if(!qnt) {
+      dispatch(loadIngredients())
+    }
+
+  }, [qnt, dispatch]);
+
+  console.log(qnt);
   return (
     <div className={styles.app}>
-      <IngredientsContext.Provider value={state.ingredients}>
         <AppHeader />
 
-        {state.isLoading && <Preloader />}
-        {state.isError && (
+        {status === 'loading' && <Preloader />}
+        {error && (
           <h2
             style={{ alignSelf: 'center' }}
             className='text text_type_main-large text_color_inactive mt-20'
@@ -87,8 +96,7 @@ function App() {
             Ошибка при получении данных
           </h2>
         )}
-        {!state.isLoading && !state.isError &&<MainPage
-          ingredients={state.ingredients}
+        {qnt > 0 &&<MainPage
           handleCardClick={handleCardClick}
           handleOrderClick={handleOrderClick}
         />}
@@ -104,7 +112,6 @@ function App() {
             <OrderDetails orderNumber={orderNumber} />
           </Modal>
         )}
-      </IngredientsContext.Provider>
     </div>
   );
 }
