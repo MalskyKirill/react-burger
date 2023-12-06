@@ -8,18 +8,14 @@ import OrderDetails from '../order-details/order-details';
 import { api } from '../../utils/api';
 import Preloader from '../preloader/preloader';
 import { useDispatch, useSelector } from 'react-redux';
-import {loadIngredients, selectIngredientsInfo} from '../../services/reducers/ingredients-slice'
+import {
+  loadIngredients,
+  selectIngredientsInfo,
+} from '../../services/reducers/ingredients-slice';
 
 function App() {
-  // const [state, setState] = useState({
-  //   ingredients: [],
-  //   isLoading: true,
-  //   isError: false,
-  // });
-
-  const dispatch = useDispatch()
-
-  const {qnt, status, error} = useSelector(selectIngredientsInfo)
+  const dispatch = useDispatch();
+  const { qty, status, error } = useSelector(selectIngredientsInfo);
 
   const [selectIngredient, setSelectIngredient] = useState({});
 
@@ -66,52 +62,42 @@ function App() {
   };
 
   useEffect(() => {
-    // api
-    //   .getIngredients()
-    //   .then(({ data }) =>
-    //     setState({ ingredients: data, isLoading: false, isError: false })
-    //   )
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setState({ ingredients: null, isLoading: false, isError: true });
-    //   });
-
-    if(!qnt) {
-      dispatch(loadIngredients())
+    if (!qty) {
+      dispatch(loadIngredients());
     }
+  }, [qty, dispatch]);
 
-  }, [qnt, dispatch]);
-
-  console.log(qnt);
   return (
     <div className={styles.app}>
-        <AppHeader />
+      <AppHeader />
 
-        {status === 'loading' && <Preloader />}
-        {error && (
-          <h2
-            style={{ alignSelf: 'center' }}
-            className='text text_type_main-large text_color_inactive mt-20'
-          >
-            Ошибка при получении данных
-          </h2>
-        )}
-        {qnt > 0 &&<MainPage
+      {status === 'loading' && <Preloader />}
+      {error && (
+        <h2
+          style={{ alignSelf: 'center' }}
+          className='text text_type_main-large text_color_inactive mt-20'
+        >
+          Ошибка при получении данных
+        </h2>
+      )}
+      {status === 'received' && (
+        <MainPage
           handleCardClick={handleCardClick}
           handleOrderClick={handleOrderClick}
-        />}
+        />
+      )}
 
-        {isModalIngredientOpen && (
-          <Modal title={'Детали ингридиента'} onClose={closeAllPopup}>
-            <IngredienDetails selectIngredient={selectIngredient} />
-          </Modal>
-        )}
+      {isModalIngredientOpen && (
+        <Modal title={'Детали ингридиента'} onClose={closeAllPopup}>
+          <IngredienDetails selectIngredient={selectIngredient} />
+        </Modal>
+      )}
 
-        {isModalOrderOpen && (
-          <Modal onClose={closeAllPopup}>
-            <OrderDetails orderNumber={orderNumber} />
-          </Modal>
-        )}
+      {isModalOrderOpen && (
+        <Modal onClose={closeAllPopup}>
+          <OrderDetails orderNumber={orderNumber} />
+        </Modal>
+      )}
     </div>
   );
 }

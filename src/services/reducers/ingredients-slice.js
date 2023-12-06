@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
 
 import { api } from '../../utils/api';
 
@@ -39,11 +39,21 @@ const ingredientsSlice = createSlice({
 
 export const ingredientsReducer = ingredientsSlice.reducer;
 
-//selectors
-export const selectIngredientsInfo = (state) => ({
-  status: state.ingredients.status,
-  error: state.ingredients.error,
-  qnt: state.ingredients.list.length
-})
+// selectors
 
-export const selectAllIngredients = (state) => state.ingredients.list
+const selectStatus = state => state.ingredients.status;
+const selectError = state => state.ingredients.error;
+const selectQty = state => state.ingredients.list.length;
+
+export const selectIngredientsInfo = createSelector(
+  selectStatus,
+  selectError,
+  selectQty,
+  (selectStatus, selectError, selectQty) => ({
+  status: selectStatus,
+  error: selectError,
+  qty: selectQty
+}))
+
+
+export const selectAllIngredients = (state) => state.ingredients.list;

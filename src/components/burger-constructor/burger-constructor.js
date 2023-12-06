@@ -5,42 +5,28 @@ import BurgerOrder from './burger-order/burger-order';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
-import { IngredientsContext } from '../../context/ingredients-context';
 
-const initialState = []
-
-const reducer = (state, action) => {
-  switch(action.type) {
-    case "ADD_INGREDIENT":
-      return action.payload
-    default:
-      return state
-  }
-}
+import {data} from '../../vendor/data'
 
 const BurgerConstructor = ({ handleOrderClick }) => {
-  //получил ингредиенты из контекста
-  const ingredients = useContext(IngredientsContext)
 
-  //стейт ингредиентов
-  const [coastState, setDispatch] = useReducer(reducer, initialState)
 
   //получение булки
-  const burgerBun = ingredients[0];
+  const burgerBun = data[0];
 
   //получение ингредиентов
-  const burgerIngridients = useMemo(() => ingredients.slice(3, -3), [ingredients]);
+  const burgerIngridients = useMemo(() => data.slice(3, -3), [data]);
 
   //расчет стоимости только булок или если есть допы
-  const coast = coastState.length === 0 ? burgerBun.price * 2 : burgerBun.price * 2 + coastState.map((el) => el.price).reduce((total, el) => total + el, 0);
+  // const coast = coastState.length === 0 ? burgerBun.price * 2 : burgerBun.price * 2 + coastState.map((el) => el.price).reduce((total, el) => total + el, 0);
 
   //получаем айдишники ингредиентов
   const burgerIngrediantsId = [...burgerIngridients, burgerBun].map(el => el._id )
 
   //меняем стейт ингредиентов в зависимости от количества ингредиентов
   useEffect(() => {
-    setDispatch({type: 'ADD_INGREDIENT', payload: burgerIngridients})
-  }, [burgerIngridients])
+
+  }, [])
 
   return (
     <section className={styles['burger-constructor']}>
@@ -70,7 +56,7 @@ const BurgerConstructor = ({ handleOrderClick }) => {
             extraClass={styles.color}
           />
         </div>
-        <BurgerOrder coast={coast} handleOrderClick={handleOrderClick} burgerIngrediantsId={burgerIngrediantsId} />
+        {/* <BurgerOrder coast={coast} handleOrderClick={handleOrderClick} burgerIngrediantsId={burgerIngrediantsId} /> */}
       </div>
     </section>
   );
