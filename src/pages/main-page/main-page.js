@@ -8,13 +8,7 @@ const MainPage = ({ handleCardClick, handleOrderClick }) => {
   return (
     <main className={stiles.content}>
       <BurgerIngredients handleCardClick={handleCardClick} />
-      {/* {(
-        <BurgerConstructor
-          handleOrderClick={handleOrderClick}
-        />
-      ) : (
-        <></>
-      )} */}
+      <BurgerConstructor handleOrderClick={handleOrderClick} />
     </main>
   );
 };
