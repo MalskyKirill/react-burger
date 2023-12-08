@@ -9,14 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { data } from '../../vendor/data';
 import { useDrop } from 'react-dnd';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectConstructorBun, selectConstructorElements, selectConstructorIngredients, swapIngredients } from '../../services/reducers/constructor-slice';
 
 const BurgerConstructor = ({
   handleOrderClick,
-  draggedElements,
   handleDropBun,
   handleDropEl,
-  setDraggetElements,
 }) => {
+
+  const dispatch = useDispatch();
+
   const [, dropBun] = useDrop({
     accept: 'ingredient',
     drop(el) {
@@ -27,33 +30,21 @@ const BurgerConstructor = ({
 
   const [, dropIngredient] = useDrop({
     accept: 'ingredient',
-    drop(el) {
+    drop(ingredient) {
       const id = uuidv4();
-      if (el.type !== 'bun') handleDropEl({ el, id });
+      if (ingredient.type !== 'bun') handleDropEl({ ingredient, id });
     },
   });
 
   const swapCard = (fromIndex, toIndex) => {
-
-    const swapIngredients = [...draggedElements.ingredients];
-
-    console.log(swapIngredients)
-
-    swapIngredients.splice(toIndex, 0, swapIngredients.splice(fromIndex, 1)[0]);
-
-    console.log(swapIngredients);
-
-    setDraggetElements({
-      ...draggedElements,
-      ingredients: swapIngredients,
-    });
+    dispatch(swapIngredients({fromIndex, toIndex}))
   };
 
   //получение булки
-  const burgerBun = draggedElements.bun;
+  const burgerBun = useSelector(selectConstructorBun);
 
   //получение ингредиентов
-  const burgerIngridients = draggedElements.ingredients;
+  const burgerIngridients = useSelector(selectConstructorIngredients);
 
   //расчет стоимости только булок или если есть допы
   // const coast = coastState.length === 0 ? burgerBun.price * 2 : burgerBun.price * 2 + coastState.map((el) => el.price).reduce((total, el) => total + el, 0);
@@ -89,7 +80,7 @@ const BurgerConstructor = ({
           {burgerIngridients && burgerIngridients.length > 0 ? (
             burgerIngridients.map((el, index) => (
               <BurgerIngredient
-                ingredient={el[0]}
+                ingredient={el.ingredient}
                 index={index}
                 key={el.id}
                 swapCard={swapCard}
