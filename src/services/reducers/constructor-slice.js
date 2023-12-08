@@ -22,13 +22,19 @@ const constructorSlice = createSlice({
         0,
         swapIngredients.splice(action.payload.fromIndex, 1)[0]
       );
-
       state.ingredients = swapIngredients;
+    },
+    deleteIngredient: (state, action) => {
+      console.log(action)
+      const filtredArrIngredient = state.ingredients.filter(
+        (item) => item.id !== action.payload
+      );
+      state.ingredients = filtredArrIngredient;
     },
   },
 });
 
-export const { addBun, addIngredients, swapIngredients } =
+export const { addBun, addIngredients, swapIngredients, deleteIngredient } =
   constructorSlice.actions;
 
 export const constructorReducer = constructorSlice.reducer;

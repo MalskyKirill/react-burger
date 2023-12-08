@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { data } from '../../vendor/data';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectConstructorBun, selectConstructorElements, selectConstructorIngredients, swapIngredients } from '../../services/reducers/constructor-slice';
+import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient } from '../../services/reducers/constructor-slice';
 
 const BurgerConstructor = ({
   handleOrderClick,
@@ -20,6 +20,7 @@ const BurgerConstructor = ({
 
   const dispatch = useDispatch();
 
+  //dnd drop логика
   const [, dropBun] = useDrop({
     accept: 'ingredient',
     drop(el) {
@@ -39,6 +40,12 @@ const BurgerConstructor = ({
   const swapCard = (fromIndex, toIndex) => {
     dispatch(swapIngredients({fromIndex, toIndex}))
   };
+
+  //удаление
+  const deleteCard = (ingredient) => {
+    console.log(ingredient)
+    dispatch(deleteIngredient(ingredient))
+  }
 
   //получение булки
   const burgerBun = useSelector(selectConstructorBun);
@@ -84,6 +91,8 @@ const BurgerConstructor = ({
                 index={index}
                 key={el.id}
                 swapCard={swapCard}
+                handleDelete={deleteCard}
+                ingrediantId={el.id}
               />
             ))
           ) : (

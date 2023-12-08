@@ -7,7 +7,7 @@ import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
-const BurgerIngredient = ({ ingredient, index, swapCard }) => {
+const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingrediantId }) => {
   const ref = useRef(null)
 
   const [, drag] = useDrag({
@@ -35,6 +35,7 @@ const BurgerIngredient = ({ ingredient, index, swapCard }) => {
         price={ingredient.price}
         thumbnail={ingredient.image}
         extraClass={styles.color}
+        handleClose={() => handleDelete(ingrediantId)}
       />
     </li>
   );
