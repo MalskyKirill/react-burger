@@ -2,9 +2,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState } from 'react';
 import styles from './burger-tabs.module.css'
 
-const BurgerTabs = () => {
-  const [current, setCurrent] = useState('Булки')
-
+const BurgerTabs = ({current, setCurrent}) => {
 
   return (
     <div className={`${styles.tabs} pt-5`}>
