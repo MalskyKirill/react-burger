@@ -5,6 +5,7 @@ import {
 import styles from './ingredient-element.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
+import { useDrag } from 'react-dnd';
 
 const IngredientElement = ({ count, handleCardClick, data }) => {
   const {
@@ -18,6 +19,11 @@ const IngredientElement = ({ count, handleCardClick, data }) => {
     price,
   } = data;
 
+  const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item: data,
+  });
+
   const onClick = () => {
     handleCardClick({
       name,
@@ -30,7 +36,7 @@ const IngredientElement = ({ count, handleCardClick, data }) => {
   };
 
   return (
-    <li className={styles.ingredient}>
+    <li className={styles.ingredient} ref={dragRef}>
       <img
         className={styles['ingredient-image']}
         src={image}
