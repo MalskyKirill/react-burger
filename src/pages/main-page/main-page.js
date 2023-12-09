@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addBun, addIngredients } from '../../services/reducers/constructor-slice';
 
-const MainPage = ({ handleCardClick, handleOrderClick }) => {
+const MainPage = ({ handleOrderClick }) => {
   const dispatch = useDispatch()
 
   const handleDropBun = (item) => {
@@ -23,7 +23,7 @@ const MainPage = ({ handleCardClick, handleOrderClick }) => {
   return (
     <main className={stiles.content}>
       <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients handleCardClick={handleCardClick} />
+        <BurgerIngredients />
         <BurgerConstructor
           handleDropBun={handleDropBun}
           handleDropEl={handleDropEl}

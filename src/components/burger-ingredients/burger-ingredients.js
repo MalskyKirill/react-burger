@@ -7,7 +7,9 @@ import { selectAllIngredients } from '../../services/reducers/ingredients-slice'
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 
-const BurgerIngredients = ({ handleCardClick }) => {
+const BurgerIngredients = () => {
+
+  //навигация по ингредиентам
   const [current, setCurrent] = useState('Булки');
 
   const rootRef = useRef(null);
@@ -46,8 +48,6 @@ const BurgerIngredients = ({ handleCardClick }) => {
     }
   };
 
-  const ingredients = useSelector(selectAllIngredients);
-
   useEffect(() => {
     document.querySelector(`#${current}`)?.scrollIntoView();
   }, [current]);
@@ -57,8 +57,7 @@ const BurgerIngredients = ({ handleCardClick }) => {
       <h1 className='text text_type_main-large'>Соберите бургер</h1>
       <BurgerTabs current={current} setCurrent={setCurrent} />
       <BurgerProductList
-        data={ingredients}
-        handleCardClick={handleCardClick}
+        // data={ingredients}
         rootRef={rootRef}
         bunRef={bunRef}
         sauceRef={sauceRef}

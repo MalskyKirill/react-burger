@@ -12,38 +12,17 @@ import {
   loadIngredients,
   selectIngredientsInfo,
 } from '../../services/reducers/ingredients-slice';
+import { selectIsModalDetailsOpen } from '../../services/reducers/details-slice';
 
 function App() {
   const dispatch = useDispatch();
   const { qty, status, error } = useSelector(selectIngredientsInfo);
 
-  const [selectIngredient, setSelectIngredient] = useState({});
-
   const [orderNumber, setOrderNumber] = useState(null);
 
-  const [isModalIngredientOpen, setIsModalIngredientOpen] = useState(false);
   const [isModalOrderOpen, setIsModalOrderOpen] = useState(false);
 
-  // открытие попапа с ингридиентом
-  const handleCardClick = ({
-    name,
-    image_large,
-    calories,
-    carbohydrates,
-    fat,
-    proteins,
-  }) => {
-    setSelectIngredient({
-      name,
-      image_large,
-      calories,
-      carbohydrates,
-      fat,
-      proteins,
-    });
-
-    setIsModalIngredientOpen(true);
-  };
+  const isModalIngredientOpen = useSelector(selectIsModalDetailsOpen)
 
   //создание заказа
   const handleOrderClick = (burgerIngrediantsId) => {
@@ -57,7 +36,6 @@ function App() {
 
   //закрытие всех попапов
   const closeAllPopup = () => {
-    setIsModalIngredientOpen(false);
     setIsModalOrderOpen(false);
   };
 
@@ -70,7 +48,6 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-
       {status === 'loading' && <Preloader />}
       {error && (
         <h2
@@ -82,14 +59,13 @@ function App() {
       )}
       {status === 'received' && (
         <MainPage
-          handleCardClick={handleCardClick}
           handleOrderClick={handleOrderClick}
         />
       )}
 
       {isModalIngredientOpen && (
         <Modal title={'Детали ингридиента'} onClose={closeAllPopup}>
-          <IngredienDetails selectIngredient={selectIngredient} />
+          <IngredienDetails />
         </Modal>
       )}
 

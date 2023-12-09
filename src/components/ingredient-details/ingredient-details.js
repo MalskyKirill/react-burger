@@ -1,16 +1,18 @@
 import styles from './ingredient-details.module.css';
 import NutritionElement from './nutrition-element/nutrition-element';
 import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
+import { useSelector } from 'react-redux';
+import { selectDetailsData } from '../../services/reducers/details-slice';
 
-const IngredienDetails = ({ selectIngredient }) => {
-  const { name, image_large, calories, carbohydrates, fat, proteins } =
-    selectIngredient;
+const IngredienDetails = () => {
+
+  const {name, img, calories, carbohydrates, fat, proteins} = useSelector(selectDetailsData)
 
   return (
     <div className={styles['ingredient-details']}>
       <img
         className={styles['ingredient-img']}
-        src={image_large}
+        src={img}
         alt='ingredient'
       />
       <p

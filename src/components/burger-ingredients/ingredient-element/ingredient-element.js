@@ -6,8 +6,13 @@ import styles from './ingredient-element.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
 import { useDrag } from 'react-dnd';
+import { useDispatch } from 'react-redux';
+import { addDataDetails } from '../../../services/reducers/details-slice';
 
-const IngredientElement = ({ count, handleCardClick, data }) => {
+const IngredientElement = ({ count, data }) => {
+
+  const dispatch = useDispatch()
+
   const {
     name,
     fat,
@@ -25,14 +30,16 @@ const IngredientElement = ({ count, handleCardClick, data }) => {
   });
 
   const onClick = () => {
-    handleCardClick({
-      name,
-      fat,
-      proteins,
-      carbohydrates,
-      calories,
-      image_large,
-    });
+    const data = {
+      name: name,
+      img: image_large,
+      calories: calories,
+      carbohydrates: carbohydrates,
+      fat: fat,
+      proteins: proteins,
+      isModalOpen: true,
+    }
+    dispatch(addDataDetails(data))
   };
 
   return (

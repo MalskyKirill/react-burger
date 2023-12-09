@@ -4,10 +4,19 @@ import { createPortal } from 'react-dom';
 import ModalOverlay from '../modalOverlay/modal-overlay';
 import styles from './modal.module.css';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { removeModalData } from '../../services/reducers/details-slice';
 
 const modalRoot = document.getElementById('react-modals');
 
-const Modal = ({ title, children, onClose }) => {
+const Modal = ({ title, children }) => {
+
+  const dispatch = useDispatch()
+
+  const onClose = () => {
+    dispatch(removeModalData())
+  }
+
   const handleEscClose = (evt) => {
     if (evt.key === 'Escape') onClose();
   };
