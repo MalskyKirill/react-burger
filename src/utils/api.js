@@ -25,16 +25,9 @@ class Api {
   }
 
   //создание заказа
-  addOrder(indrediantsId) {
-    return fetch(`${this._url}/api/orders`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ingredients: indrediantsId}),
-    }).then((res) => {
-      return this._getResponseData(res);
-    })
+  async addOrder(request) {
+    const res = await fetch(`${this._url}/api/orders`, request);
+    return this._getResponseData(res);
   }
 }
 

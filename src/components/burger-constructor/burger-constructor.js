@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient } from '../../services/reducers/constructor-slice';
+import { getOrderNumber } from '../../services/reducers/order-slice';
 
 const BurgerConstructor = ({
   handleOrderClick,
@@ -21,7 +22,6 @@ const BurgerConstructor = ({
   const [, dropBun] = useDrop({
     accept: 'ingredient',
     drop(el) {
-      console.log(el);
       if (el.type === 'bun') handleDropBun(el);
     },
   });
@@ -40,7 +40,6 @@ const BurgerConstructor = ({
 
   //удаление
   const deleteCard = (ingredient) => {
-    console.log(ingredient)
     dispatch(deleteIngredient(ingredient))
   }
 
@@ -49,6 +48,15 @@ const BurgerConstructor = ({
 
   //получение ингредиентов
   const burgerIngridients = useSelector(selectConstructorIngredients);
+
+  const idBurgerIngridients = [...burgerIngridients.map(el => el.ingredient._id)]
+  const onClick = () => {
+
+    dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun}))
+
+  };
+
+
 
   return (
     <section className={styles['burger-constructor']}>
@@ -106,7 +114,7 @@ const BurgerConstructor = ({
             </div>
           )}
         </div>
-        <BurgerOrder handleOrderClick={handleOrderClick} />
+        <BurgerOrder handleOrderClick={handleOrderClick} onClick={onClick}/>
       </div>
     </section>
   );

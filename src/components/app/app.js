@@ -13,31 +13,15 @@ import {
   selectIngredientsInfo,
 } from '../../services/reducers/ingredients-slice';
 import { selectIsModalDetailsOpen } from '../../services/reducers/details-slice';
+import { selectIsModalOrderOpen } from '../../services/reducers/order-slice';
 
 function App() {
   const dispatch = useDispatch();
   const { qty, status, error } = useSelector(selectIngredientsInfo);
 
-  const [orderNumber, setOrderNumber] = useState(null);
-
-  const [isModalOrderOpen, setIsModalOrderOpen] = useState(false);
-
+  //открытие модалок
   const isModalIngredientOpen = useSelector(selectIsModalDetailsOpen)
-
-  //создание заказа
-  const handleOrderClick = (burgerIngrediantsId) => {
-    api
-      .addOrder(burgerIngrediantsId)
-      .then(({ order }) => setOrderNumber(order.number))
-      .catch((err) => console.log(err));
-
-    setIsModalOrderOpen(true);
-  };
-
-  //закрытие всех попапов
-  const closeAllPopup = () => {
-    setIsModalOrderOpen(false);
-  };
+  const isModalOrderOpen = useSelector(selectIsModalOrderOpen)
 
   useEffect(() => {
     if (!qty) {
@@ -59,19 +43,19 @@ function App() {
       )}
       {status === 'received' && (
         <MainPage
-          handleOrderClick={handleOrderClick}
+          // handleOrderClick={handleOrderClick}
         />
       )}
 
       {isModalIngredientOpen && (
-        <Modal title={'Детали ингридиента'} onClose={closeAllPopup}>
+        <Modal title={'Детали ингридиента'} >
           <IngredienDetails />
         </Modal>
       )}
 
       {isModalOrderOpen && (
-        <Modal onClose={closeAllPopup}>
-          <OrderDetails orderNumber={orderNumber} />
+        <Modal >
+          <OrderDetails />
         </Modal>
       )}
     </div>

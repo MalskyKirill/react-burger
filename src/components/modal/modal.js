@@ -6,6 +6,7 @@ import styles from './modal.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { removeModalData } from '../../services/reducers/details-slice';
+import { removeModalOrderData } from '../../services/reducers/order-slice';
 
 const modalRoot = document.getElementById('react-modals');
 
@@ -15,6 +16,7 @@ const Modal = ({ title, children }) => {
 
   const onClose = () => {
     dispatch(removeModalData())
+    dispatch(removeModalOrderData())
   }
 
   const handleEscClose = (evt) => {
