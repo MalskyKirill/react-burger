@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   gap: 40px;
+  padding-right: 40px;
 }
 
 .coast {

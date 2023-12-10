@@ -4,10 +4,7 @@ import BurgerIngredient from './burger-ingredient/burger-ingredient';
 import BurgerOrder from './burger-order/burger-order';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
-import { useContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-import { data } from '../../vendor/data';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient } from '../../services/reducers/constructor-slice';
@@ -52,14 +49,6 @@ const BurgerConstructor = ({
 
   //получение ингредиентов
   const burgerIngridients = useSelector(selectConstructorIngredients);
-
-  //расчет стоимости только булок или если есть допы
-  // const coast = coastState.length === 0 ? burgerBun.price * 2 : burgerBun.price * 2 + coastState.map((el) => el.price).reduce((total, el) => total + el, 0);
-
-  //получаем айдишники ингредиентов
-  // const burgerIngrediantsId = [...burgerIngridients, burgerBun].map(
-  //   (el) => el._id
-  // );
 
   return (
     <section className={styles['burger-constructor']}>
@@ -117,7 +106,7 @@ const BurgerConstructor = ({
             </div>
           )}
         </div>
-        {/* <BurgerOrder coast={coast} handleOrderClick={handleOrderClick} burgerIngrediantsId={burgerIngrediantsId} /> */}
+        <BurgerOrder handleOrderClick={handleOrderClick} />
       </div>
     </section>
   );

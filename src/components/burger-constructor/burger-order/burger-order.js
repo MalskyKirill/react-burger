@@ -4,17 +4,27 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { selectConstructorElements } from '../../../services/reducers/constructor-slice';
 
-const BurgerOrder = ({ coast, handleOrderClick, burgerIngrediantsId }) => {
+const BurgerOrder = () => {
+
+  const constructorElements = useSelector(selectConstructorElements);
+
+  //расчет стоимости бургера
+  const coastBun = constructorElements.bun ? constructorElements.bun.price * 2 : 0;
+  const coastIngredients = constructorElements.ingredients ? constructorElements.ingredients.map((el) => el.ingredient.price).reduce((total, el) => total + el, 0) : 0;
+
+  const totalCoast = coastBun + coastIngredients;
 
   const onClick = () => {
-    handleOrderClick(burgerIngrediantsId)
+
   }
 
   return (
     <div className={styles['burger-order']}>
       <div className={styles.coast}>
-        <p className='text text_type_digits-medium'>{coast}</p>
+        <p className='text text_type_digits-medium'>{totalCoast}</p>
         <CurrencyIcon type='primary' />
       </div>
       <Button

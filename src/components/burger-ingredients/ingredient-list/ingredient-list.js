@@ -26,7 +26,6 @@ const IngredientList = ({ title, data, refItem }) => {
     return countElements;
   }, [constructorElements]);
 
-  console.log(burgerIngredientsCounter);
   return (
     <>
       <h2 ref={refItem}>{title}</h2>
