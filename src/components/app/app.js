@@ -1,7 +1,7 @@
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import MainPage from '../../pages/main-page/main-page';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
@@ -13,6 +13,7 @@ import {
   selectIngredientsInfo,
 } from '../../services/reducers/ingredients-slice';
 import { selectIsModalDetailsOpen } from '../../services/reducers/details-slice';
+import { selectConstructorElements } from '../../services/reducers/constructor-slice';
 
 function App() {
   const dispatch = useDispatch();

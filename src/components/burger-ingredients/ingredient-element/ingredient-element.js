@@ -9,7 +9,7 @@ import { useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { addDataDetails } from '../../../services/reducers/details-slice';
 
-const IngredientElement = ({ count, data }) => {
+const IngredientElement = ({ data, counter }) => {
 
   const dispatch = useDispatch()
 
@@ -59,9 +59,9 @@ const IngredientElement = ({ count, data }) => {
       >
         {name}
       </p>
-      {count && (
+      {counter && (
         <Counter
-          count={count}
+          count={counter}
           size='default'
           extraClass='m-1'
           className={styles.counter}
