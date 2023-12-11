@@ -7,8 +7,6 @@ import { orderNumber } from '../../services/reducers/order-slice';
 const OrderDetails = () => {
 
   const orderNum = useSelector(orderNumber)
-  console.log(orderNum)
-
 
   return (
     <div className={styles['order-details']}>

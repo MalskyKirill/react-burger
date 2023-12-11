@@ -10,9 +10,10 @@ export const getOrderNumber = createAsyncThunk(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        ingredients: [bun._id, ingredients]
+        ingredients: [bun._id, ...ingredients, bun._id]
       }),
     }
+    console.log(request)
 
     const res = await api.addOrder(request);
     return res;
@@ -42,7 +43,6 @@ const orderSlice = createSlice({
       })
       .addCase(getOrderNumber.fulfilled, (state, action) => {
         state.status = 'received';
-        console.log(action.payload)
         state.orderNumber = action.payload.order.number;
         state.isModalOpen = action.payload.success
       })
