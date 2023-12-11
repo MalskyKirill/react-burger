@@ -13,7 +13,6 @@ export const getOrderNumber = createAsyncThunk(
         ingredients: [bun._id, ...ingredients, bun._id]
       }),
     }
-    console.log(request)
 
     const res = await api.addOrder(request);
     return res;

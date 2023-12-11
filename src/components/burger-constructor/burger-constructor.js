@@ -7,7 +7,7 @@ import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient } from '../../services/reducers/constructor-slice';
+import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient, removeConstructorData } from '../../services/reducers/constructor-slice';
 import { getOrderNumber } from '../../services/reducers/order-slice';
 
 const BurgerConstructor = ({
@@ -53,6 +53,14 @@ const BurgerConstructor = ({
   const onClick = () => {
 
     dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun}))
+      .then((res) => {
+        if (res.payload.success) {
+          dispatch(removeConstructorData())
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
   };
 

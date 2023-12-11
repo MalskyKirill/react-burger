@@ -25,16 +25,18 @@ const constructorSlice = createSlice({
       state.ingredients = swapIngredients;
     },
     deleteIngredient: (state, action) => {
-      console.log(action)
       const filtredArrIngredient = state.ingredients.filter(
         (item) => item.id !== action.payload
       );
       state.ingredients = filtredArrIngredient;
     },
+    removeConstructorData: (state, action) => {
+      return initialState;
+    },
   },
 });
 
-export const { addBun, addIngredients, swapIngredients, deleteIngredient } =
+export const { addBun, addIngredients, swapIngredients, deleteIngredient, removeConstructorData } =
   constructorSlice.actions;
 
 export const constructorReducer = constructorSlice.reducer;
