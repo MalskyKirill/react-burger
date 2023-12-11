@@ -56,8 +56,6 @@ const BurgerConstructor = ({
 
   };
 
-
-
   return (
     <section className={styles['burger-constructor']}>
       <div className={styles.burger}>

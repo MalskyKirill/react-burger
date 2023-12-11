@@ -1,11 +1,10 @@
 import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import MainPage from '../../pages/main-page/main-page';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
-import { api } from '../../utils/api';
 import Preloader from '../preloader/preloader';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -20,8 +19,8 @@ function App() {
   const { qty, status, error } = useSelector(selectIngredientsInfo);
 
   //открытие модалок
-  const isModalIngredientOpen = useSelector(selectIsModalDetailsOpen)
-  const isModalOrderOpen = useSelector(selectIsModalOrderOpen)
+  const isModalIngredientOpen = useSelector(selectIsModalDetailsOpen);
+  const isModalOrderOpen = useSelector(selectIsModalOrderOpen);
 
   useEffect(() => {
     if (!qty) {
@@ -35,26 +34,23 @@ function App() {
       {status === 'loading' && <Preloader />}
       {error && (
         <h2
-          style={{ alignSelf: 'center' }}
-          className='text text_type_main-large text_color_inactive mt-20'
+          className={`${styles['error-message']} text text_type_main-large text_color_inactive mt-20`}
         >
           Ошибка при получении данных
         </h2>
       )}
       {status === 'received' && (
-        <MainPage
-          // handleOrderClick={handleOrderClick}
-        />
+        <MainPage/>
       )}
 
       {isModalIngredientOpen && (
-        <Modal title={'Детали ингридиента'} >
+        <Modal title={'Детали ингридиента'}>
           <IngredienDetails />
         </Modal>
       )}
 
       {isModalOrderOpen && (
-        <Modal >
+        <Modal>
           <OrderDetails />
         </Modal>
       )}
