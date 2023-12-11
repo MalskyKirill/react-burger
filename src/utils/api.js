@@ -2,7 +2,7 @@ import { urlApi } from './consts';
 
 class Api {
   constructor(url) {
-    url = this.url;
+    this._url = url;
   }
 
   _getResponseData(res) {
@@ -15,13 +15,19 @@ class Api {
 
   //получение ингредиентов с сервера
   getIngredients() {
-    return fetch(`${urlApi}/api/ingredients`, {
+    return fetch(`${this._url}/api/ingredients`, {
       headers: {
         'Content-Type': 'application/json',
       },
     }).then((res) => {
       return this._getResponseData(res);
     });
+  }
+
+  //создание заказа
+  async addOrder(request) {
+    const res = await fetch(`${this._url}/api/orders`, request);
+    return this._getResponseData(res);
   }
 }
 

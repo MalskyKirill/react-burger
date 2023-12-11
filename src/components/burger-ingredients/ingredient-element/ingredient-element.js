@@ -5,8 +5,14 @@ import {
 import styles from './ingredient-element.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
+import { useDrag } from 'react-dnd';
+import { useDispatch } from 'react-redux';
+import { addDataDetails } from '../../../services/reducers/details-slice';
 
-const IngredientElement = ({ count, handleCardClick, data }) => {
+const IngredientElement = ({ data, counter }) => {
+
+  const dispatch = useDispatch()
+
   const {
     name,
     fat,
@@ -18,19 +24,26 @@ const IngredientElement = ({ count, handleCardClick, data }) => {
     price,
   } = data;
 
+  const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item: data,
+  });
+
   const onClick = () => {
-    handleCardClick({
-      name,
-      fat,
-      proteins,
-      carbohydrates,
-      calories,
-      image_large,
-    });
+    const data = {
+      name: name,
+      img: image_large,
+      calories: calories,
+      carbohydrates: carbohydrates,
+      fat: fat,
+      proteins: proteins,
+      isModalOpen: true,
+    }
+    dispatch(addDataDetails(data))
   };
 
   return (
-    <li className={styles.ingredient}>
+    <li className={styles.ingredient} ref={dragRef}>
       <img
         className={styles['ingredient-image']}
         src={image}
@@ -46,9 +59,9 @@ const IngredientElement = ({ count, handleCardClick, data }) => {
       >
         {name}
       </p>
-      {count && (
+      {counter && (
         <Counter
-          count={count}
+          count={counter}
           size='default'
           extraClass='m-1'
           className={styles.counter}

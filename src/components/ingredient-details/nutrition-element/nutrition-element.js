@@ -2,6 +2,7 @@ import styles from './nutrition-element.module.css';
 import PropTypes from 'prop-types';
 
 const NutritionElement = ({title, value}) => {
+
   return (
     <div className={styles['nutrition-element']}>
       <p
@@ -20,7 +21,7 @@ const NutritionElement = ({title, value}) => {
 
 NutritionElement.propTypes = {
   title: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.number,
 }
 
 export default NutritionElement;
