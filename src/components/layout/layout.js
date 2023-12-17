@@ -7,6 +7,7 @@ import {
 import { Outlet } from 'react-router-dom';
 import styles from './layout.module.css';
 import NavLinkIcon from './nav-link-icon/nav-link-icon';
+import { AppRoute } from '../../utils/consts';
 
 const Layout = () => {
   return (
@@ -16,12 +17,12 @@ const Layout = () => {
           <nav className={styles['navigation-panel']}>
             <ul className={styles['navigation-menu']}>
               <li>
-                <NavLinkIcon icon={BurgerIcon} isActive={true}>
+                <NavLinkIcon icon={BurgerIcon} isActive={true} path={AppRoute.main}>
                   Конструктор
                 </NavLinkIcon>
               </li>
               <li>
-                <NavLinkIcon icon={ListIcon} isActive={false}>
+                <NavLinkIcon icon={ListIcon} isActive={false} path='/'>
                   Лента заказов
                 </NavLinkIcon>
               </li>
