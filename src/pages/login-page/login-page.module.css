@@ -1,5 +1,22 @@
 .content {
   margin: 0 auto;
   display: flex;
+  padding-top: 180px;
+}
 
+.sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-title {
+  margin: 0;
+  padding-bottom: 24px;
+}
+
+.link {
+  text-decoration: none;
+  color: #4C4CFF;
+  padding-left: 8px;
 }
