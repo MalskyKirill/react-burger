@@ -15,6 +15,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import LoginPage from '../../pages/login-page/login-page';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
+import RegisterPage from '../../pages/register-page/register-page';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route path={AppRoute.main} element={<Layout />}>
           <Route index element={<MainPage />}/>
           <Route path={AppRoute.login} element={<LoginPage />}/>
+          <Route path={AppRoute.register} element={<RegisterPage />}/>
           <Route path='*' element={<PageNotFound/>}/>
         </Route>
 
