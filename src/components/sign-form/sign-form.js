@@ -10,7 +10,6 @@ import styles from './sign-form.module.css';
 
 const SignForm = ({ buttonName }) => {
   const location = useLocation();
-  console.log(location);
 
   const [state, setState] = useState({ email: '', password: '', name: '' });
 
@@ -26,30 +25,47 @@ const SignForm = ({ buttonName }) => {
 
   return (
     <form className={styles['sign-form']}>
-      {location.pathname === '/register' && <Input
-        type={'text'}
-        placeholder={'Имя'}
-        onChange={onChange}
-        value={state.name}
-        name={'name'}
-        error={false}
-        errorText={'Ошибка'}
-        size={'default'}
-        extraClass='mb-6'
-      />}
-      <EmailInput
-        onChange={onChange}
-        value={state.email}
-        name={'email'}
-        isIcon={false}
-        extraClass='mb-6'
-      />
-      <PasswordInput
-        onChange={onChange}
-        value={state.password}
-        name={'password'}
-        extraClass='mb-6'
-      />
+      {location.pathname === '/register' && (
+        <Input
+          type={'text'}
+          placeholder={'Имя'}
+          onChange={onChange}
+          value={state.name}
+          name={'name'}
+          error={false}
+          errorText={'Ошибка'}
+          size={'default'}
+          extraClass='mb-6'
+        />
+      )}
+      {(location.pathname === '/register' ||
+        location.pathname === '/login') && (
+        <>
+          <EmailInput
+            onChange={onChange}
+            value={state.email}
+            name={'email'}
+            isIcon={false}
+            extraClass='mb-6'
+          />
+          <PasswordInput
+            onChange={onChange}
+            value={state.password}
+            name={'password'}
+            extraClass='mb-6'
+          />
+        </>
+      )}
+      {location.pathname === '/forgot-password' && (
+        <EmailInput
+          onChange={onChange}
+          value={state.email}
+          name={'email'}
+          placeholder={'Укажите e-mail'}
+          isIcon={false}
+          extraClass='mb-6'
+        />
+      )}
       <Button htmlType='button' type='primary' size='large'>
         {buttonName}
       </Button>

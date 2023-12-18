@@ -16,6 +16,7 @@ import { AppRoute } from '../../utils/consts';
 import LoginPage from '../../pages/login-page/login-page';
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import RegisterPage from '../../pages/register-page/register-page';
+import ForgotPassword from '../../pages/forgot-password/forgot-password';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
           <Route index element={<MainPage />}/>
           <Route path={AppRoute.login} element={<LoginPage />}/>
           <Route path={AppRoute.register} element={<RegisterPage />}/>
+          <Route path={AppRoute.forgotPassword} element={<ForgotPassword/>} />
           <Route path='*' element={<PageNotFound/>}/>
         </Route>
 
