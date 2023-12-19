@@ -11,7 +11,7 @@ import {
 } from '../../services/reducers/ingredients-slice';
 import { selectIsModalDetailsOpen } from '../../services/reducers/details-slice';
 import { selectIsModalOrderOpen } from '../../services/reducers/order-slice';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import LoginPage from '../../pages/login-page/login-page';
 
@@ -26,11 +26,11 @@ function App() {
   const { qty } = useSelector(selectIngredientsInfo);
 
   const location = useLocation();
+  const navigate = useNavigate()
 
   const background = location.state && location.state.background;
 
   //открытие модалок
-  const isModalIngredientOpen = useSelector(selectIsModalDetailsOpen);
   const isModalOrderOpen = useSelector(selectIsModalOrderOpen);
 
   useEffect(() => {
@@ -39,31 +39,47 @@ function App() {
     }
   }, [qty, dispatch]);
 
+  const handleModalClose = () => {
+    // Возвращаемся к предыдущему пути при закрытии модалки
+    navigate(-1);
+  };
+
   return (
-    // <Routes location={background || location}>
-    <Routes>
-      <Route path={AppRoute.main} element={<Layout />}>
-        <Route index element={<MainPage />} />
-        <Route path={`${AppRoute.ingredients}/:id`} element={<IngredienDetails />} ></Route>
-        <Route path={AppRoute.login} element={<LoginPage />} />
-        <Route path={AppRoute.register} element={<RegisterPage />} />
-        <Route path={AppRoute.forgotPassword} element={<ForgotPassword />} />
-        <Route path={AppRoute.resetPassword} element={<ResetPassword />} />
-        <Route path='*' element={<PageNotFound />} />
-      </Route>
+    <>
+      <Routes location={background || location}>
+        <Route path={AppRoute.main} element={<Layout />}>
+          <Route index element={<MainPage />} />
+          <Route
+            path={`${AppRoute.ingredients}/:id`}
+            element={<IngredienDetails />}
+          ></Route>
+          <Route path={AppRoute.login} element={<LoginPage />} />
+          <Route path={AppRoute.register} element={<RegisterPage />} />
+          <Route path={AppRoute.forgotPassword} element={<ForgotPassword />} />
+          <Route path={AppRoute.resetPassword} element={<ResetPassword />} />
+          <Route path='*' element={<PageNotFound />} />
+        </Route>
 
-      {/* {isModalIngredientOpen && (
-          <Modal title={'Детали ингридиента'}>
-            <IngredienDetails />
-          </Modal>
-        )}
-
-        {isModalOrderOpen && (
+        {/* {isModalOrderOpen && (
           <Modal>
             <OrderDetails />
           </Modal>
         )} */}
-    </Routes>
+
+      </Routes>
+      {background && (
+        <Routes>
+          <Route
+            path={`${AppRoute.ingredients}/:id`}
+            element={
+              <Modal title={'Детали ингридиента'} handleModalClose={handleModalClose}>
+                <IngredienDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+    </>
   );
 }
 
