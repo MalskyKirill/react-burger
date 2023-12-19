@@ -29,6 +29,11 @@ class Api {
     const res = await fetch(`${this._url}/api/orders`, request);
     return this._getResponseData(res);
   }
+
+  //запрос на востановление пароля
+  async forgotPassword(request) {
+
+  }
 }
 
 export const api = new Api(urlApi);

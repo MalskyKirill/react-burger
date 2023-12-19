@@ -5,5 +5,6 @@ export const AppRoute = {
   login: '/login',
   register: '/register',
   forgotPassword: '/forgot-password',
-  resetPassword: '/reset-password'
+  resetPassword: '/reset-password',
+  ingredients: '/ingredients'
 }

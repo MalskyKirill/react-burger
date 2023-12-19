@@ -55,7 +55,6 @@ const BurgerIngredients = () => {
       <h1 className='text text_type_main-large'>Соберите бургер</h1>
       <BurgerTabs current={current} setCurrent={setCurrent} />
       <BurgerProductList
-        // data={ingredients}
         rootRef={rootRef}
         bunRef={bunRef}
         sauceRef={sauceRef}
