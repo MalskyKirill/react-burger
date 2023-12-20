@@ -6,10 +6,14 @@
   display: flex;
   max-width: 1280px;
   margin: 0 auto;
+  gap: 60px;
 }
 
-.nav {
+.nav {}
 
+.linkwrap {
+  width: 320px;
+  height: 64px;
 }
 
 .list {
@@ -17,7 +21,6 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 6px;
   flex-direction: column;
 
 }

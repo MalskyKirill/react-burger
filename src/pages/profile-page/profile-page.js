@@ -20,7 +20,7 @@ const ProfilePage = () => {
                 )}
               </NavLink>
             </li>
-            <li>
+            <li className={styles.linkwrap}>
               <NavLink
                 to='/profile/orders'
                 className={`${styles.link} text text_type_main-medium text_color_inactive`}
@@ -36,7 +36,7 @@ const ProfilePage = () => {
                 )}
               </NavLink>
             </li>
-            <li>
+            <li className={styles.linkwrap}>
               <NavLink
                 className={`${styles.link} text text_type_main-medium text_color_inactive`}
               >
