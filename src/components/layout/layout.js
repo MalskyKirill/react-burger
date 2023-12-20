@@ -4,12 +4,14 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import styles from './layout.module.css';
 import NavLinkIcon from './nav-link-icon/nav-link-icon';
 import { AppRoute } from '../../utils/consts';
 
 const Layout = () => {
+  const location = useLocation()
+
   return (
     <div className={styles.layout}>
       <header className={`${styles.header} pt-4 pb-4`}>
@@ -17,7 +19,7 @@ const Layout = () => {
           <nav className={styles['navigation-panel']}>
             <ul className={styles['navigation-menu']}>
               <li>
-                <NavLinkIcon icon={BurgerIcon} isActive={true} path={AppRoute.main}>
+                <NavLinkIcon icon={BurgerIcon}  isActive={location.pathname === AppRoute.main} path={AppRoute.main}>
                   Конструктор
                 </NavLinkIcon>
               </li>
@@ -31,7 +33,7 @@ const Layout = () => {
               <Logo />
             </div>
             <div className={styles['navigation-profile']}>
-              <NavLinkIcon icon={ProfileIcon} isActive={false}>
+              <NavLinkIcon icon={ProfileIcon} isActive={location.pathname === AppRoute.profile} path={AppRoute.profile}>
                 Личный кабинет
               </NavLinkIcon>
             </div>

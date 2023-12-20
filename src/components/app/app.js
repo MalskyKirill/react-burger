@@ -11,7 +11,7 @@ import {
 } from '../../services/reducers/ingredients-slice';
 import { selectIsModalDetailsOpen } from '../../services/reducers/details-slice';
 import { selectIsModalOrderOpen } from '../../services/reducers/order-slice';
-import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import LoginPage from '../../pages/login-page/login-page';
 
@@ -19,14 +19,16 @@ import PageNotFound from '../../pages/page-not-found/page-not-found';
 import RegisterPage from '../../pages/register-page/register-page';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
-import IngredientElement from '../burger-ingredients/ingredient-element/ingredient-element';
+import ProfilePage from '../../pages/profile-page/profile-page';
+import ProfileRedact from '../profile-redact/profile-redact';
+import ProfileOrders from '../profile-orders/profile-orders';
 
 function App() {
   const dispatch = useDispatch();
   const { qty } = useSelector(selectIngredientsInfo);
 
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const background = location.state && location.state.background;
 
@@ -57,6 +59,11 @@ function App() {
           <Route path={AppRoute.register} element={<RegisterPage />} />
           <Route path={AppRoute.forgotPassword} element={<ForgotPassword />} />
           <Route path={AppRoute.resetPassword} element={<ResetPassword />} />
+          <Route path={AppRoute.profile} element={<ProfilePage />}>
+            <Route index element={<ProfileRedact />} />
+            <Route path={AppRoute.orders} element={<ProfileOrders />} />
+          </Route>
+
           <Route path='*' element={<PageNotFound />} />
         </Route>
 
@@ -65,14 +72,16 @@ function App() {
             <OrderDetails />
           </Modal>
         )} */}
-
       </Routes>
       {background && (
         <Routes>
           <Route
             path={`${AppRoute.ingredients}/:id`}
             element={
-              <Modal title={'Детали ингридиента'} handleModalClose={handleModalClose}>
+              <Modal
+                title={'Детали ингридиента'}
+                handleModalClose={handleModalClose}
+              >
                 <IngredienDetails />
               </Modal>
             }

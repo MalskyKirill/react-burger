@@ -1,0 +1,27 @@
+.content {
+  padding-top: 120px;
+}
+
+.account {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.nav {
+
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+
+}
+
+.link {
+  text-decoration: none;
+}
