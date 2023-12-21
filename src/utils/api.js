@@ -9,7 +9,6 @@ class Api {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
-
     return res.json();
   }
 
@@ -27,13 +26,26 @@ class Api {
   //создание заказа
   async addOrder(request) {
     const res = await fetch(`${this._url}/api/orders`, request);
+
     return this._getResponseData(res);
+  }
+
+  //создание пользователя
+  async addUser(request) {
+    console.log(request)
+    const res = await fetch(`${this._url}/api/auth/register`, request);
+
+    const successful = this._getResponseData(res);
+
+    return successful;
   }
 
   //запрос на востановление пароля
   async forgotPassword(request) {
 
   }
+
+
 }
 
 export const api = new Api(urlApi);

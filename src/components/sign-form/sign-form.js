@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import styles from './sign-form.module.css';
 import { AppRoute } from '../../utils/consts';
 
-const SignForm = ({ buttonName }) => {
+const SignForm = ({ buttonName, onSubmit }) => {
   const location = useLocation();
 
   const [state, setState] = useState({
@@ -29,8 +29,15 @@ const SignForm = ({ buttonName }) => {
     });
   };
 
+  const onSubmitForm = (evt) => {
+    evt.preventDefault()
+    onSubmit(state)
+
+    setState()
+  };
+
   return (
-    <form className={styles['sign-form']}>
+    <form className={styles['sign-form']} onSubmit={onSubmitForm}>
       {/* в зависимости от url отображаются разные инпуты */}
       {location.pathname === AppRoute.register && (
         <Input
@@ -93,7 +100,7 @@ const SignForm = ({ buttonName }) => {
           />
         </>
       )}
-      <Button htmlType='button' type='primary' size='large'>
+      <Button type='primary' htmlType='submit' size='large'>
         {buttonName}
       </Button>
     </form>
