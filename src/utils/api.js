@@ -45,8 +45,10 @@ class Api {
   }
 
   //запрос на востановление пароля
-  async forgotPassword(request) {
+  async forgotUserPassword(request) {
+    const res = await fetch(`${this._url}/api/password-reset`, request);
 
+    return this._getResponseData(res);
   }
 
 

@@ -54,6 +54,24 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+//ассинхронный санк для запроса на востановление пароля
+export const forgotPassword = createAsyncThunk(
+  '@@auth/forgotPassword',
+  async ({ email }) => {
+    const request = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    };
+    const res = await api.forgotUserPassword(request);
+    return res;
+  }
+);
+
 const authSlice = createSlice({
   name: '@@auth',
   initialState,
@@ -87,11 +105,24 @@ const authSlice = createSlice({
         state.user = {
           name: action.payload.user.name,
           email: action.payload.user.email,
-        }
+        };
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message;
+      })
+
+      .addCase(forgotPassword.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        console.log(action)
+        state.status = 'received';
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message;
       })
