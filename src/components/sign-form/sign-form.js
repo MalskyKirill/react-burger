@@ -10,14 +10,19 @@ import styles from './sign-form.module.css';
 import { AppRoute } from '../../utils/consts';
 
 const SignForm = ({ buttonName, onSubmit }) => {
-  const location = useLocation();
 
-  const [state, setState] = useState({
+  const initialState = {
     email: '',
     password: '',
     name: '',
     key: '',
-  });
+  }
+
+  const location = useLocation();
+
+  const [state, setState] = useState(initialState);
+
+  console.log(state.email)
 
   const onChange = (evt) => {
     const name = evt.target.name;
@@ -33,7 +38,7 @@ const SignForm = ({ buttonName, onSubmit }) => {
     evt.preventDefault()
     onSubmit(state)
 
-    setState()
+    setState(initialState)
   };
 
   return (

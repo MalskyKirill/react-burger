@@ -4,16 +4,28 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../services/reducers/auth-slice';
 import styles from './profile-redact.module.css';
 
 const ProfileRedact = () => {
+
+  const user = useSelector(selectUser)
+
+  console.log(user)
+
   const [state, setState] = useState({
     email: '',
     password: '',
     name: '',
     key: '',
   });
+
+  useEffect(() => {
+    if(user) setState(user)
+  }, [user])
+
 
   const onChange = (evt) => {
     const name = evt.target.name;

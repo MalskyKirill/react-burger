@@ -32,12 +32,16 @@ class Api {
 
   //создание пользователя
   async addUser(request) {
-    console.log(request)
     const res = await fetch(`${this._url}/api/auth/register`, request);
 
-    const successful = this._getResponseData(res);
+    return this._getResponseData(res);
+  }
 
-    return successful;
+  //авторизация пользователя
+  async authUser(request) {
+    const res = await fetch(`${this._url}/api/auth/login`, request);
+
+    return this._getResponseData(res)
   }
 
   //запрос на востановление пароля
