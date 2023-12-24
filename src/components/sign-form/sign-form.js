@@ -22,8 +22,6 @@ const SignForm = ({ buttonName, onSubmit }) => {
 
   const [state, setState] = useState(initialState);
 
-  console.log(state.email)
-
   const onChange = (evt) => {
     const name = evt.target.name;
     const value = evt.target.value;

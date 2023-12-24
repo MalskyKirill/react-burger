@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignForm from '../../components/sign-form/sign-form';
 import styles from './forgot-password.module.css';
 import { AppRoute } from '../../utils/consts';
@@ -8,8 +8,13 @@ import { forgotPassword } from '../../services/reducers/auth-slice';
 const ForgotPassword = () => {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate()
+
   const onSubmit = (data) => {
-    dispatch(forgotPassword(data));
+    dispatch(forgotPassword(data))
+      .then((res) => {
+        if (res.payload.success) navigate(AppRoute.resetPassword)
+      })
   };
 
   return (
