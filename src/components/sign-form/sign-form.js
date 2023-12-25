@@ -15,7 +15,7 @@ const SignForm = ({ buttonName, onSubmit }) => {
     email: '',
     password: '',
     name: '',
-    key: '',
+    token: '',
   }
 
   const location = useLocation();
@@ -96,8 +96,8 @@ const SignForm = ({ buttonName, onSubmit }) => {
             type={'text'}
             placeholder={'Введите код из письма'}
             onChange={onChange}
-            value={state.key}
-            name={'key'}
+            value={state.token}
+            name={'token'}
             size={'default'}
             extraClass='mb-6'
           />

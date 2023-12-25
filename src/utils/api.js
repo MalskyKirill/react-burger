@@ -51,6 +51,14 @@ class Api {
     return this._getResponseData(res);
   }
 
+  //сброс пароля
+  async resetUserPassword(request) {
+    const res = await fetch(`${this._url}/api/password-reset/reset`, request);
+
+    return this._getResponseData(res);
+  }
+
+
 
 }
 
