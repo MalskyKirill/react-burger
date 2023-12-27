@@ -65,6 +65,12 @@ class Api {
     return this._getResponseData(res)
   }
 
+  async getAccessToken(request) {
+    const res = await fetch(`${this._url}/api/auth/token`, request);
+
+    return this._getResponseData(res);
+  }
+
 
 
 }

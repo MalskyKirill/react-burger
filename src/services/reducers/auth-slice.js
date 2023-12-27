@@ -94,20 +94,37 @@ export const resetPassword = createAsyncThunk(
 export const logoutUser = createAsyncThunk(
   '@@auth/logoutUser',
   async () => {
-    const token = localStorage.getItem('refreshToken')
-
     const request = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token
+        token: localStorage.getItem('refreshToken')
       })
     }
 
     const res = await api.outUser(request);
     return res;
+  }
+)
+
+export const updateAccessToken = createAsyncThunk(
+  '@@auth/updateAccessToken',
+  async () => {
+    const request = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('refreshToken')
+      })
+    }
+
+    const res = await api.getAccessToken(request);
+    return res;
+
   }
 )
 
@@ -190,6 +207,21 @@ const authSlice = createSlice({
         state.refreshToken = '';
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message;
+      })
+
+      .addCase(updateAccessToken.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(updateAccessToken.fulfilled, (state, action) => {
+        state.status = 'received';
+
+        state.accessToken = action.payload.accessToken;
+        state.refreshToken = action.payload.refreshToken;
+      })
+      .addCase(updateAccessToken.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message;
       })
