@@ -71,7 +71,11 @@ class Api {
     return this._getResponseData(res);
   }
 
+  async getUser(request) {
+    const res = await fetch(`${this._url}/api/auth/user`, request);
 
+    return this._getResponseData(res);
+  }
 
 }
 

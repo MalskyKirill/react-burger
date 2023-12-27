@@ -5,26 +5,26 @@ import {
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../services/reducers/auth-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUser, selectUser } from '../../services/reducers/auth-slice';
 import styles from './profile-redact.module.css';
 
 const ProfileRedact = () => {
 
-  const user = useSelector(selectUser)
+  const dispatch = useDispatch();
 
-  console.log(user)
+  const currentUser = useSelector(selectUser)
+
 
   const [state, setState] = useState({
     email: '',
     password: '',
     name: '',
-    key: '',
   });
 
   useEffect(() => {
-    if(user) setState(user)
-  }, [user])
+    setState({name: currentUser ? currentUser.name : '', email: currentUser ? currentUser.email : '', password: ''})
+  }, [])
 
 
   const onChange = (evt) => {
@@ -68,12 +68,11 @@ const ProfileRedact = () => {
         extraClass='mb-6'
       />
 
-      {/* <Button htmlType='button' type='secondary' size='large'>
+      <Button htmlType='button' type='secondary' size='large'>
         Отмена
-      </Button>
-      <Button htmlType='button' type='primary' size='large'>
-        Cохранить
-      </Button> */}
+      </Button><Button htmlType='button' type='primary' size='large'>
+          Cохранить
+        </Button>
     </form>
   );
 };

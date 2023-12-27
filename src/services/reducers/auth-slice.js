@@ -75,7 +75,7 @@ export const forgotPassword = createAsyncThunk(
 //ассинхронный санк для запроса на сброс пароля
 export const resetPassword = createAsyncThunk(
   '@@auth/resetPassword',
-  async ({password, token}) => {
+  async ({ password, token }) => {
     const request = {
       method: 'POST',
       headers: {
@@ -83,31 +83,28 @@ export const resetPassword = createAsyncThunk(
       },
       body: JSON.stringify({
         password,
-        token
+        token,
       }),
     };
     const res = await api.resetUserPassword(request);
     return res;
   }
-)
+);
 
-export const logoutUser = createAsyncThunk(
-  '@@auth/logoutUser',
-  async () => {
-    const request = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token: localStorage.getItem('refreshToken')
-      })
-    }
+export const logoutUser = createAsyncThunk('@@auth/logoutUser', async () => {
+  const request = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken'),
+    }),
+  };
 
-    const res = await api.outUser(request);
-    return res;
-  }
-)
+  const res = await api.outUser(request);
+  return res;
+});
 
 export const updateAccessToken = createAsyncThunk(
   '@@auth/updateAccessToken',
@@ -118,15 +115,30 @@ export const updateAccessToken = createAsyncThunk(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: localStorage.getItem('refreshToken')
-      })
-    }
+        token: localStorage.getItem('refreshToken'),
+      }),
+    };
 
     const res = await api.getAccessToken(request);
     return res;
-
   }
-)
+);
+
+export const getCurrentUser = createAsyncThunk(
+  '@@auth/getCurrentUser',
+  async () => {
+    const request = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('accessToken'),
+      },
+    };
+
+    const res = await api.getUser(request);
+    return res;
+  }
+);
 
 const authSlice = createSlice({
   name: '@@auth',
@@ -175,7 +187,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(forgotPassword.fulfilled, (state, action) => {
-        console.log(action)
+        console.log(action);
         state.status = 'received';
       })
       .addCase(forgotPassword.rejected, (state, action) => {
@@ -225,6 +237,23 @@ const authSlice = createSlice({
         state.status = 'rejected';
         state.error = action.error.message;
       })
+
+      .addCase(getCurrentUser.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.status = 'received';
+
+        state.user = {
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+        };
+      })
+      .addCase(getCurrentUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message;
+      });
   },
 });
 

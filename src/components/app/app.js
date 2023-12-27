@@ -23,6 +23,7 @@ import ProfilePage from '../../pages/profile-page/profile-page';
 import ProfileRedact from '../profile-redact/profile-redact';
 import ProfileOrders from '../profile-orders/profile-orders';
 import Logout from '../logout/logout';
+import { getCurrentUser } from '../../services/reducers/auth-slice';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,11 @@ function App() {
       dispatch(loadIngredients());
     }
   }, [qty, dispatch]);
+
+  useEffect(() => {
+    dispatch(getCurrentUser())
+
+  }, [dispatch])
 
   const handleModalClose = () => {
     // Возвращаемся к предыдущему пути при закрытии модалки
