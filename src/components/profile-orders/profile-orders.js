@@ -2,7 +2,7 @@ import styles from './profile-orders.module.css';
 
 const ProfileOrders = () => {
   return(
-    <h1> orders</h1>
+    <h2> orders</h2>
   );
 }
 

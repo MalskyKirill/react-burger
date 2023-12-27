@@ -91,6 +91,24 @@ export const resetPassword = createAsyncThunk(
   }
 )
 
+export const logoutUser = createAsyncThunk(
+  '@@auth/logoutUser',
+  async () => {
+    const request = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('refreshToken')
+      })
+    }
+
+    const res = await api.outUser(request);
+    return res;
+  }
+)
+
 const authSlice = createSlice({
   name: '@@auth',
   initialState,
@@ -151,10 +169,25 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(resetPassword.fulfilled, (state, action) => {
-        console.log(action)
         state.status = 'received';
       })
       .addCase(resetPassword.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message;
+      })
+
+      .addCase(logoutUser.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.status = 'received';
+
+        state.user = null;
+        state.accessToken = '';
+        state.refreshToken = '';
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message;
       })

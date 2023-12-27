@@ -8,5 +8,6 @@ export const AppRoute = {
   resetPassword: '/reset-password',
   ingredients: '/ingredients',
   profile: '/profile',
-  orders: '/profile/orders'
+  orders: '/profile/orders',
+  logout: '/profile/logout'
 }

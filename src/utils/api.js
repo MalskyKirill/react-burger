@@ -58,6 +58,13 @@ class Api {
     return this._getResponseData(res);
   }
 
+  //выход из профиля
+  async outUser(request) {
+    const res = await fetch(`${this._url}/api/auth/logout`, request);
+
+    return this._getResponseData(res)
+  }
+
 
 
 }

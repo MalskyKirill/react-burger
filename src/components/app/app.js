@@ -22,6 +22,7 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import ProfilePage from '../../pages/profile-page/profile-page';
 import ProfileRedact from '../profile-redact/profile-redact';
 import ProfileOrders from '../profile-orders/profile-orders';
+import Logout from '../logout/logout';
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function App() {
           <Route path={AppRoute.profile} element={<ProfilePage />}>
             <Route index element={<ProfileRedact />} />
             <Route path={AppRoute.orders} element={<ProfileOrders />} />
+            <Route path={AppRoute.logout} element={<Logout />} />
           </Route>
 
           <Route path='*' element={<PageNotFound />} />

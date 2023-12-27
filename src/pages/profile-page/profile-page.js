@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { AppRoute } from '../../utils/consts';
 import styles from './profile-page.module.css';
 
 const ProfilePage = () => {
@@ -22,7 +23,7 @@ const ProfilePage = () => {
             </li>
             <li className={styles.linkwrap}>
               <NavLink
-                to='/profile/orders'
+                to={AppRoute.orders}
                 className={`${styles.link} text text_type_main-medium text_color_inactive`}
               >
                 {({ isActive }) => (
@@ -38,9 +39,18 @@ const ProfilePage = () => {
             </li>
             <li className={styles.linkwrap}>
               <NavLink
+                to={AppRoute.logout}
                 className={`${styles.link} text text_type_main-medium text_color_inactive`}
               >
-                Выход
+                {({ isActive }) => (
+                  <p
+                    className={`text text_type_main-medium ${
+                      isActive ? 'text_color_primary' : 'text_color_inactive'
+                    }`}
+                  >
+                    Выход
+                  </p>
+                )}
               </NavLink>
             </li>
           </ul>
