@@ -12,8 +12,9 @@ const LoginPage = () => {
   const onSubmit = (data) => {
     dispatch(loginUser(data))
       .then((res) => {
-        if (res.payload.success) navigate(AppRoute.main);
-      });
+        if (res.payload?.success) navigate(AppRoute.main);
+      })
+      .catch(err => console.log(err))
   };
 
   return (
