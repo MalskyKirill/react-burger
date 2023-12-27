@@ -12,6 +12,8 @@ const Logout = () => {
   useEffect(() => {
     dispatch(logoutUser())
       .then(() => {
+        localStorage.setItem('accessToken', '');
+        localStorage.setItem('refreshToken', '');
         navigate('/')
       })
 

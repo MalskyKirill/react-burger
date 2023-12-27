@@ -94,13 +94,15 @@ export const resetPassword = createAsyncThunk(
 export const logoutUser = createAsyncThunk(
   '@@auth/logoutUser',
   async () => {
+    const token = localStorage.getItem('refreshToken')
+
     const request = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        token: localStorage.getItem('refreshToken')
+        token
       })
     }
 
