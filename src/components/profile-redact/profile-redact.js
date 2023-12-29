@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUser, selectUser } from '../../services/reducers/auth-slice';
+import { selectUser, updateCurrentUser } from '../../services/reducers/auth-slice';
 import styles from './profile-redact.module.css';
 
 const ProfileRedact = () => {
@@ -38,8 +38,13 @@ const ProfileRedact = () => {
     });
   };
 
+  const onSubmit = (evt) => {
+    evt.preventDefault()
+    dispatch(updateCurrentUser(state))
+  }
+
   return (
-    <form className={styles['profile-form']}>
+    <form className={styles['profile-form']} onSubmit={onSubmit}>
       <Input
         type={'text'}
         placeholder={'Имя'}
@@ -72,7 +77,7 @@ const ProfileRedact = () => {
           <Button htmlType='button' type='secondary' size='large'>
             Отмена
           </Button>
-          <Button htmlType='button' type='primary' size='large'>
+          <Button htmlType='submit' type='primary' size='large'>
             Cохранить
           </Button>
         </>

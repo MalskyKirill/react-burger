@@ -140,6 +140,27 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
+export const updateCurrentUser = createAsyncThunk(
+  '@@auth/updateCurrentUser',
+  async ({name, email}) => {
+    console.log(name, email)
+    const request = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('accessToken'),
+      },
+      body: JSON.stringify({
+        name,
+        email
+      })
+    };
+
+    const res = await api.updateUser(request);
+    return res;
+  }
+);
+
 const authSlice = createSlice({
   name: '@@auth',
   initialState,
@@ -253,7 +274,24 @@ const authSlice = createSlice({
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message;
-      });
+      })
+
+      .addCase(updateCurrentUser.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(updateCurrentUser.fulfilled, (state, action) => {
+        state.status = 'received';
+
+        state.user = {
+          name: action.payload.user.name,
+          email: action.payload.user.email,
+        };
+      })
+      .addCase(updateCurrentUser.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message;
+      })
   },
 });
 
