@@ -10,11 +10,9 @@ import { getCurrentUser, selectUser } from '../../services/reducers/auth-slice';
 import styles from './profile-redact.module.css';
 
 const ProfileRedact = () => {
-
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(selectUser)
-
+  const currentUser = useSelector(selectUser);
 
   const [state, setState] = useState({
     email: '',
@@ -23,9 +21,12 @@ const ProfileRedact = () => {
   });
 
   useEffect(() => {
-    setState({name: currentUser ? currentUser.name : '', email: currentUser ? currentUser.email : '', password: ''})
-  }, [])
-
+    setState({
+      name: currentUser ? currentUser.name : '',
+      email: currentUser ? currentUser.email : '',
+      password: '',
+    });
+  }, [currentUser]);
 
   const onChange = (evt) => {
     const name = evt.target.name;
@@ -50,7 +51,6 @@ const ProfileRedact = () => {
         size={'default'}
         extraClass='mb-6'
         icon='EditIcon'
-
       />
       <EmailInput
         onChange={onChange}
@@ -58,21 +58,25 @@ const ProfileRedact = () => {
         name={'email'}
         isIcon={true}
         extraClass='mb-6'
-
       />
       <PasswordInput
         onChange={onChange}
-        icon="EditIcon"
+        icon='EditIcon'
         value={state.password}
         name={'password'}
         extraClass='mb-6'
       />
 
-      <Button htmlType='button' type='secondary' size='large'>
-        Отмена
-      </Button><Button htmlType='button' type='primary' size='large'>
-          Cохранить
-        </Button>
+      {(state.name !== currentUser?.name || state.email !== currentUser?.email) && (
+        <>
+          <Button htmlType='button' type='secondary' size='large'>
+            Отмена
+          </Button>
+          <Button htmlType='button' type='primary' size='large'>
+            Cохранить
+          </Button>
+        </>
+      )}
     </form>
   );
 };
