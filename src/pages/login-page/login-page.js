@@ -5,6 +5,7 @@ import { AppRoute } from '../../utils/consts';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../services/reducers/auth-slice';
 
+
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const LoginPage = () => {
       })
       .catch(err => console.log(err))
   };
+
 
   return (
     <main className={styles.content}>

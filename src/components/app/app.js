@@ -23,7 +23,8 @@ import ProfilePage from '../../pages/profile-page/profile-page';
 import ProfileRedact from '../profile-redact/profile-redact';
 import ProfileOrders from '../profile-orders/profile-orders';
 import Logout from '../logout/logout';
-import { getCurrentUser } from '../../services/reducers/auth-slice';
+import { checkUserAuth, getCurrentUser, selectAccessToken, selectLogged, selectRefreshToken, updateAccessToken } from '../../services/reducers/auth-slice';
+import {OnlyAuth, OnlyUnAuth} from '../protected-router/protected-router';
 
 function App() {
   const dispatch = useDispatch();
@@ -37,16 +38,18 @@ function App() {
   //открытие модалок
   const isModalOrderOpen = useSelector(selectIsModalOrderOpen);
 
+  //загрузка ингредиентов
   useEffect(() => {
     if (!qty) {
       dispatch(loadIngredients());
     }
   }, [qty, dispatch]);
 
-  useEffect(() => {
-    dispatch(getCurrentUser())
 
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(checkUserAuth())
+
+  }, []);
 
   const handleModalClose = () => {
     // Возвращаемся к предыдущему пути при закрытии модалки
@@ -62,11 +65,11 @@ function App() {
             path={`${AppRoute.ingredients}/:id`}
             element={<IngredienDetails />}
           ></Route>
-          <Route path={AppRoute.login} element={<LoginPage />} />
+          <Route path={AppRoute.login} element={<OnlyUnAuth component={<LoginPage />} />} />
           <Route path={AppRoute.register} element={<RegisterPage />} />
           <Route path={AppRoute.forgotPassword} element={<ForgotPassword />} />
           <Route path={AppRoute.resetPassword} element={<ResetPassword />} />
-          <Route path={AppRoute.profile} element={<ProfilePage />}>
+          <Route path={AppRoute.profile} element={<OnlyAuth component={<ProfilePage />} />} >
             <Route index element={<ProfileRedact />} />
             <Route path={AppRoute.orders} element={<ProfileOrders />} />
             <Route path={AppRoute.logout} element={<Logout />} />

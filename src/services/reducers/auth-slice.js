@@ -8,6 +8,7 @@ const initialState = {
   status: 'idle',
   error: null,
   success: false,
+  isAuthChecked: false,
 };
 
 //асинхронный санк для регистрации юзера
@@ -106,35 +107,16 @@ export const logoutUser = createAsyncThunk('@@auth/logoutUser', async () => {
   return res;
 });
 
-export const updateAccessToken = createAsyncThunk(
-  '@@auth/updateAccessToken',
-  async () => {
-    const request = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token: localStorage.getItem('refreshToken'),
-      }),
-    };
-
-    const res = await api.getAccessToken(request);
-    return res;
-  }
-);
-
 export const getCurrentUser = createAsyncThunk(
   '@@auth/getCurrentUser',
-  async () => {
+  async (accessToken) => {
     const request = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        authorization: localStorage.getItem('accessToken'),
+        authorization: accessToken,
       },
     };
-
     const res = await api.getUser(request);
     return res;
   }
@@ -142,8 +124,8 @@ export const getCurrentUser = createAsyncThunk(
 
 export const updateCurrentUser = createAsyncThunk(
   '@@auth/updateCurrentUser',
-  async ({name, email}) => {
-    console.log(name, email)
+  async ({ name, email }) => {
+    console.log(name, email);
     const request = {
       method: 'PATCH',
       headers: {
@@ -152,8 +134,8 @@ export const updateCurrentUser = createAsyncThunk(
       },
       body: JSON.stringify({
         name,
-        email
-      })
+        email,
+      }),
     };
 
     const res = await api.updateUser(request);
@@ -161,10 +143,29 @@ export const updateCurrentUser = createAsyncThunk(
   }
 );
 
+export const checkUserAuth = () => {
+  return (dispatch) => {
+    if (localStorage.getItem('accessToken')) {
+      dispatch(getCurrentUser(localStorage.getItem('accessToken')))
+        .then((res) => {})
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => dispatch(setAuthChecked(true)));
+    } else {
+      dispatch(setAuthChecked(true));
+    }
+  };
+};
+
 const authSlice = createSlice({
   name: '@@auth',
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthChecked: (state, action) => {
+      state.isAuthChecked = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createUser.pending, (state, action) => {
@@ -179,6 +180,7 @@ const authSlice = createSlice({
         };
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.isAuthChecked = true;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.status = 'rejected';
@@ -197,6 +199,7 @@ const authSlice = createSlice({
         };
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.isAuthChecked = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'rejected';
@@ -244,21 +247,6 @@ const authSlice = createSlice({
         state.error = action.error.message;
       })
 
-      .addCase(updateAccessToken.pending, (state, action) => {
-        state.status = 'loading';
-        state.error = null;
-      })
-      .addCase(updateAccessToken.fulfilled, (state, action) => {
-        state.status = 'received';
-
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
-      })
-      .addCase(updateAccessToken.rejected, (state, action) => {
-        state.status = 'rejected';
-        state.error = action.error.message;
-      })
-
       .addCase(getCurrentUser.pending, (state, action) => {
         state.status = 'loading';
         state.error = null;
@@ -270,8 +258,11 @@ const authSlice = createSlice({
           name: action.payload.user.name,
           email: action.payload.user.email,
         };
+
+        state.isAuthChecked = true;
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
+        console.log(action);
         state.status = 'rejected';
         state.error = action.error.message;
       })
@@ -291,11 +282,16 @@ const authSlice = createSlice({
       .addCase(updateCurrentUser.rejected, (state, action) => {
         state.status = 'rejected';
         state.error = action.error.message;
-      })
+      });
   },
 });
 
 export const authReducer = authSlice.reducer;
 
+const { setAuthChecked } = authSlice.actions;
+
 // selectors
 export const selectUser = (state) => state.auth.user;
+export const selectAccessToken = (state) => state.auth.accessToken;
+export const selectRefreshToken = (state) => state.auth.refreshToken;
+export const selectIsAuthChecked = (state) => state.auth.isAuthChecked;
