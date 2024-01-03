@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SignForm from '../../components/sign-form/sign-form';
 import { resetPassword } from '../../services/reducers/auth-slice';
 import { AppRoute } from '../../utils/consts';
@@ -9,6 +10,9 @@ const ResetPassword = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+  const location = useLocation()
+
+  console.log(location)
 
   const onSubmit = (data) => {
     dispatch(resetPassword(data))
@@ -16,6 +20,12 @@ const ResetPassword = () => {
         if (res.payload.success) navigate(AppRoute.main);
       });
   };
+
+  useEffect(() => {
+    if(location.state?.from !== AppRoute.forgotPassword) {
+      return navigate(AppRoute.login)
+    }
+  }, [])
 
   return (
     <main className={styles.content}>

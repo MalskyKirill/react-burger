@@ -13,7 +13,10 @@ const ForgotPassword = () => {
   const onSubmit = (data) => {
     dispatch(forgotPassword(data))
       .then((res) => {
-        if (res.payload.success) navigate(AppRoute.resetPassword);
+        if (res.payload.success) navigate(AppRoute.resetPassword, {
+          state: { from: AppRoute.forgotPassword },
+          replace: true,
+        });
       });
   };
 
