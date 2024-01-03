@@ -66,9 +66,9 @@ function App() {
             element={<IngredienDetails />}
           ></Route>
           <Route path={AppRoute.login} element={<OnlyUnAuth component={<LoginPage />} />} />
-          <Route path={AppRoute.register} element={<RegisterPage />} />
-          <Route path={AppRoute.forgotPassword} element={<ForgotPassword />} />
-          <Route path={AppRoute.resetPassword} element={<ResetPassword />} />
+          <Route path={AppRoute.register} element={<OnlyUnAuth component={<RegisterPage />}/>} />
+          <Route path={AppRoute.forgotPassword} element={<OnlyUnAuth component={<ForgotPassword />}/>} />
+          <Route path={AppRoute.resetPassword} element={<OnlyUnAuth component={<ResetPassword />}/>} />
           <Route path={AppRoute.profile} element={<OnlyAuth component={<ProfilePage />} />} >
             <Route index element={<ProfileRedact />} />
             <Route path={AppRoute.orders} element={<ProfileOrders />} />
