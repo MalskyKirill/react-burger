@@ -12,8 +12,6 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation()
 
-  console.log(location)
-
   const onSubmit = (data) => {
     dispatch(resetPassword(data))
       .then((res) => {

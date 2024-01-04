@@ -261,7 +261,6 @@ const authSlice = createSlice({
         state.isAuthChecked = true;
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
-        console.log(action);
         state.status = 'rejected';
         state.error = action.error.message;
       })

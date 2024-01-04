@@ -8,10 +8,7 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-
     dispatch(createUser(data))
-
-
   };
 
   return (
