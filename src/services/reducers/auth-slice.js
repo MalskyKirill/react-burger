@@ -124,8 +124,7 @@ export const getCurrentUser = createAsyncThunk(
 
 export const updateCurrentUser = createAsyncThunk(
   '@@auth/updateCurrentUser',
-  async ({ name, email }) => {
-    console.log(name, email);
+  async ({ name, email, password }) => {
     const request = {
       method: 'PATCH',
       headers: {
@@ -135,6 +134,7 @@ export const updateCurrentUser = createAsyncThunk(
       body: JSON.stringify({
         name,
         email,
+        password
       }),
     };
 
