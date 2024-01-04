@@ -1,4 +1,4 @@
-export const urlApi = 'https://norma.nomoreparties.space'
+export const urlApi = 'https://norma.nomoreparties.space';
 
 export const AppRoute = {
   main: '/',
@@ -9,5 +9,9 @@ export const AppRoute = {
   ingredients: '/ingredients',
   profile: '/profile',
   orders: '/profile/orders',
-  logout: '/profile/logout'
-}
+  logout: '/profile/logout',
+};
+
+export const ACCESS_TOKEN = 'accessToken';
+export const REFRESH_TOKEN = 'refreshToken';
+

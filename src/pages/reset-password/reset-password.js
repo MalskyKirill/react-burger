@@ -10,7 +10,7 @@ const ResetPassword = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
 
   const onSubmit = (data) => {
     dispatch(resetPassword(data))

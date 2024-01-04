@@ -1,4 +1,4 @@
-import { urlApi } from './consts';
+import { urlApi, ACCESS_TOKEN, REFRESH_TOKEN } from './consts';
 
 class Api {
   constructor(url) {
@@ -70,7 +70,7 @@ class Api {
         "Content-Type": "application/json;charset=utf-8",
       },
       body: JSON.stringify({
-        token: localStorage.getItem("refreshToken"),
+        token: localStorage.getItem(REFRESH_TOKEN),
       }),
     })
 
@@ -88,8 +88,8 @@ class Api {
         if (!refreshData.success) {
           return Promise.reject(refreshData);
         }
-        localStorage.setItem("refreshToken", refreshData.refreshToken);
-        localStorage.setItem("accessToken", refreshData.accessToken);
+        localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
         request.headers.authorization = refreshData.accessToken;
         const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
         return this._getResponseData(res);
@@ -110,8 +110,8 @@ class Api {
         if (!refreshData.success) {
           return Promise.reject(refreshData);
         }
-        localStorage.setItem("refreshToken", refreshData.refreshToken);
-        localStorage.setItem("accessToken", refreshData.accessToken);
+        localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+        localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
         request.headers.authorization = refreshData.accessToken;
         const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
         return this._getResponseData(res);

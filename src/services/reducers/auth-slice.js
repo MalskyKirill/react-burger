@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../../utils/api';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../utils/consts';
 
 const initialState = {
   user: null,
@@ -28,8 +29,8 @@ export const createUser = createAsyncThunk(
     };
 
     const res = await api.addUser(request);
-    localStorage.setItem('accessToken', res.accessToken);
-    localStorage.setItem('refreshToken', res.refreshToken);
+    localStorage.setItem(ACCESS_TOKEN, res.accessToken);
+    localStorage.setItem(REFRESH_TOKEN, res.refreshToken);
     return res;
   }
 );
@@ -49,8 +50,8 @@ export const loginUser = createAsyncThunk(
       }),
     };
     const res = await api.authUser(request);
-    localStorage.setItem('accessToken', res.accessToken);
-    localStorage.setItem('refreshToken', res.refreshToken);
+    localStorage.setItem(ACCESS_TOKEN, res.accessToken);
+    localStorage.setItem(REFRESH_TOKEN, res.refreshToken);
     return res;
   }
 );
@@ -99,7 +100,7 @@ export const logoutUser = createAsyncThunk('@@auth/logoutUser', async () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      token: localStorage.getItem('refreshToken'),
+      token: localStorage.getItem(REFRESH_TOKEN),
     }),
   };
 
@@ -129,7 +130,7 @@ export const updateCurrentUser = createAsyncThunk(
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        authorization: localStorage.getItem('accessToken'),
+        authorization: localStorage.getItem(ACCESS_TOKEN),
       },
       body: JSON.stringify({
         name,
@@ -145,8 +146,8 @@ export const updateCurrentUser = createAsyncThunk(
 
 export const checkUserAuth = () => {
   return (dispatch) => {
-    if (localStorage.getItem('accessToken')) {
-      dispatch(getCurrentUser(localStorage.getItem('accessToken')))
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      dispatch(getCurrentUser(localStorage.getItem(ACCESS_TOKEN)))
         .then((res) => {})
         .catch((err) => {
           console.log(err)
