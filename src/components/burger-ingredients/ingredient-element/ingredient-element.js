@@ -24,6 +24,7 @@ const IngredientElement = ({ data, counter }) => {
     price,
   } = data;
 
+
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item: data,

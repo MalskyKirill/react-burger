@@ -4,3 +4,7 @@
   gap: 40px;
   justify-content: space-between;
 }
+
+.error-message {
+  align-self: 'center';
+}

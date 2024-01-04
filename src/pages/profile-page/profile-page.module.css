@@ -1,0 +1,30 @@
+.content {
+  padding-top: 120px;
+}
+
+.account {
+  display: flex;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 60px;
+}
+
+.nav {}
+
+.linkwrap {
+  width: 320px;
+  height: 64px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.link {
+  text-decoration: none;
+}

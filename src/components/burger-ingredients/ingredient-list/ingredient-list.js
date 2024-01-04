@@ -5,9 +5,12 @@ import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
 import { useSelector } from 'react-redux';
 import { selectConstructorElements } from '../../../services/reducers/constructor-slice';
 import { useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { AppRoute } from '../../../utils/consts';
 
 const IngredientList = ({ title, data, refItem }) => {
   const constructorElements = useSelector(selectConstructorElements);
+  const location = useLocation();
 
   //подсчет количества ингредиентов
   const burgerIngredientsCounter = useMemo(() => {
@@ -31,11 +34,12 @@ const IngredientList = ({ title, data, refItem }) => {
       <h2 ref={refItem}>{title}</h2>
       <ul className={styles['ingredient-list']}>
         {data.map((el) => (
-          <IngredientElement
-            key={el._id}
-            data={el}
-            counter={burgerIngredientsCounter[el._id]}
-          />
+          <Link className={styles.link} to={`${AppRoute.ingredients}/${el._id}`} key={el._id} state={{ background: location }}>
+            <IngredientElement
+              data={el}
+              counter={burgerIngredientsCounter[el._id]}
+            />
+          </Link>
         ))}
       </ul>
     </>

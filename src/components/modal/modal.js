@@ -4,23 +4,13 @@ import { createPortal } from 'react-dom';
 import ModalOverlay from '../modalOverlay/modal-overlay';
 import styles from './modal.module.css';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { removeModalData } from '../../services/reducers/details-slice';
-import { removeModalOrderData } from '../../services/reducers/order-slice';
 
 const modalRoot = document.getElementById('react-modals');
 
-const Modal = ({ title, children }) => {
-
-  const dispatch = useDispatch()
-
-  const onClose = () => {
-    dispatch(removeModalData())
-    dispatch(removeModalOrderData())
-  }
+const Modal = ({ title, children, handleModalClose }) => {
 
   const handleEscClose = (evt) => {
-    if (evt.key === 'Escape') onClose();
+    if (evt.key === 'Escape') handleModalClose();
   };
 
   useEffect(() => {
@@ -46,12 +36,12 @@ const Modal = ({ title, children }) => {
             <CloseIcon
               type='primary'
               className={styles['btn-close']}
-              onClick={onClose}
+              onClick={handleModalClose}
             />
           </div>
           {children}
         </div>
-      <ModalOverlay onClose={onClose} />
+      <ModalOverlay onClose={handleModalClose} />
       </div>
     </>,
     modalRoot
