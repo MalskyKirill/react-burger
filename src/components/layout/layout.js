@@ -4,7 +4,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import styles from './layout.module.css';
 import NavLinkIcon from './nav-link-icon/nav-link-icon';
 import { AppRoute } from '../../utils/consts';
@@ -29,9 +29,9 @@ const Layout = () => {
                 </NavLinkIcon>
               </li>
             </ul>
-            <div className={styles['navigation-logo']}>
+            <Link to={AppRoute.main} className={styles['navigation-logo']}>
               <Logo />
-            </div>
+            </Link>
             <div className={styles['navigation-profile']}>
               <NavLinkIcon icon={ProfileIcon} isActive={location.pathname === AppRoute.profile} path={AppRoute.profile}>
                 Личный кабинет
