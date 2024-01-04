@@ -33,7 +33,7 @@ const Layout = () => {
               <Logo />
             </Link>
             <div className={styles['navigation-profile']}>
-              <NavLinkIcon icon={ProfileIcon} isActive={location.pathname === AppRoute.profile} path={AppRoute.profile}>
+              <NavLinkIcon icon={ProfileIcon} isActive={location.pathname.slice(0, 8) === AppRoute.profile} path={AppRoute.profile}>
                 Личный кабинет
               </NavLinkIcon>
             </div>
