@@ -100,11 +100,26 @@ class Api {
   }
 
   async updateUser(request) {
-    const res = await fetch(`${this._url}/api/auth/user`, request);
-
-    return this._getResponseData(res);
+    try{
+      const res = await fetch(`${this._url}/api/auth/user`, request);
+      return await this._getResponseData(res);
+    }
+    catch (err) {
+      if (err.message === "jwt expired") {
+        const refreshData = await this.refreshToken(); //обновляем токен
+        if (!refreshData.success) {
+          return Promise.reject(refreshData);
+        }
+        localStorage.setItem("refreshToken", refreshData.refreshToken);
+        localStorage.setItem("accessToken", refreshData.accessToken);
+        request.headers.authorization = refreshData.accessToken;
+        const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
+        return this._getResponseData(res);
+      } else {
+        return Promise.reject(err);
+      }
+    }
   }
-
 }
 
 export const api = new Api(urlApi);

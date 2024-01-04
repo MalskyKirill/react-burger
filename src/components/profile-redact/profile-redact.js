@@ -72,7 +72,7 @@ const ProfileRedact = () => {
         extraClass='mb-6'
       />
 
-      {(state.name !== currentUser?.name || state.email !== currentUser?.email) && (
+      {(state.name !== currentUser?.name || state.email !== currentUser?.email || state.password.length > 0) && (
         <>
           <Button htmlType='button' type='secondary' size='large'>
             Отмена
