@@ -17,7 +17,7 @@ const ResetPassword = () => {
   const onSubmit = (data) => {
     dispatch(resetPassword(data))
       .then((res) => {
-        if (res.payload.success) navigate(AppRoute.main);
+        if (res.payload?.success) navigate(AppRoute.main);
       });
   };
 

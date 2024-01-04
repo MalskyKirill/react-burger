@@ -211,7 +211,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(forgotPassword.fulfilled, (state, action) => {
-        console.log(action);
         state.status = 'received';
       })
       .addCase(forgotPassword.rejected, (state, action) => {
