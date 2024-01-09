@@ -1,11 +1,14 @@
 import { urlApi, ACCESS_TOKEN, REFRESH_TOKEN } from './consts';
+import { IRequest } from '../types/api';
 
 class Api {
-  constructor(url) {
+  _url: string;
+
+  constructor(url: string) {
     this._url = url;
   }
 
-  _getResponseData(res) {
+  _getResponseData(res: Response) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
   }
 
@@ -21,42 +24,42 @@ class Api {
   }
 
   //создание заказа
-  async addOrder(request) {
+  async addOrder(request: IRequest | undefined) {
     const res = await fetch(`${this._url}/api/orders`, request);
 
     return this._getResponseData(res);
   }
 
   //создание пользователя
-  async addUser(request) {
+  async addUser(request: IRequest | undefined) {
     const res = await fetch(`${this._url}/api/auth/register`, request);
 
     return this._getResponseData(res);
   }
 
   //авторизация пользователя
-  async authUser(request) {
+  async authUser(request: IRequest | undefined) {
     const res = await fetch(`${this._url}/api/auth/login`, request);
 
     return this._getResponseData(res)
   }
 
   //запрос на востановление пароля
-  async forgotUserPassword(request) {
+  async forgotUserPassword(request: IRequest | undefined) {
     const res = await fetch(`${this._url}/api/password-reset`, request);
 
     return this._getResponseData(res);
   }
 
   //сброс пароля
-  async resetUserPassword(request) {
+  async resetUserPassword(request: IRequest | undefined) {
     const res = await fetch(`${this._url}/api/password-reset/reset`, request);
 
     return this._getResponseData(res);
   }
 
   //выход из профиля
-  async outUser(request) {
+  async outUser(request: IRequest | undefined) {
     const res = await fetch(`${this._url}/api/auth/logout`, request);
 
     return this._getResponseData(res)
@@ -77,46 +80,54 @@ class Api {
     return this._getResponseData(res);
   };
 
-  async getUser(request) {
+  async getUser(request: IRequest | undefined) {
     try{
       const res = await fetch(`${this._url}/api/auth/user`, request);
       return await this._getResponseData(res);
     }
     catch (err) {
-      if (err.message === "jwt expired") {
-        const refreshData = await this.refreshToken(); //обновляем токен
-        if (!refreshData.success) {
-          return Promise.reject(refreshData);
+      if (err instanceof Error) {
+        if (err.message === "jwt expired") {
+          const refreshData = await this.refreshToken(); //обновляем токен
+          if (!refreshData.success) {
+            return Promise.reject(refreshData);
+          }
+          localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+          localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
+          if (request) {
+            request.headers.authorization = refreshData.accessToken;
+          }
+          const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
+          return this._getResponseData(res);
+        } else {
+          return Promise.reject(err);
         }
-        localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
-        localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
-        request.headers.authorization = refreshData.accessToken;
-        const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
-        return this._getResponseData(res);
-      } else {
-        return Promise.reject(err);
       }
     }
   }
 
-  async updateUser(request) {
+  async updateUser(request: IRequest | undefined) {
     try{
       const res = await fetch(`${this._url}/api/auth/user`, request);
       return await this._getResponseData(res);
     }
     catch (err) {
-      if (err.message === "jwt expired") {
-        const refreshData = await this.refreshToken(); //обновляем токен
-        if (!refreshData.success) {
-          return Promise.reject(refreshData);
+      if (err instanceof Error) {
+        if (err.message === "jwt expired") {
+          const refreshData = await this.refreshToken(); //обновляем токен
+          if (!refreshData.success) {
+            return Promise.reject(refreshData);
+          }
+          localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+          localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
+          if (request) {
+            request.headers.authorization = refreshData.accessToken;
+          }
+          const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
+          return this._getResponseData(res);
+        } else {
+          return Promise.reject(err);
         }
-        localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
-        localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
-        request.headers.authorization = refreshData.accessToken;
-        const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
-        return this._getResponseData(res);
-      } else {
-        return Promise.reject(err);
       }
     }
   }
