@@ -18,7 +18,6 @@ const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingredian
   const [, drop] = useDrop({
     accept: 'swap',
     drop(item) {
-      console.log(item)
       if(index !== item.index){
         swapCard(index, item.index)
       }
