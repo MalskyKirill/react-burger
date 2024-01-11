@@ -3,14 +3,13 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../modalOverlay/modal-overlay';
 import styles from './modal.module.css';
-import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById('react-modals') as HTMLElement;
 
 type IModal = {
-  title: string,
+  title?: string,
   children: JSX.Element,
-  handleModalClose: () => void
+  handleModalClose: () => void,
 }
 
 const Modal = ({ title, children, handleModalClose }: IModal): JSX.Element => {

@@ -42,11 +42,13 @@ function App() {
   //загрузка ингредиентов
   useEffect(() => {
     if (!qty) {
+      // @ts-ignore
       dispatch(loadIngredients());
     }
   }, [qty, dispatch]);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(checkUserAuth());
   }, []);
 
@@ -108,7 +110,10 @@ function App() {
         </Routes>
       )}
       {isModalOrderOpen && (
-          <Modal handleModalClose={() => dispatch(removeModalOrderData())}>
+          <Modal handleModalClose={() => {
+            // @ts-ignore
+            dispatch(removeModalOrderData())
+            }}>
             <OrderDetails />
           </Modal>
         )}
