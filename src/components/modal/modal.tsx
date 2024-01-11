@@ -5,11 +5,17 @@ import ModalOverlay from '../modalOverlay/modal-overlay';
 import styles from './modal.module.css';
 import PropTypes from 'prop-types';
 
-const modalRoot = document.getElementById('react-modals');
+const modalRoot = document.getElementById('react-modals') as HTMLElement;
 
-const Modal = ({ title, children, handleModalClose }) => {
+type IModal = {
+  title: string,
+  children: JSX.Element,
+  handleModalClose: () => void
+}
 
-  const handleEscClose = (evt) => {
+const Modal = ({ title, children, handleModalClose }: IModal): JSX.Element => {
+
+  const handleEscClose = (evt: { key: string; }) => {
     if (evt.key === 'Escape') handleModalClose();
   };
 
@@ -35,7 +41,6 @@ const Modal = ({ title, children, handleModalClose }) => {
             )}
             <CloseIcon
               type='primary'
-              className={styles['btn-close']}
               onClick={handleModalClose}
             />
           </div>
@@ -46,12 +51,6 @@ const Modal = ({ title, children, handleModalClose }) => {
     </>,
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.element,
-  onClose: PropTypes.func,
 };
 
 export default Modal;

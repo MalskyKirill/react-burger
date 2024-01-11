@@ -9,7 +9,7 @@ import styles from './layout.module.css';
 import NavLinkIcon from './nav-link-icon/nav-link-icon';
 import { AppRoute } from '../../utils/consts';
 
-const Layout = () => {
+const Layout = (): JSX.Element => {
   const location = useLocation()
 
   return (
