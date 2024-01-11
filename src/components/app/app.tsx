@@ -27,7 +27,7 @@ import {
 } from '../../services/reducers/auth-slice';
 import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
 
-function App() {
+function App(): JSX.Element {
   const dispatch = useDispatch();
   const { qty } = useSelector(selectIngredientsInfo);
 
