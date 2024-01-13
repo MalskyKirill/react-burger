@@ -4,12 +4,24 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './sign-form.module.css';
 import { AppRoute } from '../../utils/consts';
 
-const SignForm = ({ buttonName, onSubmit }) => {
+type TOnSubmit = {
+  email?: string,
+  password?: string,
+  name?: string,
+  token?: string,
+}
+
+type TSignForm = {
+  buttonName: string,
+  onSubmit: (data: TOnSubmit) => void
+}
+
+const SignForm = ({ buttonName, onSubmit }: TSignForm): JSX.Element => {
 
   const initialState = {
     email: '',
@@ -22,7 +34,7 @@ const SignForm = ({ buttonName, onSubmit }) => {
 
   const [state, setState] = useState(initialState);
 
-  const onChange = (evt) => {
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const name = evt.target.name;
     const value = evt.target.value;
 
@@ -32,7 +44,7 @@ const SignForm = ({ buttonName, onSubmit }) => {
     });
   };
 
-  const onSubmitForm = (evt) => {
+  const onSubmitForm = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
     onSubmit(state)
 
