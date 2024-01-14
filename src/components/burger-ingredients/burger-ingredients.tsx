@@ -1,19 +1,17 @@
 import styles from './burger-ingredients.module.css';
 import BurgerTabs from './burger-tabs/burger-tabs';
 import BurgerProductList from './burger-product-list/burger-product-list';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 import { useEffect, useRef, useState } from 'react';
 
-const BurgerIngredients = () => {
+const BurgerIngredients = (): JSX.Element => {
 
   //навигация по ингредиентам
   const [current, setCurrent] = useState('Булки');
 
-  const rootRef = useRef(null);
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
+  const rootRef = useRef<HTMLElement>(null);
+  const bunRef = useRef<HTMLHeadingElement>(null);
+  const sauceRef = useRef<HTMLHeadingElement>(null);
+  const mainRef = useRef<HTMLHeadingElement>(null);
 
   const handleScroll = () => {
     if (
@@ -63,11 +61,6 @@ const BurgerIngredients = () => {
       />
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes),
-  handleCardClick: PropTypes.func,
 };
 
 export default BurgerIngredients;
