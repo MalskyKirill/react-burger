@@ -6,7 +6,7 @@ type TBurgerTabs = {
   setCurrent: React.Dispatch<React.SetStateAction<string>>
 }
 
-const BurgerTabs = ({current, setCurrent}: TBurgerTabs) => {
+const BurgerTabs = ({current, setCurrent}: TBurgerTabs): JSX.Element => {
 
   return (
     <div className={`${styles.tabs} pt-5`}>

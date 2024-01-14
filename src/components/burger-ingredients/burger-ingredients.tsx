@@ -8,7 +8,7 @@ const BurgerIngredients = (): JSX.Element => {
   //навигация по ингредиентам
   const [current, setCurrent] = useState('Булки');
 
-  const rootRef = useRef<HTMLElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const bunRef = useRef<HTMLHeadingElement>(null);
   const sauceRef = useRef<HTMLHeadingElement>(null);
   const mainRef = useRef<HTMLHeadingElement>(null);
