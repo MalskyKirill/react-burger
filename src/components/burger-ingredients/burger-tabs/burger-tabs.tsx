@@ -1,7 +1,12 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-tabs.module.css'
 
-const BurgerTabs = ({current, setCurrent}) => {
+type TBurgerTabs = {
+  current: string,
+  setCurrent: React.Dispatch<React.SetStateAction<string>>
+}
+
+const BurgerTabs = ({current, setCurrent}: TBurgerTabs) => {
 
   return (
     <div className={`${styles.tabs} pt-5`}>
