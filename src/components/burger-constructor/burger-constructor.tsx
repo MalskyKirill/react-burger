@@ -9,54 +9,72 @@ import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient, removeConstructorData } from '../../services/reducers/constructor-slice';
 import { getOrderNumber } from '../../services/reducers/order-slice';
+import { IIngredient } from '../../types/ingredient';
+import { IHandleDropEl } from '../../types/handle-drop-el';
+
+type TBurgerConstructor = {
+  handleDropBun: (item: IIngredient) => void,
+  handleDropEl: ({ ingredient, id }: IHandleDropEl) => void
+}
+
+type TBurgerIngridients = {
+  id: string,
+  ingredient: IIngredient
+}
 
 const BurgerConstructor = ({
   handleDropBun,
   handleDropEl,
-}) => {
+}: TBurgerConstructor): JSX.Element => {
 
   const dispatch = useDispatch();
 
   //dnd drop логика
   const [, dropBun] = useDrop({
     accept: 'ingredient',
-    drop(el) {
+    drop(el: IIngredient) {
       if (el.type === 'bun') handleDropBun(el);
     },
   });
 
   const [, dropIngredient] = useDrop({
     accept: 'ingredient',
-    drop(ingredient) {
+    drop(ingredient: IIngredient) {
       const id = uuidv4();
       if (ingredient.type !== 'bun') handleDropEl({ ingredient, id });
     },
   });
 
-  const swapCard = (fromIndex, toIndex) => {
+  const swapCard = (fromIndex: number, toIndex: number) => {
     dispatch(swapIngredients({fromIndex, toIndex}))
   };
 
   //удаление
-  const deleteCard = (ingredient) => {
+  const deleteCard = (ingredient: IIngredient) => {
     dispatch(deleteIngredient(ingredient))
   }
 
   //получение булки
-  const burgerBun = useSelector(selectConstructorBun);
+  const burgerBun: IIngredient = useSelector(selectConstructorBun);
 
   //получение ингредиентов
-  const burgerIngridients = useSelector(selectConstructorIngredients);
+  const burgerIngridients: Array<TBurgerIngridients> = useSelector(selectConstructorIngredients);
+
 
   const idBurgerIngridients = [...burgerIngridients.map(el => el.ingredient._id)]
   const onClick = () => {
 
+
+    // @ts-ignore
     dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun}))
+      // @ts-ignore
       .then((res) => {
         if (res.payload.success) {
+          // @ts-ignore
           dispatch(removeConstructorData())
         }
       })
+      // @ts-ignore
       .catch((err) => {
         console.log(err)
       })
