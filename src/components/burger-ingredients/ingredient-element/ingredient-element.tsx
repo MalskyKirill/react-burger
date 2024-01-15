@@ -3,13 +3,17 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredient-element.module.css';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
 import { useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import { addDataDetails } from '../../../services/reducers/details-slice';
+import {IIngredient} from '../../../types/ingredient';
 
-const IngredientElement = ({ data, counter }) => {
+type TIngredientElement = {
+  data: IIngredient,
+  counter: number
+}
+
+const IngredientElement = ({ data, counter }: TIngredientElement): JSX.Element => {
 
   const dispatch = useDispatch()
 
@@ -65,17 +69,10 @@ const IngredientElement = ({ data, counter }) => {
           count={counter}
           size='default'
           extraClass='m-1'
-          className={styles.counter}
         />
       )}
     </li>
   );
-};
-
-IngredientElement.propTypes = {
-  data: ingredientPropTypes,
-  handleCardClick: PropTypes.func,
-  count: PropTypes.number,
 };
 
 export default IngredientElement;
