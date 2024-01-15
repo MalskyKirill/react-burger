@@ -1,21 +1,26 @@
 import IngredientElement from '../ingredient-element/ingredient-element';
 import styles from './ingredient-list.module.css';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
 import { useSelector } from 'react-redux';
 import { selectConstructorElements } from '../../../services/reducers/constructor-slice';
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../../utils/consts';
+import {IIngredient} from '../../../types/ingredient'
 
-const IngredientList = ({ title, data, refItem }) => {
+type TIngredientList = {
+  title: string,
+  data: Array<IIngredient>,
+  refItem: React.RefObject<HTMLHeadingElement>
+}
+
+const IngredientList = ({ title, data, refItem }: TIngredientList): JSX.Element => {
   const constructorElements = useSelector(selectConstructorElements);
   const location = useLocation();
 
   //подсчет количества ингредиентов
   const burgerIngredientsCounter = useMemo(() => {
     const { bun, ingredients } = constructorElements;
-    const countElements = {};
+    const countElements: Record<string, number> = {};
 
     for (const elem of ingredients) {
       // если элемент уже был, то прибавляем 1, если нет - устанавливаем 1
@@ -25,7 +30,6 @@ const IngredientList = ({ title, data, refItem }) => {
     }
 
     if (bun) countElements[bun._id] = 2;
-
     return countElements;
   }, [constructorElements]);
 
@@ -44,12 +48,6 @@ const IngredientList = ({ title, data, refItem }) => {
       </ul>
     </>
   );
-};
-
-IngredientList.propTypes = {
-  title: PropTypes.string,
-  data: PropTypes.arrayOf(ingredientPropTypes),
-  handleCardClick: PropTypes.func,
 };
 
 export default IngredientList;
