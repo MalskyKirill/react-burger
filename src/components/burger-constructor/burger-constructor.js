@@ -11,7 +11,6 @@ import { selectConstructorBun, selectConstructorIngredients, swapIngredients, de
 import { getOrderNumber } from '../../services/reducers/order-slice';
 
 const BurgerConstructor = ({
-  handleOrderClick,
   handleDropBun,
   handleDropEl,
 }) => {
@@ -120,7 +119,7 @@ const BurgerConstructor = ({
             </div>
           )}
         </div>
-        <BurgerOrder handleOrderClick={handleOrderClick} onClick={onClick}/>
+        <BurgerOrder onClick={onClick}/>
       </div>
     </section>
   );
