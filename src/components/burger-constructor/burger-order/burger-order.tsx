@@ -3,15 +3,19 @@ import {
   CurrencyIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { selectConstructorBun, selectConstructorIngredients } from '../../../services/reducers/constructor-slice';
+import { IIngredient } from '../../../types/ingredient';
+import {IBurgerIngredients} from '../../../types/ingredient';
 
+type TBurgerOrder = {
+  onClick: () => void
+}
 
-const BurgerOrder = ({onClick}) => {
+const BurgerOrder = ({onClick}: TBurgerOrder): JSX.Element => {
 
-  const constructorBun = useSelector(selectConstructorBun);
-  const constructorIngredients = useSelector(selectConstructorIngredients);
+  const constructorBun: IIngredient = useSelector(selectConstructorBun);
+  const constructorIngredients: Array<IBurgerIngredients> = useSelector(selectConstructorIngredients);
 
   //расчет стоимости бургера
   const coastBun = constructorBun
@@ -36,11 +40,6 @@ const BurgerOrder = ({onClick}) => {
       </Button>
     </div>
   );
-};
-
-BurgerOrder.propTypes = {
-  coast: PropTypes.number,
-  handleOrderClick: PropTypes.func,
 };
 
 export default BurgerOrder;

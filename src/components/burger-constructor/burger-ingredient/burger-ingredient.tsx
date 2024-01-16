@@ -3,7 +3,6 @@ import {
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredient.module.css';
-import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { IIngredient } from '../../../types/ingredient';
@@ -16,7 +15,7 @@ type TBurgerIngredient = {
   ingrediantId: string
 }
 
-const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingrediantId }: TBurgerIngredient) => {
+const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingrediantId }: TBurgerIngredient): JSX.Element => {
   const ref = useRef(null)
 
   const [, drag] = useDrag({
@@ -47,10 +46,6 @@ const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingredian
       />
     </li>
   );
-};
-
-BurgerIngredient.propTypes = {
-  ingredient: ingredientPropTypes
 };
 
 export default BurgerIngredient;

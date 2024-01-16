@@ -12,3 +12,8 @@ export interface IIngredient {
   image_large: string;
   __v: number;
 }
+
+export interface IBurgerIngredients {
+  id: string,
+  ingredient: IIngredient
+}
