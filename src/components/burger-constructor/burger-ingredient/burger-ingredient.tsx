@@ -6,8 +6,17 @@ import styles from './burger-ingredient.module.css';
 import { ingredientPropTypes } from '../../../utils/ingredient-prop-types';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import { IIngredient } from '../../../types/ingredient';
 
-const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingrediantId }) => {
+type TBurgerIngredient = {
+  ingredient: IIngredient,
+  index: number,
+  swapCard: (fromIndex: number, toIndex: number) => void,
+  handleDelete: (ingredient: string) => void,
+  ingrediantId: string
+}
+
+const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingrediantId }: TBurgerIngredient) => {
   const ref = useRef(null)
 
   const [, drag] = useDrag({
@@ -15,7 +24,7 @@ const BurgerIngredient = ({ ingredient, index, swapCard, handleDelete, ingredian
     item: {index}
   })
 
-  const [, drop] = useDrop({
+  const [, drop] = useDrop<{index: number}>({
     accept: 'swap',
     drop(item) {
       if(index !== item.index){

@@ -50,8 +50,8 @@ const BurgerConstructor = ({
   };
 
   //удаление
-  const deleteCard = (ingredient: IIngredient) => {
-    dispatch(deleteIngredient(ingredient))
+  const deleteCard = (ingredientId: string) => {
+    dispatch(deleteIngredient(ingredientId))
   }
 
   //получение булки
