@@ -14,7 +14,7 @@ type IModal = {
 
 const Modal = ({ title, children, handleModalClose }: IModal): JSX.Element => {
 
-  const handleEscClose = (evt: { key: string; }) => {
+  const handleEscClose = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape') handleModalClose();
   };
 
