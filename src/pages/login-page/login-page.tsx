@@ -4,17 +4,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../services/reducers/auth-slice';
+import { ISubmitFormData } from '../../types/submit-form-data';
 
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: ISubmitFormData) => {
+    // @ts-ignore
     dispatch(loginUser(data))
+      // @ts-ignore
       .then((res) => {
         if (res.payload?.success) navigate(AppRoute.main);
       })
+      // @ts-ignore
       .catch(err => console.log(err))
   };
 

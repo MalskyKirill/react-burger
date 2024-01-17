@@ -4,20 +4,25 @@ import styles from './forgot-password.module.css';
 import { AppRoute } from '../../utils/consts';
 import { useDispatch } from 'react-redux';
 import { forgotPassword } from '../../services/reducers/auth-slice';
+import { ISubmitFormData } from '../../types/submit-form-data';
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: ISubmitFormData) => {
+    // @ts-ignore
     dispatch(forgotPassword(data))
+    // @ts-ignore
       .then((res) => {
         if (res.payload.success) navigate(AppRoute.resetPassword, {
           state: { from: AppRoute.forgotPassword },
           replace: true,
         });
-      });
+      })
+      // @ts-ignore
+      .catch(err => console.log(err))
   };
 
   return (

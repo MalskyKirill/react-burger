@@ -8,17 +8,11 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './sign-form.module.css';
 import { AppRoute } from '../../utils/consts';
-
-type TOnSubmit = {
-  email?: string,
-  password?: string,
-  name?: string,
-  token?: string,
-}
+import { ISubmitFormData } from '../../types/submit-form-data';
 
 type TSignForm = {
   buttonName: string,
-  onSubmit: (data: TOnSubmit) => void
+  onSubmit: (data: ISubmitFormData) => void
 }
 
 const SignForm = ({ buttonName, onSubmit }: TSignForm): JSX.Element => {
