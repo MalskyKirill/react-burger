@@ -3,20 +3,25 @@ import { useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SignForm from '../../components/sign-form/sign-form';
 import { resetPassword } from '../../services/reducers/auth-slice';
+import { ISubmitFormData } from '../../types/submit-form-data';
 import { AppRoute } from '../../utils/consts';
 import styles from './reset-password.module.css';
 
-const ResetPassword = () => {
+const ResetPassword = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: ISubmitFormData) => {
+    // @ts-ignore
     dispatch(resetPassword(data))
+       // @ts-ignore
       .then((res) => {
         if (res.payload?.success) navigate(AppRoute.main);
-      });
+      })
+      // @ts-ignore
+      .catch(err => console.log(err))
   };
 
   useEffect(() => {
