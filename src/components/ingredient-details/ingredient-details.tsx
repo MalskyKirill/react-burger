@@ -1,19 +1,22 @@
 import styles from './ingredient-details.module.css';
 import NutritionElement from './nutrition-element/nutrition-element';
-import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 import { useSelector } from 'react-redux';
 import { selectAllIngredients } from '../../services/reducers/ingredients-slice';
 import { useLocation, useParams } from 'react-router-dom';
+import { IIngredient } from '../../types/ingredient';
 
-const IngredienDetails = () => {
+const IngredienDetails = (): JSX.Element => {
+
   const { id } = useParams();
 
   const location = useLocation()
 
-  const ingredients = useSelector(selectAllIngredients);
+  const ingredients: Array<IIngredient> = useSelector(selectAllIngredients);
 
   const currentIngresient =
     ingredients.length > 0 && ingredients?.filter((el) => el._id === id)[0];
+
+  if (!currentIngresient) return <h2>Ингредиент не найден</h2>
 
   return (
     <div className={styles['ingredient-details']}>
@@ -45,10 +48,6 @@ const IngredienDetails = () => {
       </div>
     </div>
   );
-};
-
-IngredienDetails.propTypes = {
-  selectIngredient: ingredientPropTypes,
 };
 
 export default IngredienDetails;

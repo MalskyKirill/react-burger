@@ -1,7 +1,11 @@
 import styles from './nutrition-element.module.css';
-import PropTypes from 'prop-types';
 
-const NutritionElement = ({title, value}) => {
+type TNutritionElement = {
+  title: string,
+  value: number
+}
+
+const NutritionElement = ({title, value}: TNutritionElement): JSX.Element => {
 
   return (
     <div className={styles['nutrition-element']}>
@@ -18,10 +22,5 @@ const NutritionElement = ({title, value}) => {
     </div>
   );
 };
-
-NutritionElement.propTypes = {
-  title: PropTypes.string,
-  value: PropTypes.number,
-}
 
 export default NutritionElement;
