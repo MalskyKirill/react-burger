@@ -3,7 +3,7 @@ import done from '../../images/done.svg'
 import { useSelector } from 'react-redux';
 import { orderNumber } from '../../services/reducers/order-slice';
 
-const OrderDetails = () => {
+const OrderDetails = (): JSX.Element => {
 
   const orderNum: number = useSelector(orderNumber)
 

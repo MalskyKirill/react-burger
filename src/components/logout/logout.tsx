@@ -5,7 +5,7 @@ import { logoutUser } from '../../services/reducers/auth-slice';
 import styles from './logout.module.css';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../utils/consts';
 
-const Logout = () => {
+const Logout = (): JSX.Element => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()

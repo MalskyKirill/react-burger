@@ -7,12 +7,13 @@ import {
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser, updateCurrentUser } from '../../services/reducers/auth-slice';
+import { IUser } from '../../types/user';
 import styles from './profile-redact.module.css';
 
-const ProfileRedact = () => {
+const ProfileRedact = (): JSX.Element => {
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(selectUser);
+  const currentUser: IUser = useSelector(selectUser);
 
   const [state, setState] = useState({
     email: '',
@@ -28,7 +29,7 @@ const ProfileRedact = () => {
     });
   }, [currentUser]);
 
-  const onChange = (evt) => {
+  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const name = evt.target.name;
     const value = evt.target.value;
 
@@ -38,8 +39,9 @@ const ProfileRedact = () => {
     });
   };
 
-  const onSubmit = (evt) => {
+  const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
+    // @ts-ignore
     dispatch(updateCurrentUser(state))
   }
 
