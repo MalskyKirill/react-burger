@@ -11,6 +11,7 @@ const Logout = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(logoutUser())
       .then(() => {
         localStorage.setItem(ACCESS_TOKEN, '');

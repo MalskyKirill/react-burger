@@ -1,12 +1,11 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.svg'
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { orderNumber } from '../../services/reducers/order-slice';
 
 const OrderDetails = () => {
 
-  const orderNum = useSelector(orderNumber)
+  const orderNum: number = useSelector(orderNumber)
 
   return (
     <div className={styles['order-details']}>
@@ -17,10 +16,6 @@ const OrderDetails = () => {
       <p className={`${styles['order-weit']} text text_type_main-default text_color_inactive`}>Дождитесь готовности на орбитальной станции</p>
     </div>
   );
-}
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number,
 }
 
 export default OrderDetails;
