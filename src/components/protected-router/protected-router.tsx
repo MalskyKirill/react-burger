@@ -1,8 +1,15 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { selectIsAuthChecked, selectUser } from '../../services/reducers/auth-slice';
+import React from "react";
 
-const Protected = ({ onlyUnAuth = false, component }) => {
+type TProtected = {
+  onlyUnAuth?: boolean,
+  component: JSX.Element
+}
+
+
+const Protected: React.FC<TProtected> = ({ onlyUnAuth = false, component }) => {
   // isAuthChecked это флаг, показывающий что проверка токена произведена
   // при этом результат этой проверки не имеет значения, важно только,
   // что сам факт проверки имел место.
@@ -34,7 +41,7 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 };
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }) => (
+export const OnlyUnAuth: React.FC<{component: JSX.Element}> = ({ component }) => (
   <Protected onlyUnAuth={true} component={component} />
 );
 
