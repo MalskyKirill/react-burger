@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { forgotPassword } from '../../services/reducers/auth-slice';
 import { ISubmitFormData } from '../../types/submit-form-data';
 
-const ForgotPassword = () => {
+const ForgotPassword = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import styles from './profile-page.module.css';
 
-const ProfilePage = () => {
+const ProfilePage = (): JSX.Element => {
   return (
     <main className={styles.content}>
       <section className={styles.account}>

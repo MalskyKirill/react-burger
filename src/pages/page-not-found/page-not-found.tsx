@@ -1,7 +1,7 @@
 import styles from './page-not-found.module.css';
 import img from '../../images/web-error-page-outer-space-404-illustration-vector.jpg';
 
-const PageNotFound = () => {
+const PageNotFound = (): JSX.Element => {
   return (
     <main className={styles.content}>
       <div className={styles.wrap}>

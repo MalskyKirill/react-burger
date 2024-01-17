@@ -7,7 +7,7 @@ import { loginUser } from '../../services/reducers/auth-slice';
 import { ISubmitFormData } from '../../types/submit-form-data';
 
 
-const LoginPage = () => {
+const LoginPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
