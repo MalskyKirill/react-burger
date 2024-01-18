@@ -29,8 +29,6 @@ const BurgerConstructor = ({
   const user = useSelector(selectUser);
   const navigate = useNavigate();
 
-  console.log(user)
-
   //dnd drop логика
   const [, dropBun] = useDrop({
     accept: 'ingredient',
