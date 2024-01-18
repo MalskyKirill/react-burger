@@ -1,6 +1,6 @@
 import styles from './login-page.module.css';
 import SignForm from '../../components/sign-form/sign-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../services/reducers/auth-slice';
@@ -10,13 +10,14 @@ import { ISubmitFormData } from '../../types/submit-form-data';
 const LoginPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit = (data: ISubmitFormData) => {
     // @ts-ignore
     dispatch(loginUser(data))
       // @ts-ignore
       .then((res) => {
-        if (res.payload?.success) navigate(AppRoute.main);
+        if (res.payload?.success) navigate(location.state?.from || '/');
       })
       // @ts-ignore
       .catch(err => console.log(err))
