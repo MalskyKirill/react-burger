@@ -11,6 +11,9 @@ import { selectConstructorBun, selectConstructorIngredients, swapIngredients, de
 import { getOrderNumber } from '../../services/reducers/order-slice';
 import { IIngredient, IBurgerIngredients } from '../../types/ingredient';
 import { IHandleDropEl } from '../../types/handle-drop-el';
+import { selectUser } from '../../services/reducers/auth-slice';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../utils/consts';
 
 type TBurgerConstructor = {
   handleDropBun: (item: IIngredient) => void,
@@ -23,6 +26,10 @@ const BurgerConstructor = ({
 }: TBurgerConstructor): JSX.Element => {
 
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const navigate = useNavigate();
+
+  console.log(user)
 
   //dnd drop логика
   const [, dropBun] = useDrop({
@@ -57,7 +64,13 @@ const BurgerConstructor = ({
 
 
   const idBurgerIngridients = [...burgerIngridients.map(el => el.ingredient._id)]
-  const onClick = () => {
+
+  const handleOrderClick = () => {
+
+    if (!user) {
+      navigate(AppRoute.login, { replace: true });
+      return;
+    }
 
     // @ts-ignore
     dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun}))
@@ -131,7 +144,7 @@ const BurgerConstructor = ({
             </div>
           )}
         </div>
-        <BurgerOrder onClick={onClick}/>
+        <BurgerOrder onClick={handleOrderClick}/>
       </div>
     </section>
   );
