@@ -29,7 +29,6 @@ import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
-  const { qty } = useSelector(selectIngredientsInfo);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,11 +40,9 @@ function App(): JSX.Element {
 
   //загрузка ингредиентов
   useEffect(() => {
-    if (!qty) {
       // @ts-ignore
       dispatch(loadIngredients());
-    }
-  }, [qty, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     // @ts-ignore

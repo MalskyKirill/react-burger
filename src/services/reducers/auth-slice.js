@@ -118,7 +118,7 @@ export const getCurrentUser = createAsyncThunk(
         authorization: accessToken,
       },
     };
-    const res = await api.getUser(request);
+    const res = await api.fetchWithRefresh(request);
     return res;
   }
 );
@@ -139,7 +139,7 @@ export const updateCurrentUser = createAsyncThunk(
       }),
     };
 
-    const res = await api.updateUser(request);
+    const res = await api.fetchWithRefresh(request);
     return res;
   }
 );
@@ -147,6 +147,7 @@ export const updateCurrentUser = createAsyncThunk(
 export const checkUserAuth = () => {
   return (dispatch) => {
     if (localStorage.getItem(ACCESS_TOKEN)) {
+      const token = localStorage.getItem(ACCESS_TOKEN)
       dispatch(getCurrentUser(localStorage.getItem(ACCESS_TOKEN)))
         .then((res) => {})
         .catch((err) => {

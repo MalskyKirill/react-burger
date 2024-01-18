@@ -1,5 +1,5 @@
 import { urlApi, ACCESS_TOKEN, REFRESH_TOKEN } from './consts';
-import { IRequest } from '../types/api';
+import { IError, IRequest } from '../types/api';
 
 class Api {
   _url: string;
@@ -10,6 +10,34 @@ class Api {
 
   _getResponseData(res: Response) {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+  }
+
+  //функция обертка над fetch для проверки токена
+  async fetchWithRefresh (request: IRequest | undefined) {
+    try{
+      const res = await fetch(`${this._url}/api/auth/user`, request);
+      return await this._getResponseData(res);
+    }
+    catch (err) {
+      const error = err as IError;
+      if (error) {
+        if (error.message === "jwt expired") {
+          const refreshData = await this.refreshToken(); //обновляем токен
+          if (!refreshData.success) {
+            return Promise.reject(refreshData);
+          }
+          localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+          localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
+          if (request) {
+            request.headers.authorization = refreshData.accessToken;
+          }
+          const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
+          return this._getResponseData(res);
+        } else {
+          return Promise.reject(err);
+        }
+      }
+    }
   }
 
   //получение ингредиентов с сервера
@@ -79,58 +107,6 @@ class Api {
 
     return this._getResponseData(res);
   };
-
-  async getUser(request: IRequest | undefined) {
-    try{
-      const res = await fetch(`${this._url}/api/auth/user`, request);
-      return await this._getResponseData(res);
-    }
-    catch (err) {
-      if (err instanceof Error) {
-        if (err.message === "jwt expired") {
-          const refreshData = await this.refreshToken(); //обновляем токен
-          if (!refreshData.success) {
-            return Promise.reject(refreshData);
-          }
-          localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
-          localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
-          if (request) {
-            request.headers.authorization = refreshData.accessToken;
-          }
-          const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
-          return this._getResponseData(res);
-        } else {
-          return Promise.reject(err);
-        }
-      }
-    }
-  }
-
-  async updateUser(request: IRequest | undefined) {
-    try{
-      const res = await fetch(`${this._url}/api/auth/user`, request);
-      return await this._getResponseData(res);
-    }
-    catch (err) {
-      if (err instanceof Error) {
-        if (err.message === "jwt expired") {
-          const refreshData = await this.refreshToken(); //обновляем токен
-          if (!refreshData.success) {
-            return Promise.reject(refreshData);
-          }
-          localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
-          localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
-          if (request) {
-            request.headers.authorization = refreshData.accessToken;
-          }
-          const res = await fetch(`${this._url}/api/auth/user`, request); //повторяем запрос
-          return this._getResponseData(res);
-        } else {
-          return Promise.reject(err);
-        }
-      }
-    }
-  }
 }
 
 export const api = new Api(urlApi);

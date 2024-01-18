@@ -6,3 +6,8 @@ export interface IRequest {
   },
   body?: string
 }
+
+export interface IError {
+  success: boolean;
+	message?: string
+}
