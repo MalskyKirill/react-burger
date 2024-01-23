@@ -11,9 +11,9 @@ import { selectConstructorBun, selectConstructorIngredients, swapIngredients, de
 import { getOrderNumber } from '../../services/reducers/order-slice';
 import { IIngredient, IBurgerIngredients } from '../../types/ingredient';
 import { IHandleDropEl } from '../../types/handle-drop-el';
-import { selectUser } from '../../services/reducers/auth-slice';
+import { selectAccessToken, selectUser } from '../../services/reducers/auth-slice';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../utils/consts';
+import { ACCESS_TOKEN, AppRoute } from '../../utils/consts';
 
 type TBurgerConstructor = {
   handleDropBun: (item: IIngredient) => void,
@@ -60,6 +60,9 @@ const BurgerConstructor = ({
   //получение ингредиентов
   const burgerIngridients: Array<IBurgerIngredients> = useSelector(selectConstructorIngredients);
 
+  //получение токена
+  const accessToken: string | null = localStorage.getItem(ACCESS_TOKEN)
+
 
   const idBurgerIngridients = [...burgerIngridients.map(el => el.ingredient._id)]
 
@@ -71,7 +74,7 @@ const BurgerConstructor = ({
     }
 
     // @ts-ignore
-    dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun}))
+    dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun, token: accessToken}))
       // @ts-ignore
       .then((res) => {
         if (res.payload.success) {

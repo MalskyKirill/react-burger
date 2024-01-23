@@ -1,13 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IIngredient } from '../../types/ingredient';
 import { api } from '../../utils/api';
 
 export const getOrderNumber = createAsyncThunk(
   '@@order/getOrderNumber',
-  async ({bun, ingredients}) => {
+  async ({bun, ingredients, token} : {bun: IIngredient, ingredients: Array<IIngredient>, token: string}) => {
+    console.log(bun, ingredients, token)
     const request = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        authorization: token,
       },
       body: JSON.stringify({
         ingredients: [bun._id, ...ingredients, bun._id]
@@ -19,7 +22,14 @@ export const getOrderNumber = createAsyncThunk(
   }
 );
 
-const initialState = {
+type TInitialState = {
+  orderNumber: number | null,
+  status: string,
+  error: string | null,
+  isModalOpen: boolean,
+}
+
+const initialState: TInitialState = {
   orderNumber: null,
   status: 'idle',
   error: null,
@@ -47,7 +57,7 @@ const orderSlice = createSlice({
       })
       .addCase(getOrderNumber.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       });
   },
 });
@@ -57,5 +67,5 @@ export const {removeModalOrderData} = orderSlice.actions;
 export const orderReducer = orderSlice.reducer;
 
 // selectors
-export const orderNumber = (state) => state.order.orderNumber
-export const selectIsModalOrderOpen = (state) => state.order.isModalOpen;
+export const orderNumber = (state: { order: { orderNumber: number | null; }; }) => state.order.orderNumber
+export const selectIsModalOrderOpen = (state: { order: { isModalOpen: boolean; }; }) => state.order.isModalOpen;

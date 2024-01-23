@@ -53,6 +53,7 @@ class Api {
 
   //создание заказа
   async addOrder(request: IRequest | undefined) {
+    console.log(request)
     const res = await fetch(`${this._url}/api/orders`, request);
 
     return this._getResponseData(res);

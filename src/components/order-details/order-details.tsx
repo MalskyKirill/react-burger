@@ -5,7 +5,7 @@ import { orderNumber } from '../../services/reducers/order-slice';
 
 const OrderDetails = (): JSX.Element => {
 
-  const orderNum: number = useSelector(orderNumber)
+  const orderNum: number | null = useSelector(orderNumber)
 
   return (
     <div className={styles['order-details']}>

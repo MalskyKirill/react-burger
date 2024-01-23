@@ -278,6 +278,7 @@ const authSlice = createSlice({
           name: action.payload.user.name,
           email: action.payload.user.email,
         };
+
       })
       .addCase(updateCurrentUser.rejected, (state, action) => {
         state.status = 'rejected';
