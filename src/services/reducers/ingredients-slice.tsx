@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
+import { IIngredient } from '../../types/ingredient';
 
 import { api } from '../../utils/api';
 
@@ -10,7 +11,13 @@ export const loadIngredients = createAsyncThunk(
   }
 );
 
-const initialState = {
+type TInitialState = {
+  list: Array<IIngredient>,
+  status: string,
+  error: string | null,
+}
+
+const initialState: TInitialState = {
   list: [],
   status: 'idle',
   error: null,
@@ -32,7 +39,7 @@ const ingredientsSlice = createSlice({
       })
       .addCase(loadIngredients.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       });
   },
 });
@@ -41,19 +48,16 @@ export const ingredientsReducer = ingredientsSlice.reducer;
 
 // selectors
 
-const selectStatus = state => state.ingredients.status;
-const selectError = state => state.ingredients.error;
-const selectQty = state => state.ingredients.list.length;
+const selectStatus = (state: { ingredients: { status: string }; }) => state.ingredients.status;
+const selectError = (state: { ingredients: { error: string | null; }; }) => state.ingredients.error;
 
 export const selectIngredientsInfo = createSelector(
   selectStatus,
   selectError,
-  selectQty,
-  (selectStatus, selectError, selectQty) => ({
+  (selectStatus, selectError) => ({
   status: selectStatus,
   error: selectError,
-  qty: selectQty
 }))
 
 
-export const selectAllIngredients = (state) => state.ingredients.list;
+export const selectAllIngredients = (state: { ingredients: { list: Array<IIngredient>; }; }) => state.ingredients.list;
