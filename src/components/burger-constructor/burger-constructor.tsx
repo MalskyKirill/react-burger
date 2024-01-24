@@ -149,6 +149,7 @@ const BurgerConstructor = ({
             </div>
           )}
         </div>
+        {status === 'rejected' && <h2>При оформлении заказа произошла ошибка</h2>}
         {status === 'loading' ? <Preloader /> : <BurgerOrder onClick={handleOrderClick}/>}
       </div>
     </section>
