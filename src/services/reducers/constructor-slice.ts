@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IBurgerIngredients, IIngredient } from '../../types/ingredient';
 
-const initialState = {
+type TInitialState = {
+  bun: IIngredient | null,
+  ingredients: Array<IBurgerIngredients>,
+}
+
+const initialState: TInitialState = {
   bun: null,
   ingredients: [],
 };
@@ -42,7 +48,7 @@ export const { addBun, addIngredients, swapIngredients, deleteIngredient, remove
 export const constructorReducer = constructorSlice.reducer;
 
 //selectors
-export const selectConstructorElements = (state) => state.burgerConstructor;
-export const selectConstructorBun = (state) => state.burgerConstructor.bun;
-export const selectConstructorIngredients = (state) =>
+export const selectConstructorElements = (state: { burgerConstructor: TInitialState; }) => state.burgerConstructor;
+export const selectConstructorBun = (state: { burgerConstructor: { bun: IIngredient; }; }) => state.burgerConstructor.bun;
+export const selectConstructorIngredients = (state: { burgerConstructor: { ingredients: IBurgerIngredients; }; }) =>
   state.burgerConstructor.ingredients;
