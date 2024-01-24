@@ -5,7 +5,6 @@ import { api } from '../../utils/api';
 export const getOrderNumber = createAsyncThunk(
   '@@order/getOrderNumber',
   async ({bun, ingredients, token} : {bun: IIngredient, ingredients: Array<IIngredient>, token: string}) => {
-    console.log(bun, ingredients, token)
     const request = {
       method: 'POST',
       headers: {
@@ -67,5 +66,6 @@ export const {removeModalOrderData} = orderSlice.actions;
 export const orderReducer = orderSlice.reducer;
 
 // selectors
+export const orderStatus = (state: { order: { status: string; }; }) => state.order.status
 export const orderNumber = (state: { order: { orderNumber: number | null; }; }) => state.order.orderNumber
 export const selectIsModalOrderOpen = (state: { order: { isModalOpen: boolean; }; }) => state.order.isModalOpen;
