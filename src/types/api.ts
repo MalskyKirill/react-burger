@@ -1,13 +1,14 @@
 export interface IRequest {
-  method: string,
+  method: string;
   headers: {
-    'Content-Type': string,
-    authorization?: string
-  },
-  body?: string
+    'Content-Type': string;
+    authorization?: string;
+  };
+  body?: string;
 }
 
 export interface IError {
   success: boolean;
-	message?: string
+  message?: string;
 }
+

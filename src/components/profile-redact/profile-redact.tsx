@@ -23,8 +23,8 @@ const ProfileRedact = (): JSX.Element => {
 
   useEffect(() => {
     setState({
-      name: currentUser ? currentUser.name : '',
-      email: currentUser ? currentUser.email : '',
+      name: currentUser ? currentUser.name! : '',
+      email: currentUser ? currentUser.email! : '',
       password: '',
     });
   }, [currentUser]);

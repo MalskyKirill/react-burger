@@ -50,5 +50,5 @@ export const constructorReducer = constructorSlice.reducer;
 //selectors
 export const selectConstructorElements = (state: { burgerConstructor: TInitialState; }) => state.burgerConstructor;
 export const selectConstructorBun = (state: { burgerConstructor: { bun: IIngredient; }; }) => state.burgerConstructor.bun;
-export const selectConstructorIngredients = (state: { burgerConstructor: { ingredients: IBurgerIngredients; }; }) =>
+export const selectConstructorIngredients = (state: { burgerConstructor: { ingredients: Array<IBurgerIngredients>; }; }) =>
   state.burgerConstructor.ingredients;
