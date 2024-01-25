@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IError, IRequest } from '../../types/api';
-import { AppDispatch } from '../../types/dispatch';
+import { IRequest } from '../../types/api';
+
 import { IUser } from '../../types/user';
 import { api } from '../../utils/api';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../utils/consts';
+import { AppDispatch } from '../store';
 
 type TInitialState = {
   user: IUser | null,
