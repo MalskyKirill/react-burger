@@ -4,10 +4,8 @@ import { useEffect } from 'react';
 import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   loadIngredients,
-  selectIngredientsInfo,
 } from '../../services/reducers/ingredients-slice';
 import { removeModalOrderData, selectIsModalOrderOpen } from '../../services/reducers/order-slice';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -26,9 +24,10 @@ import {
   checkUserAuth,
 } from '../../services/reducers/auth-slice';
 import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
 
 function App(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -36,7 +35,7 @@ function App(): JSX.Element {
   const background = location.state && location.state.background;
 
   //открытие модалок
-  const isModalOrderOpen = useSelector(selectIsModalOrderOpen);
+  const isModalOrderOpen = useAppSelector(selectIsModalOrderOpen);
 
   //загрузка ингредиентов
   useEffect(() => {
