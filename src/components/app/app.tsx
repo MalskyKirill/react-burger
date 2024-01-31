@@ -25,6 +25,7 @@ import {
 } from '../../services/reducers/auth-slice';
 import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import OrderPage from '../../pages/order-page/order-page';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -62,6 +63,7 @@ function App(): JSX.Element {
             path={`${AppRoute.ingredients}/:id`}
             element={<IngredienDetails />}
           ></Route>
+          <Route path={AppRoute.feed} element={< OrderPage/>}/>
           <Route
             path={AppRoute.login}
             element={<OnlyUnAuth component={<LoginPage />} />}

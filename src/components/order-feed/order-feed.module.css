@@ -1,0 +1,9 @@
+.order-feed {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.feed-title {
+margin: 0;
+}
