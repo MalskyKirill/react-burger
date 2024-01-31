@@ -266,7 +266,7 @@ export const dataFeed =
             "643d69a5c3f7b9001cfa093d"
         ],
         "owner": "6584219487899c001b82491a",
-        "status": "done",
+        "status": "pending",
         "name": "Метеоритный space антарианский spicy био-марсианский бессмертный люминесцентный флюоресцентный традиционный-галактический бургер",
         "createdAt": "2024-01-30T16:28:23.208Z",
         "updatedAt": "2024-01-30T16:28:23.746Z",
@@ -274,5 +274,7 @@ export const dataFeed =
         "__v": 0
     }
     ],
+    "total": 5,
+    "totalToday": 1
   }
 
