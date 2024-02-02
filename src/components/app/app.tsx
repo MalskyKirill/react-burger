@@ -4,10 +4,11 @@ import { useEffect } from 'react';
 import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
+import { loadIngredients } from '../../services/reducers/ingredients-slice';
 import {
-  loadIngredients,
-} from '../../services/reducers/ingredients-slice';
-import { removeModalOrderData, selectIsModalOrderOpen } from '../../services/reducers/order-slice';
+  removeModalOrderData,
+  selectIsModalOrderOpen,
+} from '../../services/reducers/order-slice';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import LoginPage from '../../pages/login-page/login-page';
@@ -20,9 +21,7 @@ import ProfilePage from '../../pages/profile-page/profile-page';
 import ProfileRedact from '../profile-redact/profile-redact';
 import ProfileOrders from '../profile-orders/profile-orders';
 import Logout from '../logout/logout';
-import {
-  checkUserAuth,
-} from '../../services/reducers/auth-slice';
+import { checkUserAuth } from '../../services/reducers/auth-slice';
 import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import OrderPage from '../../pages/order-page/order-page';
@@ -41,8 +40,8 @@ function App(): JSX.Element {
 
   //загрузка ингредиентов
   useEffect(() => {
-      // @ts-ignore
-      dispatch(loadIngredients());
+    // @ts-ignore
+    dispatch(loadIngredients());
   }, [dispatch]);
 
   useEffect(() => {
@@ -63,8 +62,12 @@ function App(): JSX.Element {
           <Route
             path={`${AppRoute.ingredients}/:id`}
             element={<IngredienDetails />}
-          ></Route>
-          <Route path={AppRoute.feed} element={< OrderPage/>}/>
+          />
+          <Route path={AppRoute.feed} element={<OrderPage />} />
+          <Route
+            path={`${AppRoute.feed}/:number`}
+            element={<OrderInfo />}
+          />
           <Route
             path={AppRoute.login}
             element={<OnlyUnAuth component={<LoginPage />} />}
@@ -89,7 +92,10 @@ function App(): JSX.Element {
             <Route path={AppRoute.orders} element={<ProfileOrders />} />
             <Route path={AppRoute.logout} element={<Logout />} />
           </Route>
-
+          <Route
+            path={`${AppRoute.orders}/:number`}
+            element={<OnlyAuth component={<OrderInfo />} />}
+          />
           <Route path='*' element={<PageNotFound />} />
         </Route>
       </Routes>
@@ -109,24 +115,35 @@ function App(): JSX.Element {
           <Route
             path={`${AppRoute.feed}/:number`}
             element={
-              <Modal
-                handleModalClose={handleModalClose}
-              >
+              <Modal handleModalClose={handleModalClose}>
                 <OrderInfo />
               </Modal>
             }
           />
-
+          <Route
+            path={`${AppRoute.orders}/:number`}
+            element={
+              <OnlyAuth
+                component={
+                  <Modal handleModalClose={handleModalClose}>
+                    <OrderInfo />
+                  </Modal>
+                }
+              />
+            }
+          />
         </Routes>
       )}
       {isModalOrderOpen && (
-          <Modal handleModalClose={() => {
+        <Modal
+          handleModalClose={() => {
             // @ts-ignore
-            dispatch(removeModalOrderData())
-            }}>
-            <OrderDetails />
-          </Modal>
-        )}
+            dispatch(removeModalOrderData());
+          }}
+        >
+          <OrderDetails />
+        </Modal>
+      )}
     </>
   );
 }

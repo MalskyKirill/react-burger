@@ -14,7 +14,7 @@ const FeedList = () => {
       {orders.map((el) => (
         <Link
           className={styles.link}
-          to={`${AppRoute.feed}/${el.number}`}
+          to={`${location.pathname}/${el.number}`}
           key={el._id}
           state={{ background: location }}
         >
