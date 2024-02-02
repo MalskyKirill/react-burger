@@ -10,8 +10,6 @@ const OrderBoard = () => {
 
   const ordersAtWork = dataFeed.orders.filter((el) => el.status === 'pending')
 
-  console.log(ordesComplited)
-
   return (
     <div className={styles['order-board']}>
       <div className={styles['board-done']}>

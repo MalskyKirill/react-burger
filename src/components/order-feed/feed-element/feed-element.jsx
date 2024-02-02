@@ -8,8 +8,6 @@ import { useSelector } from 'react-redux';
 import { selectAllIngredients } from '../../../services/reducers/ingredients-slice';
 
 const FeedElement = ({ order }) => {
-  let ingredientNumber = MAXIMUM_NUMBER_OF_RENDERED_INGREDIENTS;
-
   const allIngredients = useSelector(selectAllIngredients);
 
   const orderIngredients = order.ingredients.reduce((list, ingrediantId) => {
@@ -49,12 +47,10 @@ const FeedElement = ({ order }) => {
       <div className={styles['order-details']}>
         <ul className={styles['order-ingredients']}>
           {visibaleIngredients.map((el, index) => {
-            ingredientNumber -= 1;
             return (
               <li
                 className={styles['order-ingredient']}
                 key={index}
-                style={{ zIndex: ingredientNumber }}
               >
                 <img src={el.image_mobile} alt='ingredient' />
               </li>

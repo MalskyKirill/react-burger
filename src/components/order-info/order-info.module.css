@@ -1,0 +1,77 @@
+.order-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-number {
+  padding: 10px 0 40px;
+  text-align: center;
+}
+
+.order-title {
+  margin: 0;
+  padding-bottom: 12px;
+}
+
+.order-status {
+  color: #0CC;
+  padding-bottom: 60px;
+}
+
+.order-structure {
+  padding-bottom: 24px;
+}
+
+.order-ingredients-list {
+  margin: 0;
+  padding: 0 0 40px;
+  list-style: none;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-element {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.order-ingredient {
+  border-radius: 100px;
+  border: 2px solid #801AB2;
+  background-color: #131316;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  position: relative;
+  justify-content: center;;
+}
+
+.img-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.price-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.total-price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 40px;
+}

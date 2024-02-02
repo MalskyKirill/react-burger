@@ -16,7 +16,7 @@
   position: relative;
   padding: 40px 40px 0;
   background-color: #1C1C21;
-  z-index: 1000;
+  z-index: 200;
 }
 
 .title-wrap{

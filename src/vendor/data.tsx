@@ -223,6 +223,8 @@ export const dataFeed =
         ingredients: [
           '643d69a5c3f7b9001cfa093d',
           '643d69a5c3f7b9001cfa0943',
+          '643d69a5c3f7b9001cfa0943',
+          '643d69a5c3f7b9001cfa0943',
           '643d69a5c3f7b9001cfa093d',
         ],
         owner: '6586afd187899c001b824d96',

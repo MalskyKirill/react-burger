@@ -26,6 +26,7 @@ import {
 import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import OrderPage from '../../pages/order-page/order-page';
+import OrderInfo from '../order-info/order-info';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -105,6 +106,17 @@ function App(): JSX.Element {
               </Modal>
             }
           />
+          <Route
+            path={`${AppRoute.feed}/:number`}
+            element={
+              <Modal
+                handleModalClose={handleModalClose}
+              >
+                <OrderInfo />
+              </Modal>
+            }
+          />
+
         </Routes>
       )}
       {isModalOrderOpen && (
