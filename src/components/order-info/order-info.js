@@ -70,7 +70,7 @@ const OrderInfo = () => {
         >
           Состав:
         </h3>
-        <ul className={styles['order-ingredients-list']}>
+        <ul className={`${styles['order-ingredients-list']} custom-scroll`}>
           {unicOrderIngredients.map((el, index) => (
             <li className={styles['order-element']} key={index}>
               <div className={styles['img-wrap']}>

@@ -35,6 +35,8 @@
   gap: 16px;
   display: flex;
   flex-direction: column;
+  max-height: 35vh;
+  overflow-y: auto;
 }
 
 .order-element {
