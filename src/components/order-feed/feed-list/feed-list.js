@@ -1,13 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import { AppRoute } from '../../../utils/consts';
-import { dataFeed } from '../../../vendor/data';
+import { useAppSelector } from '../../../services/hooks';
 import FeedElement from '../feed-element/feed-element';
 import styles from './feed-list.module.css';
 
 const FeedList = () => {
 
   const location = useLocation();
-  const {orders} = dataFeed
+  const {orders} = useAppSelector(store => store.orderFeed)
 
   return (
     <ul className={`${styles[`feed-list`]} custom-scroll`}>
@@ -19,7 +18,6 @@ const FeedList = () => {
           state={{ background: location }}
         >
           <FeedElement order={el}/>
-
         </Link>
       ))}
     </ul>

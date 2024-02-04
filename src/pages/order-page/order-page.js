@@ -15,10 +15,7 @@ const ORDER_FEED_SERVER_URL = 'wss://norma.nomoreparties.space/orders/all';
 const OrderPage = () => {
   const dispatch = useAppDispatch()
 
-  const {orders, status} = useAppSelector(store => store.orderFeed);
-  const isDisconnected = status !== WebsocketStatus.ONLINE;
-
-  console.log(orders)
+  const {status} = useAppSelector(store => store.orderFeed);
 
   useEffect(() => {
     dispatch(orderFeedConnect(ORDER_FEED_SERVER_URL))

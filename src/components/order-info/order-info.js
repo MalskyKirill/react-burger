@@ -6,15 +6,22 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../services/hooks';
 
 const OrderInfo = () => {
-  const orderStatus =
-    dataFeed.orders[0].status === 'done' ? 'Выполнен' : 'Готовиться';
 
-  const allIngredients = useSelector(selectAllIngredients);
+  const {number} = useParams();
+  const allIngredients = useAppSelector(selectAllIngredients);
+  const allOrders = useAppSelector(store => store.orderFeed)
+
+  const currentOrder = allOrders?.orders.filter((el) => el.number === +number)[0]
+
+  const orderStatus =
+    currentOrder.status === 'done' ? 'Выполнен' : 'Готовиться';
 
   //получаем ингредиенты заказа
-  const orderIngredients = dataFeed.orders[0].ingredients.reduce(
+  const orderIngredients = currentOrder.ingredients.reduce(
     (list, ingrediantId) => {
       const ingredient = allIngredients.filter((el) => el._id === ingrediantId);
       if (ingredient) {
@@ -51,9 +58,9 @@ const OrderInfo = () => {
       <div className={styles['order-info']}>
         <span
           className={`${styles['order-number']} text text_type_digits-default`}
-        >{`#${dataFeed.orders[0].number}`}</span>
+        >{`#${currentOrder.number}`}</span>
         <h3 className={`${styles['order-title']} text text_type_main-medium`}>
-          {dataFeed.orders[0].name}
+          {currentOrder.name}
         </h3>
         <p className={`${styles['order-status']} text text_type_main-default`}>
           {orderStatus}
@@ -83,7 +90,7 @@ const OrderInfo = () => {
         </ul>
         <div className={styles['order-footer']}>
           <FormattedDate
-            date={new Date(dataFeed.orders[0].createdAt)}
+            date={new Date(currentOrder.createdAt)}
             className='text text_type_main-default text_color_inactive'
           />
           <div className={styles[`total-price`]}>

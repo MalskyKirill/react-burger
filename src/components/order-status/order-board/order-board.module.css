@@ -1,7 +1,6 @@
 .order-board {
   display: flex;
   gap: 36px;
-  max-height: 152px;
   padding-bottom: 60px;
 }
 
@@ -16,6 +15,12 @@
 
 .board-work {
   width: 280px;
+}
+
+.board-list-wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 50px
 }
 
 .board-list {
