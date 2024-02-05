@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IIngredient } from '../../types/ingredient';
+import { IOrder } from '../../types/order';
 import { api } from '../../utils/api';
 
 export const getOrderNumber = createAsyncThunk(
@@ -22,6 +23,7 @@ export const getOrderNumber = createAsyncThunk(
 );
 
 type TInitialState = {
+  order: IOrder | null,
   orderNumber: number | null,
   status: string,
   error: string | null,
@@ -29,6 +31,7 @@ type TInitialState = {
 }
 
 const initialState: TInitialState = {
+  order: null,
   orderNumber: null,
   status: 'idle',
   error: null,

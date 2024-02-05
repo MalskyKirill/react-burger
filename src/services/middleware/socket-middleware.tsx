@@ -20,7 +20,7 @@ export type TWsActionTypes = {
 
 export const socketMiddleware = (
   wsActions: TWsActionTypes,
-  withTokenRefresh?: false
+  withTokenRefresh: boolean
 ): Middleware<{}, RootState> => {
   return (store) => {
     let socket: WebSocket | null = null;

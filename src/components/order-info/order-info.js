@@ -11,9 +11,21 @@ const OrderInfo = () => {
 
   const {number} = useParams();
   const allIngredients = useAppSelector(selectAllIngredients);
+
   const allOrders = useAppSelector(store => store.orderFeed)
 
-  const currentOrder = allOrders?.orders.filter((el) => el.number === +number)[0]
+  // const currentOrder = allOrders?.orders.filter((el) => el.number === +number)[0]
+
+  const currentOrder = useAppSelector(store => {
+    let order = store.orderFeed.orders.filter((el) => el.number === +number)[0];
+    if (order) return order;
+
+    order = store.orderFeedProfile.orders.filter((el) => el.number === +number)[0];
+    if (order) return order;
+
+  })
+
+
 
   const orderStatus =
     currentOrder.status === 'done' ? 'Выполнен' : 'Готовиться';
