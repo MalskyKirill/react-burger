@@ -22,6 +22,22 @@ export const getOrderNumber = createAsyncThunk(
   }
 );
 
+export const getCurrentOrder = createAsyncThunk(
+  '@@auth/getCurrentOrder',
+  async (number: number) => {
+    const request = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    console.log(number)
+    const res = await api.getOrder(request, number);
+    console.log(res)
+    return res;
+  }
+);
+
 type TInitialState = {
   order: IOrder | null,
   orderNumber: number | null,
@@ -58,6 +74,19 @@ const orderSlice = createSlice({
         state.isModalOpen = action.payload.success
       })
       .addCase(getOrderNumber.rejected, (state, action) => {
+        state.status = 'rejected';
+        if(action.error.message) state.error = action.error.message;
+      })
+      .addCase(getCurrentOrder.pending, (state, action) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(getCurrentOrder.fulfilled, (state, action) => {
+        state.status = 'received';
+        console.log(action.payload)
+        state.order = action.payload.orders[0]
+      })
+      .addCase(getCurrentOrder.rejected, (state, action) => {
         state.status = 'rejected';
         if(action.error.message) state.error = action.error.message;
       });

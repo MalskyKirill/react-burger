@@ -58,6 +58,13 @@ class Api {
     return this._getResponseData(res);
   }
 
+  //получение заказа по номеру
+  async getOrder(request: IRequest | undefined, number: number) {
+    const res = await fetch(`${this._url}/api/orders/${number}`, request);
+    console.log(res)
+    return this._getResponseData(res);
+  }
+
   //создание пользователя
   async addUser(request: IRequest | undefined) {
     const res = await fetch(`${this._url}/api/auth/register`, request);

@@ -5,27 +5,38 @@ import {
   FormattedDate,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useEffect } from 'react';
+import { getCurrentOrder } from '../../services/reducers/order-slice';
+import Preloader from '../preloader/preloader';
 
 const OrderInfo = () => {
+  const dispatch = useAppDispatch();
 
-  const {number} = useParams();
+  const { number } = useParams();
   const allIngredients = useAppSelector(selectAllIngredients);
 
-  const allOrders = useAppSelector(store => store.orderFeed)
-
-  // const currentOrder = allOrders?.orders.filter((el) => el.number === +number)[0]
-
-  const currentOrder = useAppSelector(store => {
-    let order = store.orderFeed.orders.filter((el) => el.number === +number)[0];
+  const currentOrder = useAppSelector((store) => {
+    let order = store.orderFeed.orders.find((el) => el.number === +number);
     if (order) return order;
 
-    order = store.orderFeedProfile.orders.filter((el) => el.number === +number)[0];
+    order = store.orderFeedProfile.orders.find((el) => el.number === +number);
     if (order) return order;
 
-  })
+    return store.order.order;
+  });
 
+  console.log(currentOrder);
 
+  useEffect(() => {
+    if (!currentOrder) {
+      dispatch(getCurrentOrder(number));
+    }
+  }, [number]);
+
+  if (!currentOrder) {
+    return <Preloader />;
+  }
 
   const orderStatus =
     currentOrder.status === 'done' ? 'Выполнен' : 'Готовиться';
@@ -85,7 +96,10 @@ const OrderInfo = () => {
             <li className={styles['order-element']} key={index}>
               <div className={styles['img-wrap']}>
                 <div className={styles['order-ingredient']}>
-                  <img src={countUnicIngredients.item[el].image_mobile} alt='ингредиент'/>
+                  <img
+                    src={countUnicIngredients.item[el].image_mobile}
+                    alt='ингредиент'
+                  />
                 </div>
                 <p className='text text_type_main-default'>
                   {countUnicIngredients.item[el].name}
