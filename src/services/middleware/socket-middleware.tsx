@@ -4,6 +4,8 @@ import {
   Middleware,
 } from '@reduxjs/toolkit';
 import { RootState } from '../reducers';
+import {api} from '../../utils/api';
+import { textChangeRangeIsUnchanged } from 'typescript';
 
 export type TWsActionTypes = {
   wsConnect: ActionCreatorWithPayload<string>;
@@ -17,10 +19,13 @@ export type TWsActionTypes = {
 };
 
 export const socketMiddleware = (
-  wsActions: TWsActionTypes
+  wsActions: TWsActionTypes,
+  withTokenRefresh?: false
 ): Middleware<{}, RootState> => {
   return (store) => {
     let socket: WebSocket | null = null;
+    let url = '';
+
     const {
       wsConnect,
       wsDisconnect,
@@ -37,6 +42,7 @@ export const socketMiddleware = (
 
       if(wsConnect.match(action)) {
         socket = new WebSocket(action.payload);
+        url = action.payload;
         dispatch(wsConnecting());
 
         socket.onopen = () => {
@@ -54,6 +60,24 @@ export const socketMiddleware = (
         socket.onmessage = (evt) => {
           const { data } = evt;
           const parseData = JSON.parse(data);
+
+          if(withTokenRefresh && parseData.message === 'Invalid or missing token') {
+            api.refreshToken()
+              .then(refreshData => {
+                const wssUrl = new URL(url);
+                wssUrl.searchParams.set(
+                  'token',
+                  refreshData.accessToken.replace('Bearer ', '')
+                );
+                dispatch(wsConnect(wssUrl.toString()))
+              })
+              .catch((err) => {
+                dispatch(onError(err))
+              })
+
+            dispatch(wsDisconnect());
+            return;
+          }
 
           dispatch(onMessage(parseData));
         }

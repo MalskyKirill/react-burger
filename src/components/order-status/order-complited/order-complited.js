@@ -1,5 +1,4 @@
 import styles from './order-complited.module.css';
-import {dataFeed} from '../../../vendor/data'
 import { useAppSelector } from '../../../services/hooks';
 
 const OrderComplited = () => {

@@ -1,12 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../../services/hooks';
+import { IOrder } from '../../../types/order';
 import FeedElement from '../feed-element/feed-element';
 import styles from './feed-list.module.css';
 
-const FeedList = () => {
+type TFeedList = {
+  orders: Array<IOrder>
+}
+
+const FeedList = ({orders}: TFeedList): JSX.Element => {
 
   const location = useLocation();
-  const {orders} = useAppSelector(store => store.orderFeed)
 
   return (
     <ul className={`${styles[`feed-list`]} custom-scroll`}>

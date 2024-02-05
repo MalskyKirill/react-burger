@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './order-board.module.css';
-import { dataFeed } from '../../../vendor/data';
 import { useAppSelector } from '../../../services/hooks';
 
 const OrderBoard = () => {

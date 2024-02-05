@@ -1,7 +1,5 @@
 import styles from './order-info.module.css';
-import { dataFeed } from '../../vendor/data';
 import { selectAllIngredients } from '../../services/reducers/ingredients-slice';
-import { useSelector } from 'react-redux';
 import {
   CurrencyIcon,
   FormattedDate,
@@ -75,7 +73,7 @@ const OrderInfo = () => {
             <li className={styles['order-element']} key={index}>
               <div className={styles['img-wrap']}>
                 <div className={styles['order-ingredient']}>
-                  <img src={countUnicIngredients.item[el].image_mobile} />
+                  <img src={countUnicIngredients.item[el].image_mobile} alt='ингредиент'/>
                 </div>
                 <p className='text text_type_main-default'>
                   {countUnicIngredients.item[el].name}

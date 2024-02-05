@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { IOrder, IOrders, WebsocketStatus } from '../../types/order'
+import { IOrder, WebsocketStatus } from '../../types/order'
 import { wsClose, wsConnecting, wsError, wsMessage, wsOpen } from '../actions/socket';
 
 export type TOrderFeedStore = {

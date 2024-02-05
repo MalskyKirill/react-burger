@@ -9,27 +9,33 @@ import {
 import { useAppSelector, useAppDispatch } from '../../services/hooks';
 import { WebsocketStatus } from '../../types/order';
 import { useEffect } from 'react';
+import Preloader from '../../components/preloader/preloader';
 
 const ORDER_FEED_SERVER_URL = 'wss://norma.nomoreparties.space/orders/all';
 
 const OrderPage = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const {status} = useAppSelector(store => store.orderFeed);
+  const { status, orders } = useAppSelector((store) => store.orderFeed);
 
   useEffect(() => {
-    dispatch(orderFeedConnect(ORDER_FEED_SERVER_URL))
+    dispatch(orderFeedConnect(ORDER_FEED_SERVER_URL));
 
     return () => {
-      dispatch(orderFeedDisconnect())
-    }
-  }, [])
+      dispatch(orderFeedDisconnect());
+    };
+  }, []);
 
   return (
-    <main className={styles.content}>
-      <OrderFeed title='Лента заказов' />
-      <OrderStatus />
-    </main>
+    <>
+      {status === WebsocketStatus.CONNECTING && <Preloader />}
+      {status === WebsocketStatus.ONLINE && (
+        <main className={styles.content}>
+          <OrderFeed title='Лента заказов' orders={orders} />
+          <OrderStatus />
+        </main>
+      )}
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ export interface IOrder {
 	status: string;
 	number: number;
 	name: string;
-  owner: string;
+  owner?: string;
   createdAt: string;
 	updatedAt: string;
 }
