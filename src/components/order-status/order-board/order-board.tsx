@@ -11,7 +11,7 @@ const OrderBoard = () => {
     .filter((el) => el.status === 'done')
     .slice(0, 5);
 
-    const ordesComplitedLeftRight = orders
+  const ordesComplitedLeftRight = orders
     .filter((el) => el.status === 'done')
     .slice(5, 10);
 
@@ -58,7 +58,11 @@ const OrderBoard = () => {
         </h3>
         <ul className={styles['board-list']}>
           {ordersAtWork.map((el) => (
-            <Link className={styles['link-work']} key={el._id}>
+            <Link
+              className={styles['link-work']}
+              key={el._id}
+              to={`${location.pathname}/${el.number}`}
+            >
               <li className='text text_type_digits-default'>{el.number}</li>
             </Link>
           ))}

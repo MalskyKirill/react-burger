@@ -6,11 +6,17 @@ import styles from './feed-element.module.css';
 import { MAXIMUM_NUMBER_OF_RENDERED_INGREDIENTS } from '../../../utils/consts';
 import { useSelector } from 'react-redux';
 import { selectAllIngredients } from '../../../services/reducers/ingredients-slice';
+import { IOrder } from '../../../types/order';
+import { IIngredient } from '../../../types/ingredient';
 
-const FeedElement = ({ order }) => {
+type TFeedElement = {
+  order: IOrder
+}
+
+const FeedElement = ({ order }: TFeedElement): JSX.Element => {
   const allIngredients = useSelector(selectAllIngredients);
 
-  const orderIngredients = order.ingredients.reduce((list, ingrediantId) => {
+  const orderIngredients = order.ingredients.reduce((list: Array<IIngredient>, ingrediantId) => {
     const ingredient = allIngredients.filter((el) => el._id === ingrediantId);
     if (ingredient) {
       list.push(ingredient[0]);

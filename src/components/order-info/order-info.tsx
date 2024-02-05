@@ -9,6 +9,12 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { useEffect } from 'react';
 import { getCurrentOrder } from '../../services/reducers/order-slice';
 import Preloader from '../preloader/preloader';
+import { IIngredient } from '../../types/ingredient';
+
+type TCountUnicIngredients = {
+  item: { [name: string]: IIngredient };
+  count: { [name: string]: number };
+};
 
 const OrderInfo = () => {
   const dispatch = useAppDispatch();
@@ -16,11 +22,15 @@ const OrderInfo = () => {
   const { number } = useParams();
   const allIngredients = useAppSelector(selectAllIngredients);
 
+  const numberOrder = Number(number);
+
   const currentOrder = useAppSelector((store) => {
-    let order = store.orderFeed.orders.find((el) => el.number === +number);
+    let order = store.orderFeed.orders.find((el) => el.number === numberOrder);
     if (order) return order;
 
-    order = store.orderFeedProfile.orders.find((el) => el.number === +number);
+    order = store.orderFeedProfile.orders.find(
+      (el) => el.number === numberOrder
+    );
     if (order) return order;
 
     return store.order.order;
@@ -30,7 +40,7 @@ const OrderInfo = () => {
 
   useEffect(() => {
     if (!currentOrder) {
-      dispatch(getCurrentOrder(number));
+      dispatch(getCurrentOrder(numberOrder));
     }
   }, [number]);
 
@@ -43,7 +53,7 @@ const OrderInfo = () => {
 
   //получаем ингредиенты заказа
   const orderIngredients = currentOrder.ingredients.reduce(
-    (list, ingrediantId) => {
+    (list: Array<IIngredient>, ingrediantId) => {
       const ingredient = allIngredients.filter((el) => el._id === ingrediantId);
       if (ingredient) {
         list.push(ingredient[0]);
@@ -59,8 +69,8 @@ const OrderInfo = () => {
   );
 
   //получаем состав бургера с количеством уникальных ингредиентов
-  const countUnicIngredients = orderIngredients.reduce(
-    (acc, ingredient) => {
+  const countUnicIngredients: TCountUnicIngredients = orderIngredients.reduce(
+    (acc: TCountUnicIngredients, ingredient: IIngredient) => {
       const id = ingredient._id;
       acc.item[id] = ingredient;
       acc.count[id] = (acc.count[id] || 0) + 1;
@@ -68,6 +78,8 @@ const OrderInfo = () => {
     },
     { item: {}, count: {} }
   );
+
+  console.log(countUnicIngredients);
 
   //получаем цену бургера
   const orderPrice = orderIngredients.reduce((list, ingredient) => {
