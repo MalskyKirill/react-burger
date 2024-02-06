@@ -1,4 +1,4 @@
-import styles from './order-complited.module.css';
+import styles from './order-completed.module.css';
 import { useAppSelector } from '../../../services/hooks';
 
 const OrderComplited = () => {
@@ -6,11 +6,11 @@ const OrderComplited = () => {
 
   return (
     <>
-      <div className={styles['board-complited-all']}>
+      <div className={styles['board-completed-all']}>
         <h3 className={`${styles['board-title']} text text_type_main-medium`}>Выполнено за все время:</h3>
         <span className={`${styles['orders-all']} text text_type_digits-large`}>{total}</span>
       </div>
-      <div className={styles['board-complited-today']}>
+      <div className={styles['board-completed-today']}>
         <h3 className={`${styles['board-title']} text text_type_main-medium`}>Выполнено за сегодня:</h3>
         <span className={`${styles['orders-today']} text text_type_digits-large`}>{totalToday}</span>
       </div>

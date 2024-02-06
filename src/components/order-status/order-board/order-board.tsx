@@ -1,23 +1,27 @@
 import { Link, useLocation } from 'react-router-dom';
 import styles from './order-board.module.css';
 import { useAppSelector } from '../../../services/hooks';
+import { useMemo } from 'react';
 
 const OrderBoard = () => {
   const location = useLocation();
 
-  const { orders } = useAppSelector((store) => store.orderFeed);
+  const orders = useAppSelector((store) => store.orderFeed.orders);
 
-  const ordesComplitedLeftList = orders
-    .filter((el) => el.status === 'done')
-    .slice(0, 5);
+  const ordesComplitedLeftList = useMemo(
+    () => orders.filter((el) => el.status === 'done').slice(0, 5),
+    [orders]
+  );
 
-  const ordesComplitedLeftRight = orders
-    .filter((el) => el.status === 'done')
-    .slice(5, 10);
+  const ordesComplitedLeftRight = useMemo(
+    () => orders.filter((el) => el.status === 'done').slice(5, 10),
+    [orders]
+  );
 
-  const ordersAtWork = orders
-    .filter((el) => el.status === 'pending')
-    .slice(0, 5);
+  const ordersAtWork = useMemo(
+    () => orders.filter((el) => el.status === 'pending').slice(0, 5),
+    [orders]
+  );
 
   return (
     <div className={styles['order-board']}>
@@ -70,7 +74,9 @@ const OrderBoard = () => {
                 to={`${location.pathname}/${el.number}`}
                 state={{ background: location }}
               >
-                <span className='text text_type_digits-default'>{el.number}</span>
+                <span className='text text_type_digits-default'>
+                  {el.number}
+                </span>
               </Link>
             </li>
           ))}

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectAllIngredients } from '../../../services/reducers/ingredients-slice';
 import { IOrder } from '../../../types/order';
 import { IIngredient } from '../../../types/ingredient';
+import { useMemo } from 'react';
 
 type TFeedElement = {
   order: IOrder
@@ -16,13 +17,13 @@ type TFeedElement = {
 const FeedElement = ({ order }: TFeedElement): JSX.Element => {
   const allIngredients = useSelector(selectAllIngredients);
 
-  const orderIngredients = order.ingredients.reduce((list: Array<IIngredient>, ingrediantId) => {
+  const orderIngredients = useMemo(() => order.ingredients.reduce((list: Array<IIngredient>, ingrediantId) => {
     const ingredient = allIngredients.filter((el) => el._id === ingrediantId);
     if (ingredient) {
       list.push(ingredient[0]);
     }
     return list;
-  }, []);
+  }, []), [order])
 
   const visibaleIngredients = orderIngredients.slice(
     0,
@@ -62,11 +63,11 @@ const FeedElement = ({ order }: TFeedElement): JSX.Element => {
               </li>
             );
           })}
-          {order.ingredients.length > 6 ? (
+          {order.ingredients.length > 6 && (
             <div className={styles['order-ingredient-hidden']}>
               <p>{`+${hiddenIngredients}`}</p>
             </div>
-          ) : null}
+          )}
         </ul>
         <div
           className={`${styles['order-price']} text text_type_digits-default`}
