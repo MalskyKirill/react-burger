@@ -36,8 +36,6 @@ const OrderInfo = () => {
     return store.order.order;
   });
 
-  console.log(currentOrder);
-
   useEffect(() => {
     if (!currentOrder) {
       dispatch(getCurrentOrder(numberOrder));
@@ -78,8 +76,6 @@ const OrderInfo = () => {
     },
     { item: {}, count: {} }
   );
-
-  console.log(countUnicIngredients);
 
   //получаем цену бургера
   const orderPrice = orderIngredients.reduce((list, ingredient) => {

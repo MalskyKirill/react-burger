@@ -61,7 +61,6 @@ class Api {
   //получение заказа по номеру
   async getOrder(request: IRequest | undefined, number: number) {
     const res = await fetch(`${this._url}/api/orders/${number}`, request);
-    console.log(res)
     return this._getResponseData(res);
   }
 

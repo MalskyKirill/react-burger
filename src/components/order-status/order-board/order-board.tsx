@@ -28,26 +28,32 @@ const OrderBoard = () => {
         <div className={styles['board-list-wrap']}>
           <ul className={styles['board-list']}>
             {ordesComplitedLeftList.map((el) => (
-              <Link
-                className={styles['link-done']}
-                to={`${location.pathname}/${el.number}`}
-                state={{ background: location }}
-                key={el._id}
-              >
-                <li className='text text_type_digits-default'>{el.number}</li>
-              </Link>
+              <li key={el._id}>
+                <Link
+                  className={styles['link-done']}
+                  to={`${location.pathname}/${el.number}`}
+                  state={{ background: location }}
+                >
+                  <span className='text text_type_digits-default'>
+                    {el.number}
+                  </span>
+                </Link>
+              </li>
             ))}
           </ul>
           <ul className={styles['board-list']}>
             {ordesComplitedLeftRight.map((el) => (
-              <Link
-                className={styles['link-done']}
-                to={`${location.pathname}/${el.number}`}
-                state={{ background: location }}
-                key={el._id}
-              >
-                <li className='text text_type_digits-default'>{el.number}</li>
-              </Link>
+              <li key={el._id}>
+                <Link
+                  className={styles['link-done']}
+                  to={`${location.pathname}/${el.number}`}
+                  state={{ background: location }}
+                >
+                  <span className='text text_type_digits-default'>
+                    {el.number}
+                  </span>
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
@@ -58,13 +64,15 @@ const OrderBoard = () => {
         </h3>
         <ul className={styles['board-list']}>
           {ordersAtWork.map((el) => (
-            <Link
-              className={styles['link-work']}
-              key={el._id}
-              to={`${location.pathname}/${el.number}`}
-            >
-              <li className='text text_type_digits-default'>{el.number}</li>
-            </Link>
+            <li key={el._id}>
+              <Link
+                className={styles['link-work']}
+                to={`${location.pathname}/${el.number}`}
+                state={{ background: location }}
+              >
+                <span className='text text_type_digits-default'>{el.number}</span>
+              </Link>
+            </li>
           ))}
         </ul>
       </div>

@@ -37,7 +37,7 @@ const FeedElement = ({ order }: TFeedElement): JSX.Element => {
   }, 0);
 
   return (
-    <li className={styles['feed-container']}>
+    <div className={styles['feed-container']}>
       <div className={styles['feed-header']}>
         <p
           className={`${styles['order-number']} text text_type_digits-default`}
@@ -75,7 +75,7 @@ const FeedElement = ({ order }: TFeedElement): JSX.Element => {
           <CurrencyIcon type={'primary'} />
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

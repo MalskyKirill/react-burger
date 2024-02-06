@@ -14,14 +14,15 @@ const FeedList = ({orders}: TFeedList): JSX.Element => {
   return (
     <ul className={`${styles[`feed-list`]} custom-scroll`}>
       {orders.map((el) => (
+        <li key={el._id}>
         <Link
           className={styles.link}
           to={`${location.pathname}/${el.number}`}
-          key={el._id}
           state={{ background: location }}
         >
           <FeedElement order={el}/>
         </Link>
+        </li>
       ))}
     </ul>
   );

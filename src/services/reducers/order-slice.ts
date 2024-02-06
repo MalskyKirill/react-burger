@@ -31,9 +31,7 @@ export const getCurrentOrder = createAsyncThunk(
         'Content-Type': 'application/json',
       },
     };
-    console.log(number)
     const res = await api.getOrder(request, number);
-    console.log(res)
     return res;
   }
 );
@@ -83,7 +81,6 @@ const orderSlice = createSlice({
       })
       .addCase(getCurrentOrder.fulfilled, (state, action) => {
         state.status = 'received';
-        console.log(action.payload)
         state.order = action.payload.orders[0]
       })
       .addCase(getCurrentOrder.rejected, (state, action) => {
