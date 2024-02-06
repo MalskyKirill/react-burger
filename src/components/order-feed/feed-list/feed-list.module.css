@@ -11,10 +11,13 @@
   max-height: 76vh;
 }
 
-.link {
-  text-decoration: none;
-  color: white;
+.feed-el {
   padding: 24px;
   background-color: #1c1c21;;
   border-radius: 40px;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
 }
