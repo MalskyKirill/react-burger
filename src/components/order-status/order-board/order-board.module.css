@@ -1,0 +1,43 @@
+.order-board {
+  display: flex;
+  gap: 36px;
+  padding-bottom: 60px;
+}
+
+.board-title {
+  margin: 0;
+  padding-bottom: 24px;
+}
+
+.board-done {
+  width: 280px;
+}
+
+.board-work {
+  width: 280px;
+}
+
+.board-list-wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 50px
+}
+
+.board-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.link-done {
+  text-decoration: none;
+  color: #0CC;
+}
+
+.link-work {
+  text-decoration: none;
+  color: #F2F2F3;
+}

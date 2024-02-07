@@ -24,7 +24,7 @@ const Layout = (): JSX.Element => {
                 </NavLinkIcon>
               </li>
               <li>
-                <NavLinkIcon icon={ListIcon} isActive={false} path='/'>
+                <NavLinkIcon icon={ListIcon} isActive={location.pathname === AppRoute.feed} path={AppRoute.feed} >
                   Лента заказов
                 </NavLinkIcon>
               </li>

@@ -10,8 +10,10 @@ export const AppRoute = {
   profile: '/profile',
   orders: '/profile/orders',
   logout: '/profile/logout',
+  feed: '/feed',
 };
 
 export const ACCESS_TOKEN = 'accessToken';
 export const REFRESH_TOKEN = 'refreshToken';
 
+export const MAXIMUM_NUMBER_OF_RENDERED_INGREDIENTS = 6;

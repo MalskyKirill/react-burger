@@ -1,6 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+type TInitialState = {
+  name: string,
+  img: string,
+  calories: number | null,
+  carbohydrates: number | null,
+  fat: number | null,
+  proteins: number | null,
+  isModalOpen: boolean,
+}
+
+const initialState: TInitialState = {
   name: '',
   img: '',
   calories: null,
@@ -34,5 +44,5 @@ export const {addDataDetails, removeModalData} = detailsSlice.actions;
 export const detailsReducer = detailsSlice.reducer;
 
 //selectors
-export const selectDetailsData = (state) => state.details;
-export const selectIsModalDetailsOpen = (state) => state.details.isModalOpen;
+export const selectDetailsData = (state: { details: TInitialState; }) => state.details;
+export const selectIsModalDetailsOpen = (state: { details: { isModalOpen: boolean; }; }) => state.details.isModalOpen;

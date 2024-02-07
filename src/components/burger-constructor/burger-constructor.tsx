@@ -8,12 +8,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient, removeConstructorData } from '../../services/reducers/constructor-slice';
-import { getOrderNumber } from '../../services/reducers/order-slice';
+import { getOrderNumber, orderStatus } from '../../services/reducers/order-slice';
 import { IIngredient, IBurgerIngredients } from '../../types/ingredient';
 import { IHandleDropEl } from '../../types/handle-drop-el';
 import { selectUser } from '../../services/reducers/auth-slice';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../utils/consts';
+import { ACCESS_TOKEN, AppRoute } from '../../utils/consts';
+import Preloader from '../preloader/preloader';
 
 type TBurgerConstructor = {
   handleDropBun: (item: IIngredient) => void,
@@ -60,6 +61,12 @@ const BurgerConstructor = ({
   //получение ингредиентов
   const burgerIngridients: Array<IBurgerIngredients> = useSelector(selectConstructorIngredients);
 
+  //получение токена
+  const accessToken: string | null = localStorage.getItem(ACCESS_TOKEN)
+
+  //получение статуса заказа
+  const status = useSelector(orderStatus)
+
 
   const idBurgerIngridients = [...burgerIngridients.map(el => el.ingredient._id)]
 
@@ -71,7 +78,7 @@ const BurgerConstructor = ({
     }
 
     // @ts-ignore
-    dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun}))
+    dispatch(getOrderNumber({ingredients: idBurgerIngridients, bun: burgerBun, token: accessToken}))
       // @ts-ignore
       .then((res) => {
         if (res.payload.success) {
@@ -142,7 +149,8 @@ const BurgerConstructor = ({
             </div>
           )}
         </div>
-        <BurgerOrder onClick={handleOrderClick}/>
+        {status === 'rejected' && <h2>При оформлении заказа произошла ошибка</h2>}
+        {status === 'loading' ? <Preloader /> : <BurgerOrder onClick={handleOrderClick}/>}
       </div>
     </section>
   );

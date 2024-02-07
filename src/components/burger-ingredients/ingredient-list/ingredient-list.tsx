@@ -5,15 +5,19 @@ import { selectConstructorElements } from '../../../services/reducers/constructo
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../../utils/consts';
-import {IIngredient} from '../../../types/ingredient'
+import { IIngredient } from '../../../types/ingredient';
 
 type TIngredientList = {
-  title: string,
-  data: Array<IIngredient>,
-  refItem: React.RefObject<HTMLHeadingElement>
-}
+  title: string;
+  data: Array<IIngredient>;
+  refItem: React.RefObject<HTMLHeadingElement>;
+};
 
-const IngredientList = ({ title, data, refItem }: TIngredientList): JSX.Element => {
+const IngredientList = ({
+  title,
+  data,
+  refItem,
+}: TIngredientList): JSX.Element => {
   const constructorElements = useSelector(selectConstructorElements);
   const location = useLocation();
 
@@ -38,12 +42,18 @@ const IngredientList = ({ title, data, refItem }: TIngredientList): JSX.Element 
       <h2 ref={refItem}>{title}</h2>
       <ul className={styles['ingredient-list']}>
         {data.map((el) => (
-          <Link className={styles.link} to={`${AppRoute.ingredients}/${el._id}`} key={el._id} state={{ background: location }}>
-            <IngredientElement
-              data={el}
-              counter={burgerIngredientsCounter[el._id]}
-            />
-          </Link>
+          <li key={el._id}>
+            <Link
+              className={styles.link}
+              to={`${AppRoute.ingredients}/${el._id}`}
+              state={{ background: location }}
+            >
+              <IngredientElement
+                data={el}
+                counter={burgerIngredientsCounter[el._id]}
+              />
+            </Link>
+          </li>
         ))}
       </ul>
     </>

@@ -1,0 +1,23 @@
+.feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: flex-start;
+  padding: 0 8px 0 0;
+  width: 584px;
+  margin: 0;
+  overflow-y: auto;
+  list-style: none;
+  max-height: 76vh;
+}
+
+.feed-el {
+  padding: 24px;
+  background-color: #1c1c21;;
+  border-radius: 40px;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}

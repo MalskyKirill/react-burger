@@ -48,7 +48,7 @@ const IngredientElement = ({ data, counter }: TIngredientElement): JSX.Element =
   };
 
   return (
-    <li className={styles.ingredient} ref={dragRef}>
+    <div className={styles.ingredient} ref={dragRef}>
       <img
         className={styles['ingredient-image']}
         src={image}
@@ -71,7 +71,7 @@ const IngredientElement = ({ data, counter }: TIngredientElement): JSX.Element =
           extraClass='m-1'
         />
       )}
-    </li>
+    </div>
   );
 };
 

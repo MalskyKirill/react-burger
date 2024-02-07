@@ -1,8 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IRequest } from '../../types/api';
+
+import { IUser } from '../../types/user';
 import { api } from '../../utils/api';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../utils/consts';
+import { AppDispatch } from '../store';
 
-const initialState = {
+type TInitialState = {
+  user: IUser | null,
+  accessToken: string,
+  refreshToken: string,
+  status: string,
+  error: string | null,
+  success: boolean,
+  isAuthChecked: boolean,
+}
+
+const initialState: TInitialState = {
   user: null,
   accessToken: '',
   refreshToken: '',
@@ -15,7 +29,7 @@ const initialState = {
 //асинхронный санк для регистрации юзера
 export const createUser = createAsyncThunk(
   '@@auth/createUser',
-  async ({ name, email, password }) => {
+  async ({ name, email, password }: {name: string, email: string, password: string}) => {
     const request = {
       method: 'POST',
       headers: {
@@ -38,7 +52,7 @@ export const createUser = createAsyncThunk(
 //асинхронный санк для авторизации юзера
 export const loginUser = createAsyncThunk(
   '@@auth/loginUser',
-  async ({ email, password }) => {
+  async ({ email, password }: {email: string, password: string}) => {
     const request = {
       method: 'POST',
       headers: {
@@ -59,7 +73,7 @@ export const loginUser = createAsyncThunk(
 //ассинхронный санк для запроса на востановление пароля
 export const forgotPassword = createAsyncThunk(
   '@@auth/forgotPassword',
-  async ({ email }) => {
+  async ({ email }: {email: string}) => {
     const request = {
       method: 'POST',
       headers: {
@@ -77,7 +91,7 @@ export const forgotPassword = createAsyncThunk(
 //ассинхронный санк для запроса на сброс пароля
 export const resetPassword = createAsyncThunk(
   '@@auth/resetPassword',
-  async ({ password, token }) => {
+  async ({ password, token }: {password: string, token: string}) => {
     const request = {
       method: 'POST',
       headers: {
@@ -110,7 +124,7 @@ export const logoutUser = createAsyncThunk('@@auth/logoutUser', async () => {
 
 export const getCurrentUser = createAsyncThunk(
   '@@auth/getCurrentUser',
-  async (accessToken) => {
+  async (accessToken: string) => {
     const request = {
       method: 'GET',
       headers: {
@@ -125,12 +139,14 @@ export const getCurrentUser = createAsyncThunk(
 
 export const updateCurrentUser = createAsyncThunk(
   '@@auth/updateCurrentUser',
-  async ({ name, email, password }) => {
-    const request = {
+  async ({ name, email, password }: {name: string, email: string, password: string}) => {
+    const token = localStorage.getItem(ACCESS_TOKEN)
+
+    const request: IRequest = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        authorization: localStorage.getItem(ACCESS_TOKEN),
+        authorization: token!,
       },
       body: JSON.stringify({
         name,
@@ -145,11 +161,11 @@ export const updateCurrentUser = createAsyncThunk(
 );
 
 export const checkUserAuth = () => {
-  return (dispatch) => {
-    if (localStorage.getItem(ACCESS_TOKEN)) {
-      const token = localStorage.getItem(ACCESS_TOKEN)
-      dispatch(getCurrentUser(localStorage.getItem(ACCESS_TOKEN)))
-        .then((res) => {})
+  return (dispatch: AppDispatch) => {
+    const token = localStorage.getItem(ACCESS_TOKEN)
+    if (token) {
+      dispatch(getCurrentUser(token))
+        .then(() => {})
         .catch((err) => {
           console.log(err)
         })
@@ -186,7 +202,7 @@ const authSlice = createSlice({
       })
       .addCase(createUser.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       })
 
       .addCase(loginUser.pending, (state, action) => {
@@ -205,7 +221,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       })
 
       .addCase(forgotPassword.pending, (state, action) => {
@@ -217,7 +233,7 @@ const authSlice = createSlice({
       })
       .addCase(forgotPassword.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       })
 
       .addCase(resetPassword.pending, (state, action) => {
@@ -229,7 +245,7 @@ const authSlice = createSlice({
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       })
 
       .addCase(logoutUser.pending, (state, action) => {
@@ -245,7 +261,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       })
 
       .addCase(getCurrentUser.pending, (state, action) => {
@@ -264,7 +280,7 @@ const authSlice = createSlice({
       })
       .addCase(getCurrentUser.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       })
 
       .addCase(updateCurrentUser.pending, (state, action) => {
@@ -278,10 +294,11 @@ const authSlice = createSlice({
           name: action.payload.user.name,
           email: action.payload.user.email,
         };
+
       })
       .addCase(updateCurrentUser.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message;
+        if(action.error.message) state.error = action.error.message;
       });
   },
 });
@@ -291,7 +308,7 @@ export const authReducer = authSlice.reducer;
 const { setAuthChecked } = authSlice.actions;
 
 // selectors
-export const selectUser = (state) => state.auth.user;
-export const selectAccessToken = (state) => state.auth.accessToken;
-export const selectRefreshToken = (state) => state.auth.refreshToken;
-export const selectIsAuthChecked = (state) => state.auth.isAuthChecked;
+export const selectUser = (state: { auth: { user: IUser; }; }) => state.auth.user;
+export const selectAccessToken = (state: { auth: { accessToken: string; }; }) => state.auth.accessToken;
+export const selectRefreshToken = (state: { auth: { refreshToken: string; }; }) => state.auth.refreshToken;
+export const selectIsAuthChecked = (state: { auth: { isAuthChecked: boolean; }; }) => state.auth.isAuthChecked;
