@@ -6,7 +6,7 @@ type TInitialState = {
   ingredients: Array<IBurgerIngredients>,
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   bun: null,
   ingredients: [],
 };
