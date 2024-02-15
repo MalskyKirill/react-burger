@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IIngredient } from '../../types/ingredient';
-import { IOrder } from '../../types/order';
-import { api } from '../../utils/api';
+import { IIngredient } from '../../../types/ingredient';
+import { IOrder } from '../../../types/order';
+import { api } from '../../../utils/api';
 
 export const getOrderNumber = createAsyncThunk(
   '@@order/getOrderNumber',
@@ -44,7 +44,7 @@ type TInitialState = {
   isModalOpen: boolean,
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   order: null,
   orderNumber: null,
   status: 'idle',

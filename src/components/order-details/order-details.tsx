@@ -1,7 +1,7 @@
 import styles from './order-details.module.css';
 import done from '../../images/done.svg'
 import { useSelector } from 'react-redux';
-import { orderNumber } from '../../services/reducers/order-slice';
+import { orderNumber } from '../../services/reducers/order-slice/order-slice';
 
 const OrderDetails = (): JSX.Element => {
 

@@ -6,13 +6,11 @@ import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import { loadIngredients } from '../../services/reducers/ingredients-slice/ingredients-slice';
 import {
-  removeModalOrderData,
-  selectIsModalOrderOpen,
-} from '../../services/reducers/order-slice';
+  removeModalOrderData, selectIsModalOrderOpen,
+} from '../../services/reducers/order-slice/order-slice';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import LoginPage from '../../pages/login-page/login-page';
-
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import RegisterPage from '../../pages/register-page/register-page';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
@@ -23,9 +21,10 @@ import ProfileOrders from '../profile-orders/profile-orders';
 import Logout from '../logout/logout';
 import { checkUserAuth } from '../../services/reducers/auth-slice';
 import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useAppDispatch } from '../../services/hooks';
 import OrderPage from '../../pages/order-page/order-page';
 import OrderInfo from '../order-info/order-info';
+import { useSelector } from 'react-redux';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -36,7 +35,7 @@ function App(): JSX.Element {
   const background = location.state && location.state.background;
 
   //открытие модалок
-  const isModalOrderOpen = useAppSelector(selectIsModalOrderOpen);
+  const isModalOrderOpen = useSelector(selectIsModalOrderOpen);
 
   //загрузка ингредиентов
   useEffect(() => {

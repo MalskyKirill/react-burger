@@ -7,7 +7,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { useEffect } from 'react';
-import { getCurrentOrder } from '../../services/reducers/order-slice';
+import { getCurrentOrder } from '../../services/reducers/order-slice/order-slice';
 import Preloader from '../preloader/preloader';
 import { IIngredient } from '../../types/ingredient';
 

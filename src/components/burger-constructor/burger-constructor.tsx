@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient, removeConstructorData } from '../../services/reducers/constructor-slice/constructor-slice';
-import { getOrderNumber, orderStatus } from '../../services/reducers/order-slice';
+import { getOrderNumber, orderStatus } from '../../services/reducers/order-slice/order-slice';
 import { IIngredient, IBurgerIngredients } from '../../types/ingredient';
 import { IHandleDropEl } from '../../types/handle-drop-el';
 import { selectUser } from '../../services/reducers/auth-slice';
