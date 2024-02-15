@@ -5,7 +5,7 @@ import {
 import styles from './feed-element.module.css';
 import { MAXIMUM_NUMBER_OF_RENDERED_INGREDIENTS } from '../../../utils/consts';
 import { useSelector } from 'react-redux';
-import { selectAllIngredients } from '../../../services/reducers/ingredients-slice';
+import { selectAllIngredients } from '../../../services/reducers/ingredients-slice/ingredients-slice';
 import { IOrder } from '../../../types/order';
 import { IIngredient } from '../../../types/ingredient';
 import { useMemo } from 'react';

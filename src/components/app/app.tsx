@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import Modal from '../modal/modal';
 import IngredienDetails from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
-import { loadIngredients } from '../../services/reducers/ingredients-slice';
+import { loadIngredients } from '../../services/reducers/ingredients-slice/ingredients-slice';
 import {
   removeModalOrderData,
   selectIsModalOrderOpen,

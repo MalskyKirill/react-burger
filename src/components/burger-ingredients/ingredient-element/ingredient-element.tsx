@@ -5,7 +5,7 @@ import {
 import styles from './ingredient-element.module.css';
 import { useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
-import { addDataDetails } from '../../../services/reducers/details-slice';
+import { addDataDetails } from '../../../services/reducers/details-slice/details-slice';
 import {IIngredient} from '../../../types/ingredient';
 
 type TIngredientElement = {

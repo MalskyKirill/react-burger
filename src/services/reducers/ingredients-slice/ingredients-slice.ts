@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, createSelector } from '@reduxjs/toolkit';
-import { IIngredient } from '../../types/ingredient';
+import { IIngredient } from '../../../types/ingredient';
 
-import { api } from '../../utils/api';
+import { api } from '../../../utils/api';
 
 export const loadIngredients = createAsyncThunk(
   '@@ingredients/load-ingredients',
@@ -17,7 +17,7 @@ type TInitialState = {
   error: string | null,
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   list: [],
   status: 'idle',
   error: null,

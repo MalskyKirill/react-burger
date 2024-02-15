@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IBurgerIngredients, IIngredient } from '../../types/ingredient';
+import { IBurgerIngredients, IIngredient } from '../../../types/ingredient';
 
 type TInitialState = {
   bun: IIngredient | null,

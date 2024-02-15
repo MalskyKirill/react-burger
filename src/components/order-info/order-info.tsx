@@ -1,5 +1,5 @@
 import styles from './order-info.module.css';
-import { selectAllIngredients } from '../../services/reducers/ingredients-slice';
+import { selectAllIngredients } from '../../services/reducers/ingredients-slice/ingredients-slice';
 import {
   CurrencyIcon,
   FormattedDate,

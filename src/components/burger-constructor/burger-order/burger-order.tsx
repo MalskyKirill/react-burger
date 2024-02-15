@@ -4,7 +4,7 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
-import { selectConstructorBun, selectConstructorIngredients } from '../../../services/reducers/constructor-slice';
+import { selectConstructorBun, selectConstructorIngredients } from '../../../services/reducers/constructor-slice/constructor-slice';
 import { IIngredient } from '../../../types/ingredient';
 import {IBurgerIngredients} from '../../../types/ingredient';
 import { useMemo } from 'react';

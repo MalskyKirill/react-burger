@@ -2,7 +2,7 @@ import IngredientList from '../ingredient-list/ingredient-list';
 import styles from './burger-product-list.module.css';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectAllIngredients } from '../../../services/reducers/ingredients-slice';
+import { selectAllIngredients } from '../../../services/reducers/ingredients-slice/ingredients-slice';
 import {IIngredient} from '../../../types/ingredient';
 
 type TBurgerProductList = {

@@ -1,7 +1,7 @@
 import styles from './ingredient-details.module.css';
 import NutritionElement from './nutrition-element/nutrition-element';
 import { useSelector } from 'react-redux';
-import { selectAllIngredients } from '../../services/reducers/ingredients-slice';
+import { selectAllIngredients } from '../../services/reducers/ingredients-slice/ingredients-slice';
 import { useLocation, useParams } from 'react-router-dom';
 import { IIngredient } from '../../types/ingredient';
 

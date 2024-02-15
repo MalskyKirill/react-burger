@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   addBun,
   addIngredients,
-} from '../../services/reducers/constructor-slice';
-import { selectIngredientsInfo } from '../../services/reducers/ingredients-slice';
+} from '../../services/reducers/constructor-slice/constructor-slice';
+import { selectIngredientsInfo } from '../../services/reducers/ingredients-slice/ingredients-slice';
 import Preloader from '../../components/preloader/preloader';
 import {IIngredient} from "../../types/ingredient"
 import { IHandleDropEl } from '../../types/handle-drop-el';
