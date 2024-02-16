@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import SignForm from '../../components/sign-form/sign-form';
-import { resetPassword } from '../../services/reducers/auth-slice';
+import { resetPassword } from '../../services/reducers/auth-slice/auth-slice';
 import { ISubmitFormData } from '../../types/submit-form-data';
 import { AppRoute } from '../../utils/consts';
 import styles from './reset-password.module.css';

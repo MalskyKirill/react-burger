@@ -1,4 +1,4 @@
-import {orderReducer, initialState, getCurrentOrder, getOrderNumber} from './order-slice';
+import {orderReducer, initialState, getCurrentOrder, getOrderNumber, removeModalOrderData} from './order-slice';
 
 const order = [
   {
@@ -17,6 +17,14 @@ const order = [
     _id: '1',
   },
 ]
+
+const orderState = {
+  order: order,
+  orderNumber: 666,
+  status: 'received',
+  error: null,
+  isModalOpen: true,
+}
 
 describe('orderSlice', () => {
   it('should return default state when passed an empty action', () => {
@@ -68,4 +76,14 @@ describe('orderSlice', () => {
 
     expect(state.status).toBe('rejected');
   });
+
+  it('should clean filled state with "removeModalOrderData" action', () => {
+    const action = {
+      type: removeModalOrderData.type,
+    }
+
+    const result = orderReducer(orderState, action)
+
+    expect(result).toEqual(initialState)
+  })
 })

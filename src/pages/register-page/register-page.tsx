@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SignForm from '../../components/sign-form/sign-form';
 import styles from './register-page.module.css';
-import {createUser} from '../../services/reducers/auth-slice';
+import {createUser} from '../../services/reducers/auth-slice/auth-slice';
 import { ISubmitFormData } from '../../types/submit-form-data';
 
 const RegisterPage = (): JSX.Element => {

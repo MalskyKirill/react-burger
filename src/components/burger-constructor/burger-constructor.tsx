@@ -11,7 +11,7 @@ import { selectConstructorBun, selectConstructorIngredients, swapIngredients, de
 import { getOrderNumber, orderStatus } from '../../services/reducers/order-slice/order-slice';
 import { IIngredient, IBurgerIngredients } from '../../types/ingredient';
 import { IHandleDropEl } from '../../types/handle-drop-el';
-import { selectUser } from '../../services/reducers/auth-slice';
+import { selectUser } from '../../services/reducers/auth-slice/auth-slice';
 import { useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN, AppRoute } from '../../utils/consts';
 import Preloader from '../preloader/preloader';

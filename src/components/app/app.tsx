@@ -19,7 +19,7 @@ import ProfilePage from '../../pages/profile-page/profile-page';
 import ProfileRedact from '../profile-redact/profile-redact';
 import ProfileOrders from '../profile-orders/profile-orders';
 import Logout from '../logout/logout';
-import { checkUserAuth } from '../../services/reducers/auth-slice';
+import { checkUserAuth } from '../../services/reducers/auth-slice/auth-slice';
 import { OnlyAuth, OnlyUnAuth } from '../protected-router/protected-router';
 import { useAppDispatch } from '../../services/hooks';
 import OrderPage from '../../pages/order-page/order-page';

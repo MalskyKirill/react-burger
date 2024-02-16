@@ -3,7 +3,7 @@ import SignForm from '../../components/sign-form/sign-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../utils/consts';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../services/reducers/auth-slice';
+import { loginUser } from '../../services/reducers/auth-slice/auth-slice';
 import { ISubmitFormData } from '../../types/submit-form-data';
 
 
