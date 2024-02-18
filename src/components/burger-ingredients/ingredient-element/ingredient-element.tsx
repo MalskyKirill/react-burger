@@ -26,6 +26,7 @@ const IngredientElement = ({ data, counter }: TIngredientElement): JSX.Element =
     image_large,
     image,
     price,
+    _id
   } = data;
 
 
@@ -43,12 +44,13 @@ const IngredientElement = ({ data, counter }: TIngredientElement): JSX.Element =
       fat: fat,
       proteins: proteins,
       isModalOpen: true,
+      _id: _id
     }
     dispatch(addDataDetails(data))
   };
 
   return (
-    <div className={styles.ingredient} ref={dragRef}>
+    <div className={styles.ingredient} ref={dragRef} data-testid={_id}>
       <img
         className={styles['ingredient-image']}
         src={image}

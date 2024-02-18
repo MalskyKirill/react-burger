@@ -104,7 +104,7 @@ function App(): JSX.Element {
             path={`${AppRoute.ingredients}/:id`}
             element={
               <Modal
-                title={'Детали ингридиента'}
+                title={'Детали ингредиента'}
                 handleModalClose={handleModalClose}
               >
                 <IngredienDetails />

@@ -96,16 +96,16 @@ const BurgerConstructor = ({
   return (
     <section className={styles['burger-constructor']}>
       <div className={styles.burger}>
-        <div className={styles['burger-head']} ref={dropBun}>
+        <div className={styles['burger-head']} ref={dropBun} data-testid='burger-bun'>
           {burgerBun ? (
-            <ConstructorElement
+            <div data-testid={`in${burgerBun._id}`}><ConstructorElement
               type='top'
               isLocked={true}
               text={`${burgerBun.name} (верх)`}
               price={burgerBun.price}
               thumbnail={burgerBun.image}
               extraClass={styles.color}
-            />
+            /></div>
           ) : (
             <div className={styles['empty-bun-top']}>
               <p className='text text_type_main-default'>Перетащите булку</p>
@@ -114,18 +114,19 @@ const BurgerConstructor = ({
         </div>
         <ul
           className={`${styles['burger-ingridients']} custom-scroll`}
+          data-testid='burger-ingredients'
           ref={dropIngredient}
         >
           {burgerIngridients && burgerIngridients.length > 0 ? (
             burgerIngridients.map((el, index) => (
-              <BurgerIngredient
+              <div data-testid={`in${el.ingredient._id}`}><BurgerIngredient
                 ingredient={el.ingredient}
                 index={index}
                 key={el.id}
                 swapCard={swapCard}
                 handleDelete={deleteCard}
                 ingrediantId={el.id}
-              />
+              /></div>
             ))
           ) : (
             <div className={styles['empty-infredient']}>

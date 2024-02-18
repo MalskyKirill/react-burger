@@ -45,6 +45,7 @@ const IngredientList = ({
           <li key={el._id}>
             <Link
               className={styles.link}
+              data-testid='ingredient-link'
               to={`${AppRoute.ingredients}/${el._id}`}
               state={{ background: location }}
             >

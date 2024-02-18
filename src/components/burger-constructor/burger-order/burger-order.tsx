@@ -41,7 +41,7 @@ const BurgerOrder = ({onClick}: TBurgerOrder): JSX.Element => {
         <p className='text text_type_digits-medium'>{totalCoast}</p>
         <CurrencyIcon type='primary' />
       </div>
-      <Button htmlType='button' type='primary' size='large' onClick={onClick} disabled={disabledOrder}>
+      <Button htmlType='button' type='primary' size='large' onClick={onClick} disabled={disabledOrder} data-testid='submit-button'>
         Оформить заказ
       </Button>
     </div>
