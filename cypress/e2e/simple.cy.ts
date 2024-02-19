@@ -1,5 +1,5 @@
 import singin from '../fixtures/example.json';
-import url from '../fixtures/url.json';
+import {urlApi} from '../../src/utils/consts';
 
 describe('react-burger', () => {
   beforeEach(() => {
@@ -39,7 +39,7 @@ describe('react-burger', () => {
 
     cy.get('[data-testid="submit-button"]').click();
 
-    cy.intercept("POST", url.urlApi).as(
+    cy.intercept("POST", `${urlApi}/api/orders`).as(
       "getOrder"
     );
 
