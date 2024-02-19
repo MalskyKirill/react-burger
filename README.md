@@ -2,7 +2,7 @@
 
 Учебный проект на курсе [**React-разработчик**](https://practicum.yandex.ru/react/) от Яндекс-Практикум.
 
-Сайт опубликован: https://react-burger-2dphebdho-malskykirill.vercel.app/
+Сайт опубликован: react-burger-git-main-malskykirill.vercel.app
 
 ## Стек
 
