@@ -119,10 +119,9 @@ const BurgerConstructor = ({
         >
           {burgerIngridients && burgerIngridients.length > 0 ? (
             burgerIngridients.map((el, index) => (
-              <div data-testid={`in${el.ingredient._id}`}><BurgerIngredient
+              <div key={el.id} data-testid={`in${el.ingredient._id}`}><BurgerIngredient
                 ingredient={el.ingredient}
                 index={index}
-                key={el.id}
                 swapCard={swapCard}
                 handleDelete={deleteCard}
                 ingrediantId={el.id}
