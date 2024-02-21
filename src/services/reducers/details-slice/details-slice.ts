@@ -10,7 +10,7 @@ type TInitialState = {
   isModalOpen: boolean,
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   name: '',
   img: '',
   calories: null,

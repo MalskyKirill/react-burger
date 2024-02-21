@@ -1,5 +1,5 @@
 import styles from './order-info.module.css';
-import { selectAllIngredients } from '../../services/reducers/ingredients-slice';
+import { selectAllIngredients } from '../../services/reducers/ingredients-slice/ingredients-slice';
 import {
   CurrencyIcon,
   FormattedDate,
@@ -7,7 +7,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { useEffect } from 'react';
-import { getCurrentOrder } from '../../services/reducers/order-slice';
+import { getCurrentOrder } from '../../services/reducers/order-slice/order-slice';
 import Preloader from '../preloader/preloader';
 import { IIngredient } from '../../types/ingredient';
 

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { selectIsAuthChecked, selectUser } from '../../services/reducers/auth-slice';
+import { selectIsAuthChecked, selectUser } from '../../services/reducers/auth-slice/auth-slice';
 import React from "react";
 
 type TProtected = {

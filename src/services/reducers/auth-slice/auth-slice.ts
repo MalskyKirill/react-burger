@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IRequest } from '../../types/api';
+import { IRequest } from '../../../types/api';
 
-import { IUser } from '../../types/user';
-import { api } from '../../utils/api';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../utils/consts';
-import { AppDispatch } from '../store';
+import { IUser } from '../../../types/user';
+import { api } from '../../../utils/api';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../../utils/consts';
+import { AppDispatch } from '../../store';
 
 type TInitialState = {
   user: IUser | null,
@@ -16,7 +16,7 @@ type TInitialState = {
   isAuthChecked: boolean,
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   user: null,
   accessToken: '',
   refreshToken: '',
@@ -198,6 +198,7 @@ const authSlice = createSlice({
         };
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+        state.success = action.payload.success;
         state.isAuthChecked = true;
       })
       .addCase(createUser.rejected, (state, action) => {
@@ -218,6 +219,7 @@ const authSlice = createSlice({
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
         state.isAuthChecked = true;
+        state.success = action.payload.success;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = 'rejected';

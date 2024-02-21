@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../../services/reducers/auth-slice';
+import { logoutUser } from '../../services/reducers/auth-slice/auth-slice';
 import styles from './logout.module.css';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../utils/consts';
 

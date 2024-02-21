@@ -7,11 +7,11 @@ import { ingredientPropTypes } from '../../utils/ingredient-prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { useDrop } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient, removeConstructorData } from '../../services/reducers/constructor-slice';
-import { getOrderNumber, orderStatus } from '../../services/reducers/order-slice';
+import { selectConstructorBun, selectConstructorIngredients, swapIngredients, deleteIngredient, removeConstructorData } from '../../services/reducers/constructor-slice/constructor-slice';
+import { getOrderNumber, orderStatus } from '../../services/reducers/order-slice/order-slice';
 import { IIngredient, IBurgerIngredients } from '../../types/ingredient';
 import { IHandleDropEl } from '../../types/handle-drop-el';
-import { selectUser } from '../../services/reducers/auth-slice';
+import { selectUser } from '../../services/reducers/auth-slice/auth-slice';
 import { useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN, AppRoute } from '../../utils/consts';
 import Preloader from '../preloader/preloader';
@@ -96,16 +96,16 @@ const BurgerConstructor = ({
   return (
     <section className={styles['burger-constructor']}>
       <div className={styles.burger}>
-        <div className={styles['burger-head']} ref={dropBun}>
+        <div className={styles['burger-head']} ref={dropBun} data-testid='burger-bun'>
           {burgerBun ? (
-            <ConstructorElement
+            <div data-testid={`in${burgerBun._id}`}><ConstructorElement
               type='top'
               isLocked={true}
               text={`${burgerBun.name} (верх)`}
               price={burgerBun.price}
               thumbnail={burgerBun.image}
               extraClass={styles.color}
-            />
+            /></div>
           ) : (
             <div className={styles['empty-bun-top']}>
               <p className='text text_type_main-default'>Перетащите булку</p>
@@ -114,18 +114,18 @@ const BurgerConstructor = ({
         </div>
         <ul
           className={`${styles['burger-ingridients']} custom-scroll`}
+          data-testid='burger-ingredients'
           ref={dropIngredient}
         >
           {burgerIngridients && burgerIngridients.length > 0 ? (
             burgerIngridients.map((el, index) => (
-              <BurgerIngredient
+              <div key={el.id} data-testid={`in${el.ingredient._id}`}><BurgerIngredient
                 ingredient={el.ingredient}
                 index={index}
-                key={el.id}
                 swapCard={swapCard}
                 handleDelete={deleteCard}
                 ingrediantId={el.id}
-              />
+              /></div>
             ))
           ) : (
             <div className={styles['empty-infredient']}>

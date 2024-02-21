@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser, updateCurrentUser } from '../../services/reducers/auth-slice';
+import { selectUser, updateCurrentUser } from '../../services/reducers/auth-slice/auth-slice';
 import { IUser } from '../../types/user';
 import styles from './profile-redact.module.css';
 

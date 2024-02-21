@@ -3,7 +3,7 @@ import SignForm from '../../components/sign-form/sign-form';
 import styles from './forgot-password.module.css';
 import { AppRoute } from '../../utils/consts';
 import { useDispatch } from 'react-redux';
-import { forgotPassword } from '../../services/reducers/auth-slice';
+import { forgotPassword } from '../../services/reducers/auth-slice/auth-slice';
 import { ISubmitFormData } from '../../types/submit-form-data';
 
 const ForgotPassword = (): JSX.Element => {

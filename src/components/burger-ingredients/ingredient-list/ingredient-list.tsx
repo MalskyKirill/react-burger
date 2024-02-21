@@ -1,7 +1,7 @@
 import IngredientElement from '../ingredient-element/ingredient-element';
 import styles from './ingredient-list.module.css';
 import { useSelector } from 'react-redux';
-import { selectConstructorElements } from '../../../services/reducers/constructor-slice';
+import { selectConstructorElements } from '../../../services/reducers/constructor-slice/constructor-slice';
 import { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppRoute } from '../../../utils/consts';
@@ -45,6 +45,7 @@ const IngredientList = ({
           <li key={el._id}>
             <Link
               className={styles.link}
+              data-testid='ingredient-link'
               to={`${AppRoute.ingredients}/${el._id}`}
               state={{ background: location }}
             >
